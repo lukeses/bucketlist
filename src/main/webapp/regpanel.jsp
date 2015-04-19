@@ -5,7 +5,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="bucketlist.model.BucketlistUserInfo"%>
-<%@page import="bucketlist.controller.BucketlistUserInfoController"%>
+<%@page import="bucketlist.controller.BucketlistController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -22,17 +22,17 @@
 
         <%
 
-            BucketlistUserInfoController controller = new BucketlistUserInfoController();
+            BucketlistController controller = new BucketlistController();
             String email = (String) request.getParameter("email1");
-            List<BucketlistUserInfo> user = controller.getUserInfoFromByEmailDB(email);
+            List<BucketlistUserInfo> user = controller.getUserByEmail(email);
             controller.CloseSession();
 
             if (email != null) {
                 if (!user.isEmpty()) {
                     out.println("<div class='alert alert-danger' type='alert'>User does exist!</div>");
                 } else {
-                    controller = new BucketlistUserInfoController();
-                    controller.addUserInfoToDB((String) request.getParameter("fName"),
+                    controller = new BucketlistController();
+                    controller.addNewUser((String) request.getParameter("fName"),
                             (String) request.getParameter("lName"),
                             (String) request.getParameter("email1"),
                             (String) request.getParameter("pass1"));
