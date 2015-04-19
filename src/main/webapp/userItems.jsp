@@ -6,7 +6,7 @@
 <%@page import="bucketlist.model.BucketlistListItem"%>
 <%@page import="java.util.List"%>
 <%@page import="bucketlist.model.BucketlistUserInfo"%>
-<%@page import="bucketlist.controller.BucketlistUserInfoController"%>
+<%@page import="bucketlist.controller.BucketlistController"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -62,8 +62,8 @@
                                     response.sendRedirect("logpanel.jsp");
                                 } else {
                                     int id = Integer.parseInt((String) session.getAttribute("userID"));
-                                    BucketlistUserInfoController controller = new BucketlistUserInfoController();
-                                    List<BucketlistListItem> items = controller.getUserItemsFromDB(id);
+                                    BucketlistController controller = new BucketlistController();
+                                    List<BucketlistListItem> items = controller.getUserItems(id);
                                     controller.CloseSession();
 
                                     for (BucketlistListItem item : items) {
