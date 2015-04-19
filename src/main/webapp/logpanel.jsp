@@ -22,46 +22,33 @@
 
     </head>
     <body>
-       <!-- <table width="100%" border="1" align="center">
-            <tr bgcolor="#949494">
-                <th>Header Name</th><th>Header Value(s)</th>
-            </tr> -->
-       <%
-           String valid = (String) session.getAttribute("valid");
-           if (valid != null) {
-               if (valid.equals("notExist")) {
-                   out.println("<div class='alert alert-danger' type='alert'>User does not exist!</div>");
-               } else if (valid.equals("badPassword")) {
-                   out.println("<div class='alert alert-danger' type='alert'>Wrong password!</div>");
-               }
-           }
+        <!-- <table width="100%" border="1" align="center">
+             <tr bgcolor="#949494">
+                 <th>Header Name</th><th>Header Value(s)</th>
+             </tr> -->
+        <%
+            String email = (String) request.getParameter("inputEmail");
+            
+            if (email != null) {
+                BucketlistController controller = new BucketlistController();
+                List<BucketlistUserInfo> user = controller.getUserByEmail(email);
+                controller.CloseSession();
+                if (!user.isEmpty()) {
+                    if (user.get(0).getPasswordHash().equals(request.getParameter("inputPassword"))) {
+                        session.setAttribute("valid", new String("valid"));
+                        Integer id = user.get(0).getId();
+                        session.setAttribute("userID", new String(id.toString()));
+                        response.sendRedirect("userItems.jsp");
+                    } else {
+                        out.println("<div class='alert alert-danger' type='alert'>Wrong password!</div>");
+                    }
 
-           //out.print("<tr><td>" + "email" + "</td>");
-           //out.println("<td> " + request.getParameter("inputEmail") + "</td></tr>\n");
-           //out.print("<tr><td>" + "password" + "</td>");
-           //out.println("<td> " + request.getParameter("inputPassword") + "</td></tr>\n");
-           BucketlistController controller = new BucketlistController();
-           List<BucketlistUserInfo> user = controller.getUserByEmail(request.getParameter("inputEmail"));
-           controller.CloseSession();
-           if (!user.isEmpty()) {
-               //out.print("<tr><td>" + user.get(0).getLastName() + "</td>");
-               //out.print("<td> " + user.get(0).getPasswordHash() + "</td></tr>\n");
-
-               if (user.get(0).getPasswordHash().equals(request.getParameter("inputPassword"))) {
-                   session.setAttribute("valid", new String("valid"));
-                   Integer id = user.get(0).getId();
-                   session.setAttribute("userID", new String(id.toString()));
-                   response.sendRedirect("userItems.jsp");
-               } else {
-                   session.setAttribute("valid", new String("badPassword"));
-               }
-
-           } else {
-               session.setAttribute("valid", new String("notExist"));
-           }
-
-       %>
-      <!--  </table> -->
+                } else {
+                    out.println("<div class='alert alert-danger' type='alert'>User does not exist!</div>");
+                }
+            }
+        %>
+        <!--  </table> -->
 
         <div class="container">
             <div class="col-sm-4">
