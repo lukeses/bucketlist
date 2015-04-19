@@ -14,6 +14,10 @@ import bucketlist.model.BucketlistUserInfo;
  */
 public class App {
 
+    /**
+     * Metoda startowa, wywoływana automatycznie przy starcie aplikacji
+     * @param args tablica parametrów startowych używana do inicjalizacji aplikacji
+     */
     public static void main(String[] args) {
         //System.out.println("Hello World!");
         //  Configuration config = new Configuration();
@@ -28,6 +32,10 @@ public class App {
 
     }
 
+    /**
+     * Metoda testowa używana do inicjalizacji bazy danych przykłądowymi danymi,
+     * metoda nie jest używana w wersji produkcyjnej.
+     */
     public static void Test() {
         BucketlistController c = new BucketlistController();
         c.addNewUser("Jan", "Kowalski", "kowal82@buziaczek.pl", "irenka15");
