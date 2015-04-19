@@ -10,7 +10,10 @@ package bucketlist.model;
  * @author Daniel
  */
 public class BucketlistListItem {
-
+    public BucketlistListItem(String content) {
+        this.content = content;
+    }
+    
     private int itemId;
     private String content;
 

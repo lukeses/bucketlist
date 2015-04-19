@@ -6,6 +6,7 @@
 package bucketlist.model;
 
 //import javax.persistence.Entity;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,7 +15,6 @@ import java.util.List;
  * @author Daniel
  */
 public class BucketlistUserInfo {
-
     private int id;
     private String firstName;
     private String lastName;
@@ -23,37 +23,42 @@ public class BucketlistUserInfo {
     private String email;
     private String passwordHash;
     private List<BucketlistListItem> listItems;
+    
+    public BucketlistUserInfo(String firstName, String lastName, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.passwordHash = password; //not hashed yet
+        this.registrationDate = new Date();
+        this.listItems = new ArrayList<BucketlistListItem>();
+    }
+    
+    public BucketlistUserInfo(String email, String password) {
+        this(null, null, email, password);
+    }
+    
+    public boolean changePassword(String oldPassword, String newPassword) {
+        if (this.passwordHash.equals(oldPassword))
+            this.passwordHash = newPassword;
+        else return false;
+        
+        return true;
+    }
 
     public List<BucketlistListItem> getListItems() {
         return listItems;
-    }
-
-    public void setListItems(List<BucketlistListItem> listItems) {
-        this.listItems = listItems;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPasswordHash() {
         return passwordHash;
     }
-
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
-    }
-
+    
     public Date getRegistrationDate() {
         return registrationDate;
-    }
-
-    public void setRegistrationDate(Date registrationDate) {
-        this.registrationDate = registrationDate;
     }
 
     public Date getLastLogin() {
@@ -67,9 +72,25 @@ public class BucketlistUserInfo {
     public int getId() {
         return id;
     }
-
+    
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setListItems(List<BucketlistListItem> listItems) {
+        this.listItems = listItems;
     }
 
     public String getFirstName() {
