@@ -42,5 +42,6 @@ public class App {
         c.addListItemToUser(2, "Kupic BMW.");
         
         BucketlistUserInfo u = c.getUser(1);
+        c.CloseSession();
     }
 }
