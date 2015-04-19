@@ -37,6 +37,10 @@ public class BucketlistUserInfo {
         this(null, null, email, password);
     }
     
+    public BucketlistUserInfo() {
+        
+    }
+    
     public boolean changePassword(String oldPassword, String newPassword) {
         if (this.passwordHash.equals(oldPassword))
             this.passwordHash = newPassword;

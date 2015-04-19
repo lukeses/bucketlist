@@ -14,6 +14,10 @@ public class BucketlistListItem {
         this.content = content;
     }
     
+    public BucketlistListItem() {
+        
+    }
+    
     private int itemId;
     private String content;
 
