@@ -88,17 +88,17 @@ public class BucketlistController {
         return retrievedItems;
     }
 
-    public BucketlistUserInfo getUserByEmail(String email) {
+    public List<BucketlistUserInfo> getUserByEmail(String email) {
 
         if (email == null) {
             email = new String();
         }
 
-        BucketlistUserInfo retrievedUser;
+        List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + email + "'");
 
-        retrievedUser = (BucketlistUserInfo) q.list().get(0);
+        retrievedUser = (List<BucketlistUserInfo>) q.list();
 
         return retrievedUser;
     }

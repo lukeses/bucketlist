@@ -41,15 +41,15 @@
            //out.print("<tr><td>" + "password" + "</td>");
            //out.println("<td> " + request.getParameter("inputPassword") + "</td></tr>\n");
            BucketlistController controller = new BucketlistController();
-           BucketlistUserInfo user = controller.getUserByEmail(request.getParameter("inputEmail"));
+           List<BucketlistUserInfo> user = controller.getUserByEmail(request.getParameter("inputEmail"));
            controller.CloseSession();
-           if (user != null) {
+           if (!user.isEmpty()) {
                //out.print("<tr><td>" + user.get(0).getLastName() + "</td>");
                //out.print("<td> " + user.get(0).getPasswordHash() + "</td></tr>\n");
 
-               if (user.getPasswordHash().equals(request.getParameter("inputPassword"))) {
+               if (user.get(0).getPasswordHash().equals(request.getParameter("inputPassword"))) {
                    session.setAttribute("valid", new String("valid"));
-                   Integer id = user.getId();
+                   Integer id = user.get(0).getId();
                    session.setAttribute("userID", new String(id.toString()));
                    response.sendRedirect("userItems.jsp");
                } else {
