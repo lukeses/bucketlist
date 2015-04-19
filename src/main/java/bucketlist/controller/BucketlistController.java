@@ -20,7 +20,7 @@ import org.hibernate.cfg.Configuration;
  *
  * @author Daniel
  */
-public class BucketlistUserInfoController {
+public class BucketlistController {
 
     private final Session session;
 
@@ -36,7 +36,7 @@ public class BucketlistUserInfoController {
         return fact;
     }
 
-    public BucketlistUserInfoController() {
+    public BucketlistController() {
         session = factory.openSession();
     }
 
@@ -44,33 +44,42 @@ public class BucketlistUserInfoController {
         session.close();
     }
 
-    public void addUserIntoToDB(String email, String passwordHash) {
-        this.addUserInfoToDB("John", "Doe", email, passwordHash);
+    public void addNewUser(String email, String passwordHash) {
+        this.addNewUser(null, null, email, passwordHash);
     }
-
-    public void addUserInfoToDB(String firstName, String lastName, String email, String passwordHash) {
+    
+    public void addNewUser(String firstName, String lastName, String email, String passwordHash) {
         Transaction t = session.beginTransaction();
 
-        BucketlistUserInfo newUser = new BucketlistUserInfo();
-        newUser.setFirstName(firstName);
-        newUser.setLastName(lastName);
-        newUser.setEmail(email);
-        newUser.setPasswordHash(passwordHash);
+        BucketlistUserInfo newUser = new BucketlistUserInfo(firstName, lastName, email, passwordHash);
 
         session.persist(newUser);
         t.commit();
     }
-
-    public BucketlistUserInfo getUserInfoFromDB(int id) {
+    
+    public BucketlistUserInfo getUser(int id) {
         BucketlistUserInfo retrievedUser;
-        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.id = '" + id + "'");
-
-        retrievedUser = (BucketlistUserInfo) q.list().get(0);
-
+        //Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.id = '" + id + "'");
+        
+        retrievedUser = (BucketlistUserInfo)session.get(BucketlistUserInfo.class, id); //q.list().get(0);
+        
         return retrievedUser;
     }
+    
+    public void addListItemToUser(int userId, String content)
+    {
+        Transaction t = session.beginTransaction();
 
-    public List<BucketlistListItem> getUserItemsFromDB(int id) {
+        BucketlistListItem newItem = new BucketlistListItem(content);
+        
+        BucketlistUserInfo user = getUser(userId);
+        user.getListItems().add(newItem);
+
+        session.persist(user);
+        t.commit();
+    }
+
+    public List<BucketlistListItem> getUserItems(int id) {
         List<BucketlistListItem> retrievedItems;
         Query q = session.createQuery("from BucketlistListItem where itemOwner = '" + id + "'");
 
@@ -79,42 +88,18 @@ public class BucketlistUserInfoController {
         return retrievedItems;
     }
 
-    public List<BucketlistUserInfo> getUserInfoFromByEmailDB(String email) {
+    public BucketlistUserInfo getUserByEmail(String email) {
 
         if (email == null) {
             email = new String();
         }
 
-        List<BucketlistUserInfo> retrievedUser;
+        BucketlistUserInfo retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + email + "'");
 
-        retrievedUser = (List<BucketlistUserInfo>) q.list();
+        retrievedUser = (BucketlistUserInfo) q.list().get(0);
 
         return retrievedUser;
     }
-
-    public void addUserAndItemListToDB(String content) {
-        Transaction t = session.beginTransaction();
-
-        BucketlistListItem newItem = new BucketlistListItem();
-        newItem.setContent(content);
-        BucketlistListItem newItem2 = new BucketlistListItem();
-        newItem.setContent(content + "2");
-
-        ArrayList<BucketlistListItem> items = new ArrayList<BucketlistListItem>();
-        items.add(newItem);
-        items.add(newItem2);
-
-        BucketlistUserInfo newUser = new BucketlistUserInfo();
-        newUser.setFirstName("Kazimierz");
-        newUser.setLastName("Wielki");
-        newUser.setEmail("kazimierz50@poczet.pl");
-        newUser.setPasswordHash("lokietek");
-        newUser.setListItems(items);
-
-        session.persist(newUser);
-        t.commit();
-    }
-
 }
