@@ -5,7 +5,7 @@
 
 <%@page import="java.util.List"%>
 <%@page import="bucketlist.model.BucketlistUserInfo"%>
-<%@page import="bucketlist.controller.BucketlistUserInfoController"%>
+<%@page import="bucketlist.controller.BucketlistController"%>
 <%@page import="java.util.Enumeration"%>
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="bucketlist.*" %>
@@ -40,16 +40,16 @@
            //out.println("<td> " + request.getParameter("inputEmail") + "</td></tr>\n");
            //out.print("<tr><td>" + "password" + "</td>");
            //out.println("<td> " + request.getParameter("inputPassword") + "</td></tr>\n");
-           BucketlistUserInfoController controller = new BucketlistUserInfoController();
-           List<BucketlistUserInfo> user = controller.getUserInfoFromByEmailDB(request.getParameter("inputEmail"));
+           BucketlistController controller = new BucketlistController();
+           BucketlistUserInfo user = controller.getUserByEmail(request.getParameter("inputEmail"));
            controller.CloseSession();
-           if (!user.isEmpty()) {
+           if (user != null) {
                //out.print("<tr><td>" + user.get(0).getLastName() + "</td>");
                //out.print("<td> " + user.get(0).getPasswordHash() + "</td></tr>\n");
 
-               if (user.get(0).getPasswordHash().equals(request.getParameter("inputPassword"))) {
+               if (user.getPasswordHash().equals(request.getParameter("inputPassword"))) {
                    session.setAttribute("valid", new String("valid"));
-                   Integer id = user.get(0).getId();
+                   Integer id = user.getId();
                    session.setAttribute("userID", new String(id.toString()));
                    response.sendRedirect("userItems.jsp");
                } else {
