@@ -9,7 +9,8 @@ import bucketlist.controller.BucketlistController;
 import bucketlist.model.BucketlistUserInfo;
 
 /**
- *
+ * Klasa startowa przechowująca metodę main. Wykorzystywana głównie w celach
+ * testowych lub inicjalizacji aplikacji.
  * @author Daniel
  */
 public class App {
