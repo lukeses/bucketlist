@@ -11,7 +11,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Register</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -50,7 +50,7 @@
                 <div class="container-page">				
                     <div class="col-md-6">
                         <h3 class="dark-grey">Registration</h3>
-                        <form method="POST">
+                        <form name="registration_form" method="POST">
                             <div class="form-group col-lg-6">
                                 <label>First name</label>
                                 <input type="text" name="fName" class="form-control" value="" required>
@@ -81,7 +81,7 @@
                             </div>			
 
 
-                            <button type="submit" class="btn btn-primary">Register</button>
+                            <input id="btnRegister" name="btnRegister" type="submit" class="btn btn-primary" value="Register" />
                         </form>
                     </div>
                 </div>

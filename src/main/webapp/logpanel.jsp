@@ -55,13 +55,13 @@
                 <div class="card card-container">
                     <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                     <p id="profile-name" class="profile-name-card"></p>
-                    <form class="form-signin" method="POST">
+                    <form name="login_form" class="form-signin" method="POST">
                         <span id="reauth-email" class="reauth-email"></span>
                         <input type="email" name="inputEmail" class="form-control" placeholder="Email address" required autofocus>
                         <input type="password" name="inputPassword" class="form-control" placeholder="Password" required>
-                        <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                        <input id="btnLogin" name="btnLogin" class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Sign in" />
                     </form>
-                    <a href="regpanel.jsp"><button class="btn btn-lg btn-primary btn-block btn-signin">Register</button></a>
+                    <a href="regpanel.jsp"><button id="btnRegister" name="btnRegister" class="btn btn-lg btn-primary btn-block btn-signin">Register</button></a>
                 </div>
             </div>
         </div>

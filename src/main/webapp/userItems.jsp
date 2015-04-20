@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>User Items</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -37,7 +37,7 @@
                         </div>
                         <input type="hidden" name="logout"  value="logout"/>
                         <div class="form-group col-lg-6">
-                            <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Logout</button> 
+                            <input id="btnLogout" name="btnLogout" class="btn btn-lg btn-primary btn-block btn-signin" type="submit" value="Logout" /> 
                         </div>
 
                     </form>
@@ -45,7 +45,7 @@
 
                 <div class="widget-content">
 
-                    <table class="table table-striped table-bordered">
+                    <table name="user_items" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Content</th>
@@ -53,7 +53,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                        <br />
                             <%
                                 String valid = (String) session.getAttribute("valid");
                                 String logout = (String) request.getParameter("logout");
