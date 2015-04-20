@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody>
-
+                        <br />
                             <%
                                 BucketlistController controller = new BucketlistController();
                                 List<BucketlistListItem> items = controller.getAllItems();
@@ -58,7 +58,7 @@
                                 for (BucketlistListItem item : items) {
                                     out.print("<tr><td>");
                                     out.print(item.getContent());
-                                    out.print("</td>");
+                                    out.print("</td></tr>");
                                 }
                             %>
                         </tbody>
