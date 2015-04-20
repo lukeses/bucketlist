@@ -42,7 +42,7 @@
 
                 <div class="widget-content">
 
-                    <table class="table table-striped table-bordered">
+                    <table name="all_items" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>Content</th>
