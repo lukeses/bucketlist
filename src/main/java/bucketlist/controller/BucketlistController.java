@@ -130,6 +130,19 @@ public class BucketlistController {
 
         return retrievedItems;
     }
+    /**
+     *
+     *
+     * @return
+     */
+    public List<BucketlistListItem> getAllItems(){
+        List<BucketlistListItem> retrievedItems;
+        Query q = session.createQuery("from BucketlistListItem");
+        retrievedItems = (List<BucketlistListItem>) q.list();
+        
+        return retrievedItems;
+    }
+    
 
     /**
      *
