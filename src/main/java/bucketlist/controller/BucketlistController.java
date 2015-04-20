@@ -118,9 +118,9 @@ public class BucketlistController {
     }
 
     /**
-     *
+     * Metoda zwraca cele danego użytkownika
      * @param id
-     * @return
+     * @return cele użytkownika
      */
     public List<BucketlistListItem> getUserItems(int id) {
         List<BucketlistListItem> retrievedItems;
@@ -131,9 +131,9 @@ public class BucketlistController {
         return retrievedItems;
     }
     /**
+     * Metoda zwraca wszystkie cele
      *
-     *
-     * @return
+     * @return cele 
      */
     public List<BucketlistListItem> getAllItems(){
         List<BucketlistListItem> retrievedItems;
@@ -145,9 +145,9 @@ public class BucketlistController {
     
 
     /**
-     *
-     * @param email
-     * @return
+     * Metoda zwraca użytkownika
+     * @param email Email użytkownika, który ma być zwrócony
+     * @return obiekt przechowujący dostępne dane o użytkowniku
      */
     public List<BucketlistUserInfo> getUserByEmail(String email) {
 
