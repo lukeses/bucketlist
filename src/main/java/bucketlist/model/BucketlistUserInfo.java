@@ -9,6 +9,8 @@ package bucketlist.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  * Klasa reprezentująca użytkownika. Zawiera ogólne informacje o użytkownika i
@@ -16,6 +18,8 @@ import java.util.List;
  * nowego użytkownika.
  * @author Daniel
  */
+@ManagedBean (name = "user")
+@RequestScoped
 public class BucketlistUserInfo {
     private int id;
     private String firstName;

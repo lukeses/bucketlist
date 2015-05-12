@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  *
  * @author hanka
- */
+ *//*
 public class ItemsTest {
     
     private static final String WEBSITE_URL = "http://localhost:8084/bucketlist";
@@ -61,3 +61,4 @@ public class ItemsTest {
         }
     }
 }
+*/

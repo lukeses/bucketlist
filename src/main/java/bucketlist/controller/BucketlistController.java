@@ -7,7 +7,10 @@ package bucketlist.controller;
 
 import bucketlist.model.BucketlistListItem;
 import bucketlist.model.BucketlistUserInfo;
+import java.io.Serializable;
 import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,9 +25,12 @@ import org.hibernate.cfg.Configuration;
  * Klasa używa do komunikacji z bazą danych obiektu reprezentującego sesję.
  * @author Daniel
  */
-public class BucketlistController {
 
-    private final Session session;
+@ManagedBean (name = "databaseDAO")
+@SessionScoped
+public class BucketlistController implements Serializable{
+
+    private Session session;
 
     private static final SessionFactory factory = init();
 
@@ -42,7 +48,9 @@ public class BucketlistController {
      * Domyślny kontruktor obiektów klasy. Przy wywołaniu otwiera nową sesję
      * umożliwiającą komunikację z bazą danych.
      */
-    public BucketlistController() {
+    
+    
+    public void openSession() {
         session = factory.openSession();
     }
 
@@ -162,5 +170,17 @@ public class BucketlistController {
         retrievedUser = (List<BucketlistUserInfo>) q.list();
 
         return retrievedUser;
+    }
+    
+    public boolean checkPassword(String userEmail, String password) {
+        
+        List<BucketlistUserInfo> retrievedUser;
+
+        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
+
+        retrievedUser = (List<BucketlistUserInfo>) q.list();
+        
+        return retrievedUser.get(0).getPasswordHash().equals(password);
+        
     }
 }
