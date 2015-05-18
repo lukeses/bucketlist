@@ -7,7 +7,12 @@ package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
 import bucketlist.controller.BucketlistListItem;
+import java.util.ArrayList;
 import java.util.List;
+import org.easymock.EasyMock;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -56,30 +61,16 @@ public class HomepageControllerTest {
     }
 
     /**
-     * Test of setDatabase method, of class HomepageController.
-     */
-    @Test
-    public void testSetDatabase() {
-        System.out.println("setDatabase");
-        BucketlistController database = null;
-        HomepageController instance = new HomepageController();
-        instance.setDatabase(database);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getList method, of class HomepageController.
      */
     @Test
     public void testGetList() {
-        System.out.println("getList");
-        HomepageController instance = new HomepageController();
-        List<BucketlistListItem> expResult = null;
-        List<BucketlistListItem> result = instance.getList();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BucketlistController controllerMock = createMock(BucketlistController.class);
+        controllerMock.openSession();
+        expect(controllerMock.getAllItems()).andReturn(new ArrayList<BucketlistListItem>());
+        controllerMock.closeSession();
+        
+        replay(controllerMock);
     }
     
 }
