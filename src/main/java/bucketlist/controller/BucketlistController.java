@@ -115,6 +115,7 @@ public class BucketlistController implements Serializable {
      *
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
+     * @param description
      */
 
     public void addListItemToUser(int userId, String content, String description)
