@@ -10,8 +10,8 @@ import bucketlist.controller.BucketlistListItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 
 /**
  * Klasa reprezentująca użytkownika. Zawiera ogólne informacje o użytkownika i
@@ -19,8 +19,9 @@ import javax.enterprise.context.RequestScoped;
  * nowego użytkownika.
  * @author Daniel
  */
+
+@ManagedBean(name="user")
 @RequestScoped
-@Named("user")
 public class BucketlistUserInfo {
     private int id;
     private String firstName;

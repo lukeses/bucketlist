@@ -92,13 +92,13 @@ public class RegistrationController implements Serializable {
                 database.openSession();
                 if (!database.userExists(email1))
                     result = true;
-                database.CloseSession();
+                database.closeSession();
             }
         
         if (result) {
             database.openSession();
             database.addNewUser(firstName, lastName, email1, password1);
-            database.CloseSession();
+            database.closeSession();
             
             return "/logpanel.xhtml?faces-redirect=true";   
         }

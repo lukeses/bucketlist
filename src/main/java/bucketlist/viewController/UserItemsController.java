@@ -10,7 +10,7 @@ import bucketlist.controller.BucketlistController;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Named;
+import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 
@@ -18,13 +18,14 @@ import javax.faces.view.ViewScoped;
  *
  * @author Daniel
  */
+
+@ManagedBean
 @ViewScoped
-@Named
 public class UserItemsController implements Serializable {
 
-    @ManagedProperty(value = "#{databaseDAO}")
+    @ManagedProperty (value = "#{databaseDAO}")
     private BucketlistController database;
-    @ManagedProperty(value = "#{loginController}")
+    @ManagedProperty (value = "#{loginController}")
     private LoginController login;
 
     /**

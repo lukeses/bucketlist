@@ -18,6 +18,7 @@ public class BucketlistListItem {
      * polem opisującym cel użytkownika.
      *
      * @param content opis celu użytkownika
+     * @param description
      */
     public BucketlistListItem(String content, String description) {
         this.content = content;

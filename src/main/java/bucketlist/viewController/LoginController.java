@@ -8,9 +8,10 @@ package bucketlist.viewController;
 import bucketlist.controller.BucketlistController;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
-import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
@@ -18,15 +19,13 @@ import javax.servlet.http.HttpSession;
  *
  * @author Daniel
  */
-@SessionScoped
-<<<<<<< HEAD
-public class LoginController implements Serializable{
-=======
-@Named
-public class LoginController implements Serializable {
->>>>>>> d3664201b9c79fb79ba8446db48bc1d41cc43e59
 
-    @ManagedProperty(value = "#{databaseDAO}")
+@ManagedBean
+@SessionScoped
+public class LoginController implements Serializable {
+
+
+    @ManagedProperty (value = "#{databaseDAO}")
     private BucketlistController database;
     private String userName;
     private String userPassword;

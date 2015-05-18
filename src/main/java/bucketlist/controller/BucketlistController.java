@@ -8,8 +8,9 @@ package bucketlist.controller;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
 import java.util.List;
-import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -27,7 +28,7 @@ import org.hibernate.cfg.Configuration;
  * @author Daniel
  */
 @SessionScoped
-@Named("databaseDAO")
+@ManagedBean (name = "databaseDAO")
 public class BucketlistController implements Serializable {
 
     private Session session;
