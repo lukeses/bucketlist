@@ -11,12 +11,18 @@ public class UserAuthenticationTest {
     private static final String WEBSITE_URL = "http://localhost:8084/bucketlist";
     private WebTester tester;
     
+    /**
+     *
+     */
     @Before
     public void prepare() {
         tester = new WebTester();
         tester.setBaseUrl(WEBSITE_URL);
     }
     
+    /**
+     *
+     */
     @Test
     public void testSuccessfulLogin() {
         tester.beginAt("logpanel.jsp");
@@ -37,6 +43,9 @@ public class UserAuthenticationTest {
         tester.assertButtonPresent("btnLogout");
     }
     
+    /**
+     *
+     */
     @Test
     public void testUnsuccessfulLogin() {
         tester.beginAt("logpanel.jsp");
@@ -57,6 +66,9 @@ public class UserAuthenticationTest {
         tester.assertTextPresent("User does not exist!");
     }
     
+    /**
+     *
+     */
     @Test
     public void testRegister() {
         tester.beginAt("regpanel.jsp");
@@ -75,6 +87,9 @@ public class UserAuthenticationTest {
         tester.assertTitleEquals("Register");
     }
     
+    /**
+     *
+     */
     @Test
     public void testLogout() {
         tester.beginAt("logpanel.jsp");

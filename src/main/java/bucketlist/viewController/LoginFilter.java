@@ -21,10 +21,23 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class LoginFilter implements Filter {
 
+    /**
+     *
+     * @param fc
+     * @throws ServletException
+     */
     @Override
     public void init(FilterConfig fc) throws ServletException {
     }
 
+    /**
+     *
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         LoginController login = (LoginController) ((HttpServletRequest) request).getSession().getAttribute("loginController");
@@ -36,6 +49,9 @@ public class LoginFilter implements Filter {
         chain.doFilter(request, response);
     }
 
+    /**
+     *
+     */
     @Override
     public void destroy() {
     }

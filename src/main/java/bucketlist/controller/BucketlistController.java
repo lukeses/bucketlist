@@ -28,7 +28,7 @@ import org.hibernate.cfg.Configuration;
  * @author Daniel
  */
 @SessionScoped
-@ManagedBean (name = "databaseDAO")
+@ManagedBean(name = "databaseDAO")
 public class BucketlistController implements Serializable {
 
     private Session session;
@@ -117,14 +117,12 @@ public class BucketlistController implements Serializable {
      * @param content zawartość celu, która ma być dodana użytkownikowi
      * @param description
      */
-
-    public void addListItemToUser(int userId, String content, String description)
-    {
+    public void addListItemToUser(int userId, String content, String description) {
         openSession();
         Transaction t = session.beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content, description);
-        
+
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
@@ -182,46 +180,95 @@ public class BucketlistController implements Serializable {
         return retrievedUser;
     }
 
-    
+    /**
+     *
+     * @param userEmail
+     * @param password
+     * @return
+     */
     public int checkPassword(String userEmail, String password) {
-        
+
         List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
-        
-        if(!retrievedUser.isEmpty() && retrievedUser.get(0).getPasswordHash().equals(password))
+
+        if (!retrievedUser.isEmpty() && retrievedUser.get(0).getPasswordHash().equals(password)) {
             return retrievedUser.get(0).getId();
-        else
+        } else {
             return -1;
+        }
     }
-    
-    public BucketlistListItem getItemById(int itemId)
-    {
+
+    /**
+     *
+     * @param itemId
+     * @return
+     */
+    public BucketlistListItem getItemById(int itemId) {
         List<BucketlistListItem> retrievedItems;
         Query q = session.createQuery("from BucketlistListItem where item_id = " + itemId);
         retrievedItems = (List<BucketlistListItem>) q.list();
-        
+
         return retrievedItems.get(0);
     }
-    
-    public void saveItem(int itemId, String name, String description)
-    {
+
+    /**
+     *
+     * @param itemId
+     * @param name
+     * @param description
+     */
+    public void saveItem(int itemId, String name, String description) {
         Transaction t = session.beginTransaction();
         BucketlistListItem item = getItemById(itemId);
         item.setContent(name);
         item.setDescription(description);
         t.commit();
     }
-    
+
+    /**
+     *
+     * @param userEmail
+     * @return
+     */
     public boolean userExists(String userEmail) {
         List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
-        
+
         return !retrievedUser.isEmpty();
     }
+
+    /**
+     *
+     * @param item
+     */
+    public void updateItem(BucketlistListItem item) {
+        Transaction t = session.beginTransaction();
+        Query query = session.createQuery("update BucketlistListItem set content = :content"
+                + " where id = :id");
+        query.setParameter("content", item.getContent());
+        query.setParameter("id", item.getItemId());
+        query.executeUpdate();
+        t.commit();
+    }
+    
+    /**
+     *
+     * @param item
+     */
+    public void deleteItem(BucketlistListItem item) {
+        Transaction t = session.beginTransaction();
+        Query query = session.createQuery("DELETE FROM BucketlistListItem"
+                + " where id = :id");
+        query.setParameter("id", item.getItemId());
+        query.executeUpdate();
+        t.commit();
+    }
+    
+    
 }

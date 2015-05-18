@@ -12,20 +12,20 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.view.ViewScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
 /**
  *
  * @author Daniel
  */
-
 @ManagedBean
 @ViewScoped
 public class UserItemsController implements Serializable {
 
-    @ManagedProperty (value = "#{databaseDAO}")
+    @ManagedProperty(value = "#{databaseDAO}")
     private BucketlistController database;
-    @ManagedProperty (value = "#{loginController}")
+    @ManagedProperty(value = "#{loginController}")
     private LoginController login;
 
     /**
@@ -37,6 +37,10 @@ public class UserItemsController implements Serializable {
 
     private List<BucketlistListItem> list;
 
+    /**
+     *
+     * @return
+     */
     public List<BucketlistListItem> getList() {
         if (list == null) {
             this.database.openSession();
@@ -54,19 +58,39 @@ public class UserItemsController implements Serializable {
         this.login = login;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public String editAction(BucketlistListItem item) {
         item.setEditable(true);
         return null;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public String saveAction(BucketlistListItem item) {
-
+        database.openSession();
+        database.updateItem(item);
+        database.closeSession();
         item.setEditable(false);
         return null;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public String deleteAction(BucketlistListItem item) {
-
+        database.openSession();
+        database.deleteItem(item);
+        database.closeSession();
+        list = null;
         return null;
     }
 

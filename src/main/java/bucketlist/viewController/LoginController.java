@@ -37,24 +37,44 @@ public class LoginController implements Serializable {
         this.database = database;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     *
+     * @param userName
+     */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getUserPassword() {
         return userPassword;
     }
 
+    /**
+     *
+     * @param userPassword
+     */
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
 
     private boolean loggedIn;
 
+    /**
+     *
+     * @return
+     */
     public String tryToLogin() {
         database.openSession();
         int id = database.checkPassword(userName, userPassword);
@@ -75,6 +95,10 @@ public class LoginController implements Serializable {
         return null;
     }
 
+    /**
+     *
+     * @return
+     */
     public String logout() {
         loggedIn = false;
 
@@ -85,6 +109,10 @@ public class LoginController implements Serializable {
         return "/logpanel.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public boolean isLoggedIn() {
         return loggedIn;
     }

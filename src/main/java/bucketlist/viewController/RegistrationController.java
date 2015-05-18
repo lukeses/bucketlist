@@ -30,50 +30,98 @@ public class RegistrationController implements Serializable {
     private String email1;
     private String email2;
 
+    /**
+     *
+     * @return
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     *
+     * @param firstName
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     *
+     * @param lastName
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword1() {
         return password1;
     }
 
+    /**
+     *
+     * @param password1
+     */
     public void setPassword1(String password1) {
         this.password1 = password1;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getPassword2() {
         return password2;
     }
 
+    /**
+     *
+     * @param password2
+     */
     public void setPassword2(String password2) {
         this.password2 = password2;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail1() {
         return email1;
     }
 
+    /**
+     *
+     * @param email1
+     */
     public void setEmail1(String email1) {
         this.email1 = email1;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getEmail2() {
         return email2;
     }
 
+    /**
+     *
+     * @param email2
+     */
     public void setEmail2(String email2) {
         this.email2 = email2;
     }
@@ -85,6 +133,10 @@ public class RegistrationController implements Serializable {
         this.database = database;
     }
     
+    /**
+     *
+     * @return
+     */
     public String registerNewUser() {
         boolean result = false;
         if (email1.equals(email2))

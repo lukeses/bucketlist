@@ -20,21 +20,36 @@ import static org.junit.Assert.*;
  */
 public class BucketlistControllerTest {
     
+    /**
+     *
+     */
     public BucketlistControllerTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
@@ -179,6 +194,77 @@ public class BucketlistControllerTest {
         boolean expResult = false;
         int result = instance.checkPassword(userEmail, password);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getItemById method, of class BucketlistController.
+     */
+    @Test
+    public void testGetItemById() {
+        System.out.println("getItemById");
+        int itemId = 0;
+        BucketlistController instance = new BucketlistController();
+        BucketlistListItem expResult = null;
+        BucketlistListItem result = instance.getItemById(itemId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of saveItem method, of class BucketlistController.
+     */
+    @Test
+    public void testSaveItem() {
+        System.out.println("saveItem");
+        int itemId = 0;
+        String name = "";
+        String description = "";
+        BucketlistController instance = new BucketlistController();
+        instance.saveItem(itemId, name, description);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of userExists method, of class BucketlistController.
+     */
+    @Test
+    public void testUserExists() {
+        System.out.println("userExists");
+        String userEmail = "";
+        BucketlistController instance = new BucketlistController();
+        boolean expResult = false;
+        boolean result = instance.userExists(userEmail);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of updateItem method, of class BucketlistController.
+     */
+    @Test
+    public void testUpdateItem() {
+        System.out.println("updateItem");
+        BucketlistListItem item = null;
+        BucketlistController instance = new BucketlistController();
+        instance.updateItem(item);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of deleteItem method, of class BucketlistController.
+     */
+    @Test
+    public void testDeleteItem() {
+        System.out.println("deleteItem");
+        BucketlistListItem item = null;
+        BucketlistController instance = new BucketlistController();
+        instance.deleteItem(item);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

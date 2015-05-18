@@ -32,7 +32,10 @@ public class HomepageController implements Serializable{
         this.database = database;
     }
     
-    
+    /**
+     *
+     * @return
+     */
     public List<BucketlistListItem> getList() {
         this.database.openSession();
         List<BucketlistListItem> result = this.database.getAllItems();

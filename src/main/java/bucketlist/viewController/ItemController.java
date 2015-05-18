@@ -27,46 +27,85 @@ public class ItemController {
     private String name;
     private String description;
     
+    /**
+     *
+     * @param database
+     */
     public void setDatabase(BucketlistController database) {
         this.database = database;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getItemId() {
         return this.itemId;
     }
     
+    /**
+     *
+     * @param itemId
+     */
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getName() {
         return this.name;
     }
     
+    /**
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
     
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return this.description;
     }
     
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
     
+    /**
+     *
+     * @return
+     */
     public String addItem() {
         database.addListItemToUser(getMyId(), this.name, this.description);
         
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
 
+    /**
+     *
+     * @return
+     */
     public String update() {
         database.saveItem(this.itemId, this.name, this.description);
         
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
     
+    /**
+     *
+     */
     public void init() {
         database.openSession();
         BucketlistListItem item = database.getItemById(this.itemId);
@@ -75,6 +114,10 @@ public class ItemController {
         this.description = item.getDescription();
     }
     
+    /**
+     *
+     * @return
+     */
     public int getMyId() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(true);

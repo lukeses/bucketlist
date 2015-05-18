@@ -22,27 +22,43 @@ import static org.junit.Assert.*;
  */
 public class LoginFilterTest {
     
+    /**
+     *
+     */
     public LoginFilterTest() {
     }
     
+    /**
+     *
+     */
     @BeforeClass
     public static void setUpClass() {
     }
     
+    /**
+     *
+     */
     @AfterClass
     public static void tearDownClass() {
     }
     
+    /**
+     *
+     */
     @Before
     public void setUp() {
     }
     
+    /**
+     *
+     */
     @After
     public void tearDown() {
     }
 
     /**
      * Test of init method, of class LoginFilter.
+     * @throws java.lang.Exception
      */
     @Test
     public void testInit() throws Exception {
@@ -56,6 +72,7 @@ public class LoginFilterTest {
 
     /**
      * Test of doFilter method, of class LoginFilter.
+     * @throws java.lang.Exception
      */
     @Test
     public void testDoFilter() throws Exception {

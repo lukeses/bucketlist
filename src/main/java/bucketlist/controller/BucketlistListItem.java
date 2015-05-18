@@ -94,19 +94,34 @@ public class BucketlistListItem {
         this.editable = editable;
     }
 
-    
+    /**
+     *
+     * @return
+     */
     public String getDescription() {
         return description;
     }
     
+    /**
+     *
+     * @param description
+     */
     public void setDescription(String description) {
         this.description = description;
     }
     
+    /**
+     *
+     * @return
+     */
     public int getProgress() {
         return progress;
     }
     
+    /**
+     *
+     * @param progress
+     */
     public void setProgress(int progress) {
         this.progress = progress;
     }
