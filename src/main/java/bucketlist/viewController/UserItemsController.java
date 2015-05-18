@@ -12,12 +12,12 @@ import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 
 /**
- *
- * @author Daniel
+ * Klasa obsługująca żądania ze strony userItems.xhtml.
+ * Wyświetla i edytuje cele użytkownika.
+ * @author AdamS
  */
 @ManagedBean
 @ViewScoped
@@ -39,8 +39,8 @@ public class UserItemsController implements Serializable {
     private List<BucketlistListItem> list;
 
     /**
-     *
-     * @return
+     * Zwraca listę celów zalogowanego użytkownika
+     * @return lista celów
      */
     public List<BucketlistListItem> getList() {
         if (list == null) {
@@ -53,16 +53,17 @@ public class UserItemsController implements Serializable {
     }
 
     /**
-     * @param login the login to set
+     * Miejsce wstrzyknięcia klasy obsługującej stan sesji użytkownika
+     * @param login obiekt do wstrzyknięcia
      */
     public void setLogin(LoginController login) {
         this.login = login;
     }
 
     /**
-     *
-     * @param item
-     * @return
+     * Pozwala na edycję celu
+     * @param item cel do edytowania
+     * @return null
      */
     public String editAction(BucketlistListItem item) {
         item.setEditable(true);
@@ -70,9 +71,9 @@ public class UserItemsController implements Serializable {
     }
 
     /**
-     *
-     * @param item
-     * @return
+     * Pozwala zapisać zmiany w danym celu
+     * @param item cel do zapisu
+     * @return null
      */
     public String saveAction(BucketlistListItem item) {
         database.openSession();
@@ -83,9 +84,9 @@ public class UserItemsController implements Serializable {
     }
 
     /**
-     *
-     * @param item
-     * @return
+     * Pozwala usunąć dany cel
+     * @param item cel do usunięcia
+     * @return null
      */
     public String deleteAction(BucketlistListItem item) {
         database.openSession();

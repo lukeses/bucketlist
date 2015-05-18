@@ -14,23 +14,24 @@
         </h:head>
 
         <h:body>
+            <h:messages globalOnly="true" id="err" />
             <h:form>
                 <h:panelGrid columns="2" >
-                            <p:outputLabel value="First name"/>
-                            <p:inputText value="#{registrationController.firstName}"/>
-                            <p:outputLabel value="Last name"/>
-                            <p:inputText value="#{registrationController.lastName}"/>
-                            <p:outputLabel value="Password"/>
-                            <p:password value="#{registrationController.password1}" required="true"/>
-                            <p:outputLabel value="Repeat password"/>
-                            <p:password value="#{registrationController.password2}" required="true"/>
-                            <p:outputLabel value="Email address"/>
-                            <p:inputText value="#{registrationController.email1}" required="true"/>
-                            <p:outputLabel value="Repeat email address"/>
-                            <p:inputText value="#{registrationController.email2}" required="true"/>
-                                
+                    <p:outputLabel value="First name"/>
+                    <p:inputText value="#{registrationController.firstName}"/>
+                    <p:outputLabel value="Last name"/>
+                    <p:inputText value="#{registrationController.lastName}"/>
+                    <p:outputLabel value="Password"/>
+                    <p:password value="#{registrationController.password1}" required="true"/>
+                    <p:outputLabel value="Repeat password"/>
+                    <p:password value="#{registrationController.password2}" required="true"/>
+                    <p:outputLabel value="Email address"/>
+                    <p:inputText value="#{registrationController.email1}" required="true"/>
+                    <p:outputLabel value="Repeat email address"/>
+                    <p:inputText value="#{registrationController.email2}" required="true"/>
 
-                            <p:commandButton ajax="false" value="Register" update=":err" action="#{registrationController.registerNewUser}" />  
+
+                    <p:commandButton ajax="false" value="Register" update=":err" action="#{registrationController.registerNewUser}" />  
                 </h:panelGrid>
             </h:form>
         </h:body>

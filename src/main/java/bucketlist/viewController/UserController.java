@@ -36,12 +36,20 @@ public class UserController implements Serializable{
         this.database = database;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<BucketlistUserInfo> getUsers() {
         this.users = database.getAllUsersButMe();
         
         return this.users;
     }
     
+    /**
+     *
+     * @return
+     */
     public List<BucketlistListItem> getUserItems() {
         Map<String, String> params = FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
