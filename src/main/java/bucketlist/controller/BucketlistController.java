@@ -58,7 +58,7 @@ public class BucketlistController implements Serializable{
      * Metoda powinna być wywoływana po zakończeniu pracy z kontrolerem
      * w celu zamknięcia sesji i umożliwienia zwolnienia nieużywanych zasobów.
      */
-    public void CloseSession() {
+    public void closeSession() {
         session.close();
     }
 
@@ -112,17 +112,19 @@ public class BucketlistController implements Serializable{
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
      */
-    public void addListItemToUser(int userId, String content)
+    public void addListItemToUser(int userId, String content, String description)
     {
+        openSession();
         Transaction t = session.beginTransaction();
 
-        BucketlistListItem newItem = new BucketlistListItem(content);
+        BucketlistListItem newItem = new BucketlistListItem(content, description);
         
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
         session.persist(user);
         t.commit();
+        closeSession();
     }
 
     /**
@@ -172,7 +174,7 @@ public class BucketlistController implements Serializable{
         return retrievedUser;
     }
     
-    public boolean checkPassword(String userEmail, String password) {
+    public int checkPassword(String userEmail, String password) {
         
         List<BucketlistUserInfo> retrievedUser;
 
@@ -180,8 +182,27 @@ public class BucketlistController implements Serializable{
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
         
-        return !retrievedUser.isEmpty() &&
-                retrievedUser.get(0).getPasswordHash().equals(password);
+        if(!retrievedUser.isEmpty() && retrievedUser.get(0).getPasswordHash().equals(password))
+            return retrievedUser.get(0).getId();
+        else
+            return -1;
+    }
+    
+    public BucketlistListItem getItemById(int itemId)
+    {
+        List<BucketlistListItem> retrievedItems;
+        Query q = session.createQuery("from BucketlistListItem where item_id = " + itemId);
+        retrievedItems = (List<BucketlistListItem>) q.list();
         
+        return retrievedItems.get(0);
+    }
+    
+    public void saveItem(int itemId, String name, String description)
+    {
+        Transaction t = session.beginTransaction();
+        BucketlistListItem item = getItemById(itemId);
+        item.setContent(name);
+        item.setDescription(description);
+        t.commit();
     }
 }

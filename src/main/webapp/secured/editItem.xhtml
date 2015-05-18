@@ -1,0 +1,35 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Edit Item</title>
+            </f:facet>
+        </h:head>
+        
+        <h:body>
+            <f:metadata>
+                <f:viewParam name="itemId" value="#{itemController.itemId}" />
+                <f:viewAction action="#{itemController.init}" />
+            </f:metadata>
+
+            <h:form>
+                <h:outputLabel value="Item name:" />
+                <h:inputText value="#{itemController.name}" />
+
+                <h:outputLabel value="Item description" />
+                <h:inputText value="#{itemController.description}" />
+
+                <h:commandButton value="Save" action="#{itemController.update()}"/>
+            </h:form>
+        </h:body>
+
+    </f:view>
+</html>

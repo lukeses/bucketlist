@@ -9,5 +9,11 @@
         <property name="content" type="string">
             <column name="item_content" length="200" />
         </property>
+        <property name="description" type="string">
+            <column name="item_description" length="1024" />
+        </property>
+        <property name="progress" type="java.lang.Integer">
+            <column name="item_progress" />
+        </property>
     </class>
 </hibernate-mapping>

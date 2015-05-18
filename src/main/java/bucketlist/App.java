@@ -33,15 +33,15 @@ public class App {
         c.addNewUser("Jan", "Kowalski", "kowal82@buziaczek.pl", "irenka15");
         c.addNewUser("Jan", "Nowak", "j.nowak@gmail.com", "trudn3h45l0");
 
-        c.addListItemToUser(1, "Zasadzic drzewo.");
-        c.addListItemToUser(1, "Zwiedzic Chiny.");
-        c.addListItemToUser(1, "Isc do opery.");
+        c.addListItemToUser(1, "Zasadzic drzewo.", "");
+        c.addListItemToUser(1, "Zwiedzic Chiny.", "");
+        c.addListItemToUser(1, "Isc do opery.", "");
         
-        c.addListItemToUser(2, "Isc na piknik");
-        c.addListItemToUser(2, "Zarobic milion dolarow.");
-        c.addListItemToUser(2, "Kupic BMW.");
+        c.addListItemToUser(2, "Isc na piknik", "");
+        c.addListItemToUser(2, "Zarobic milion dolarow.", "");
+        c.addListItemToUser(2, "Kupic BMW.", "");
         
         BucketlistUserInfo u = c.getUser(1);
-        c.CloseSession();
+        c.closeSession();
     }
 }

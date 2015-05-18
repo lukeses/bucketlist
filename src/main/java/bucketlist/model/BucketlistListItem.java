@@ -17,8 +17,10 @@ public class BucketlistListItem {
      * polem opisującym cel użytkownika.
      * @param content opis celu użytkownika
      */
-    public BucketlistListItem(String content) {
+    public BucketlistListItem(String content, String description) {
         this.content = content;
+        this.description = description;
+        this.progress = 0;
     }
     
     /**
@@ -31,6 +33,8 @@ public class BucketlistListItem {
     
     private int itemId;
     private String content;
+    private String description;
+    private int progress;
 
     /**
      * Zwraca identyfikator obiektu celu w bazie danych. Każdy cel można
@@ -65,5 +69,21 @@ public class BucketlistListItem {
      */
     public void setContent(String content) {
         this.content = content;
+    }
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public int getProgress() {
+        return progress;
+    }
+    
+    public void setProgress(int progress) {
+        this.progress = progress;
     }
 }
