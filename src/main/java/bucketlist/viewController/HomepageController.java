@@ -5,21 +5,21 @@
  */
 package bucketlist.viewController;
 
+import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.BucketlistController;
-import bucketlist.model.BucketlistListItem;
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 
 /**
  *
  * @author Daniel
  */
-@ManagedBean
 @ViewScoped
+@Named
 public class HomepageController implements Serializable{
     
     @ManagedProperty (value = "#{databaseDAO}") 

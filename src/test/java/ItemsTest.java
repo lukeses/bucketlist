@@ -1,5 +1,5 @@
 import bucketlist.controller.BucketlistController;
-import bucketlist.model.BucketlistListItem;
+import bucketlist.controller.BucketlistListItem;
 import java.util.List;
 import net.sourceforge.jwebunit.junit.WebTester;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  *
  * @author hanka
- *//*
+ */
 public class ItemsTest {
     
     private static final String WEBSITE_URL = "http://localhost:8084/bucketlist";
@@ -61,4 +61,3 @@ public class ItemsTest {
         }
     }
 }
-*/

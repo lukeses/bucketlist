@@ -11,13 +11,16 @@ import bucketlist.model.BucketlistUserInfo;
 /**
  * Klasa startowa przechowująca metodę main. Wykorzystywana głównie w celach
  * testowych lub inicjalizacji aplikacji.
+ *
  * @author Daniel
  */
 public class App {
 
     /**
      * Metoda startowa, wywoływana automatycznie przy starcie aplikacji
-     * @param args tablica parametrów startowych używana do inicjalizacji aplikacji
+     *
+     * @param args tablica parametrów startowych używana do inicjalizacji
+     * aplikacji
      */
     public static void main(String[] args) {
         Test();
@@ -36,11 +39,11 @@ public class App {
         c.addListItemToUser(1, "Zasadzic drzewo.");
         c.addListItemToUser(1, "Zwiedzic Chiny.");
         c.addListItemToUser(1, "Isc do opery.");
-        
+
         c.addListItemToUser(2, "Isc na piknik");
         c.addListItemToUser(2, "Zarobic milion dolarow.");
         c.addListItemToUser(2, "Kupic BMW.");
-        
+
         BucketlistUserInfo u = c.getUser(1);
         c.CloseSession();
     }

@@ -15,37 +15,33 @@
 
         <h:body>
 
-<!--
-                <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
-                    Header
-                </p:layoutUnit>
+            <h:form>
+                Welcome #{loginController.userName}!
+                <br/>
 
-                <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
-                    Footer
-                </p:layoutUnit>
--->
-                <h:form>
-                    <p:dataScroller value="#{homepageController.list}" var="listItem">
-                <h:panelGrid columns="2" >
-                    <h:graphicImage value=""/> 
+                <p:commandButton ajax="false" value="Log out" action="#{loginController.logout}" />          
+
+                <p:dataScroller value="#{userItemsController.list}" var="listItem">
+
                     <p:outputPanel>
                         <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputText value="ID:" />
-                            <h:outputText value="#{listItem.itemId}" style="font-weight: bold"/>
-
-                            <h:outputText value="Content:" />
-                            <h:outputText value="#{listItem.content}" style="font-weight: bold"/>
+                            <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
+                            <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
                         </h:panelGrid>
                     </p:outputPanel>
-                </h:panelGrid>
-            </p:dataScroller>
-        </h:form>
-<!--
-                <p:layoutUnit position="center">
-                    Welcome to PrimeFaces
-                </p:layoutUnit>
--->
-         
+
+                    <h:panelGrid columns="2">
+                        <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
+                                         rendered="#{not listItem.editable}" />
+                        <p:commandButton ajax="false" icon="ui-icon-disk" action="#{userItemsController.saveAction(listItem)}" 
+                                         rendered="#{listItem.editable}" />
+                        <p:commandButton ajax="false" icon="ui-icon-trash" action="#{userItemsController.deleteAction(listItem)}" 
+                                         rendered="#{not listItem.editable}" />
+                    </h:panelGrid>
+                    <br/>
+                </p:dataScroller>
+
+            </h:form>
 
         </h:body>
 

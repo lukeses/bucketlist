@@ -5,12 +5,11 @@
  */
 package bucketlist.controller;
 
-import bucketlist.model.BucketlistListItem;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import javax.enterprise.context.SessionScoped;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -19,16 +18,17 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
 /**
- * Klasa zajmująca się komunikacją z bazą danych,
- * zawiera metody używane przez resztę kodu w aplikacji do odczytywania aktualnego stanu bazy
- * i uaktualniania jej. Interakcja aplikacji z bazą danych jest ograniczona przez publiczne metody tej klasy.
- * Klasa używa do komunikacji z bazą danych obiektu reprezentującego sesję.
+ * Klasa zajmująca się komunikacją z bazą danych, zawiera metody używane przez
+ * resztę kodu w aplikacji do odczytywania aktualnego stanu bazy i uaktualniania
+ * jej. Interakcja aplikacji z bazą danych jest ograniczona przez publiczne
+ * metody tej klasy. Klasa używa do komunikacji z bazą danych obiektu
+ * reprezentującego sesję.
+ *
  * @author Daniel
  */
-
-@ManagedBean (name = "databaseDAO")
 @SessionScoped
-public class BucketlistController implements Serializable{
+@Named("databaseDAO")
+public class BucketlistController implements Serializable {
 
     private Session session;
 
@@ -45,38 +45,38 @@ public class BucketlistController implements Serializable{
     }
 
     /**
-     * Domyślny kontruktor obiektów klasy. Przy wywołaniu otwiera nową sesję
-     * umożliwiającą komunikację z bazą danych.
+     * Przy wywołaniu otwiera nową sesję umożliwiającą komunikację z bazą
+     * danych.
      */
-    
-    
     public void openSession() {
         session = factory.openSession();
     }
 
     /**
-     * Metoda powinna być wywoływana po zakończeniu pracy z kontrolerem
-     * w celu zamknięcia sesji i umożliwienia zwolnienia nieużywanych zasobów.
+     * Metoda powinna być wywoływana po zakończeniu pracy z kontrolerem w celu
+     * zamknięcia sesji i umożliwienia zwolnienia nieużywanych zasobów.
      */
     public void CloseSession() {
         session.close();
     }
 
     /**
-     * Metoda służy do dodawania do bazy danych nowego użytkownika ze zdefiniowanym
-     * adresem email i hasłem. Jest to minimalny zestaw informacji umożliwiający
-     * stworzenie nowego użytkownika.
+     * Metoda służy do dodawania do bazy danych nowego użytkownika ze
+     * zdefiniowanym adresem email i hasłem. Jest to minimalny zestaw informacji
+     * umożliwiający stworzenie nowego użytkownika.
+     *
      * @param email adres email, który ma być przypisany do nowego użytkwnika
      * @param passwordHash hasło nowego użytkownika
      */
     public void addNewUser(String email, String passwordHash) {
         this.addNewUser(null, null, email, passwordHash);
     }
-    
+
     /**
-     * Metoda służy do dodawania do bazy danych nowego użytkownika ze zdefiniowanym
-     * imieniem, nazwiskiem, adresem email i hasłem. Jest to kompletny zestaw informacji przechowywanych
-     * na temat użytkownika.
+     * Metoda służy do dodawania do bazy danych nowego użytkownika ze
+     * zdefiniowanym imieniem, nazwiskiem, adresem email i hasłem. Jest to
+     * kompletny zestaw informacji przechowywanych na temat użytkownika.
+     *
      * @param firstName imię nowego użytkownika
      * @param lastName nazwisko nowego użytkonwika
      * @param email adres email, który ma być przypisany do nowego użytkwnika
@@ -90,34 +90,36 @@ public class BucketlistController implements Serializable{
         session.persist(newUser);
         t.commit();
     }
-    
+
     /**
-     * Metoda zwracająca kompletny obiekt BucketlistUserInfo przechowujący wszystkie
-     * informacje o użytkonwiku zdefiniowane podczas wprowadzania do bazy danych.
+     * Metoda zwracająca kompletny obiekt BucketlistUserInfo przechowujący
+     * wszystkie informacje o użytkonwiku zdefiniowane podczas wprowadzania do
+     * bazy danych.
+     *
      * @param id numer id użytkownika serwisu, którego obiekt ma być zwrócony
      * @return obiekt przechowujący dostępne dane o użytkowniku
      */
     public BucketlistUserInfo getUser(int id) {
         BucketlistUserInfo retrievedUser;
         //Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.id = '" + id + "'");
-        
-        retrievedUser = (BucketlistUserInfo)session.get(BucketlistUserInfo.class, id); //q.list().get(0);
-        
+
+        retrievedUser = (BucketlistUserInfo) session.get(BucketlistUserInfo.class, id); //q.list().get(0);
+
         return retrievedUser;
     }
-    
+
     /**
      * Metoda dodająca użytkownikowi o podanym id nowy cel o zawartości podanej
      * w parametrze content.
+     *
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
      */
-    public void addListItemToUser(int userId, String content)
-    {
+    public void addListItemToUser(int userId, String content) {
         Transaction t = session.beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content);
-        
+
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
@@ -127,6 +129,7 @@ public class BucketlistController implements Serializable{
 
     /**
      * Metoda zwraca cele danego użytkownika
+     *
      * @param id
      * @return cele użytkownika
      */
@@ -138,22 +141,23 @@ public class BucketlistController implements Serializable{
 
         return retrievedItems;
     }
+
     /**
      * Metoda zwraca wszystkie cele
      *
-     * @return cele 
+     * @return cele
      */
-    public List<BucketlistListItem> getAllItems(){
+    public List<BucketlistListItem> getAllItems() {
         List<BucketlistListItem> retrievedItems;
         Query q = session.createQuery("from BucketlistListItem");
         retrievedItems = (List<BucketlistListItem>) q.list();
-        
+
         return retrievedItems;
     }
-    
 
     /**
      * Metoda zwraca użytkownika
+     *
      * @param email Email użytkownika, który ma być zwrócony
      * @return obiekt przechowujący dostępne dane o użytkowniku
      */
@@ -171,17 +175,17 @@ public class BucketlistController implements Serializable{
 
         return retrievedUser;
     }
-    
+
     public boolean checkPassword(String userEmail, String password) {
-        
+
         List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
-        
-        return !retrievedUser.isEmpty() &&
-                retrievedUser.get(0).getPasswordHash().equals(password);
-        
+
+        return !retrievedUser.isEmpty()
+                && retrievedUser.get(0).getPasswordHash().equals(password);
+
     }
 }
