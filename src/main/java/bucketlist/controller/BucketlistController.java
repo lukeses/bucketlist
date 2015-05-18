@@ -290,10 +290,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
     public List<BucketlistUserInfo> getAllUsersButMe() {
         int myId = getMyId();
         List<BucketlistUserInfo> users;
-        openSession();
         Query q = session.createQuery("from BucketlistUserInfo where id <> " + myId);
         users = (List<BucketlistUserInfo>) q.list();
-        closeSession();
         
         return users;
     }
