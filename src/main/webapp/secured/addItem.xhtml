@@ -17,16 +17,22 @@
                 <f:viewParam name="itemId" value="#{itemController.itemId}" />
                 <f:viewAction action="#{itemController.init}" />
             </f:metadata>
-            
-            <h:form>
-                <h:outputLabel value="Item name:" />
-                <h:inputText value="#{itemController.name}" />
-                
-                <h:outputLabel value="Item description" />
-                <h:inputText value="#{itemController.description}" />
-                
-                <h:commandButton value="Add" action="#{itemController.addItem()}"/>
-            </h:form>
+
+            <p:panel id="custom" header="Add Item">
+                <h:form>
+                    <h:panelGrid columns="2">
+
+                        Item name: 
+                        <h:inputText value="#{itemController.name}" />
+                        <br/>
+                        Item description: 
+                        <h:inputText value="#{itemController.description}" />
+                        <br/>  
+                        <h:commandButton value="Add" action="#{itemController.addItem()}"/>       
+
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
         </h:body>
 
     </f:view>
