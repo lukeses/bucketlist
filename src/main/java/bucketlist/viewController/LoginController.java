@@ -12,6 +12,7 @@ import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -53,14 +54,18 @@ public class LoginController implements Serializable {
 
     public String tryToLogin() {
         database.openSession();
-        boolean result = database.checkPassword(userName, userPassword);
-        database.CloseSession();
+        int id = database.checkPassword(userName, userPassword);
+        database.closeSession();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+        session.setAttribute("userId", id);
 
-        if (result) {
+        if (id != -1) {
             loggedIn = true;
             return "/secured/userItems.xhtml?faces-redirect=true";
-
         }
+        
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
         FacesContext.getCurrentInstance().addMessage(null, msg);

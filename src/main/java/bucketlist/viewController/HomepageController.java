@@ -36,7 +36,7 @@ public class HomepageController implements Serializable{
     public List<BucketlistListItem> getList() {
         this.database.openSession();
         List<BucketlistListItem> result = this.database.getAllItems();
-        this.database.CloseSession();
+        this.database.closeSession();
         return result;
     }
     

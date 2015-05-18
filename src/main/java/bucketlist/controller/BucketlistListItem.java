@@ -19,8 +19,10 @@ public class BucketlistListItem {
      *
      * @param content opis celu użytkownika
      */
-    public BucketlistListItem(String content) {
+    public BucketlistListItem(String content, String description) {
         this.content = content;
+        this.description = description;
+        this.progress = 0;
     }
 
     /**
@@ -33,6 +35,8 @@ public class BucketlistListItem {
 
     private int itemId;
     private String content;
+    private String description;
+    private int progress;
 
     /**
      * Zwraca identyfikator obiektu celu w bazie danych. Każdy cel można
@@ -72,6 +76,7 @@ public class BucketlistListItem {
     public void setContent(String content) {
         this.content = content;
     }
+<<<<<<< HEAD:src/main/java/bucketlist/controller/BucketlistListItem.java
 
     private boolean editable;
 
@@ -89,4 +94,22 @@ public class BucketlistListItem {
         this.editable = editable;
     }
 
+=======
+    
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    
+    public int getProgress() {
+        return progress;
+    }
+    
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+>>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138:src/main/java/bucketlist/model/BucketlistListItem.java
 }

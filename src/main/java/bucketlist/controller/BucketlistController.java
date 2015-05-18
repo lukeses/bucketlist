@@ -56,7 +56,7 @@ public class BucketlistController implements Serializable {
      * Metoda powinna być wywoływana po zakończeniu pracy z kontrolerem w celu
      * zamknięcia sesji i umożliwienia zwolnienia nieużywanych zasobów.
      */
-    public void CloseSession() {
+    public void closeSession() {
         session.close();
     }
 
@@ -115,16 +115,27 @@ public class BucketlistController implements Serializable {
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
      */
+<<<<<<< HEAD
     public void addListItemToUser(int userId, String content) {
         Transaction t = session.beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content);
 
+=======
+    public void addListItemToUser(int userId, String content, String description)
+    {
+        openSession();
+        Transaction t = session.beginTransaction();
+
+        BucketlistListItem newItem = new BucketlistListItem(content, description);
+        
+>>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
         session.persist(user);
         t.commit();
+        closeSession();
     }
 
     /**
@@ -175,17 +186,49 @@ public class BucketlistController implements Serializable {
 
         return retrievedUser;
     }
+<<<<<<< HEAD
 
     public boolean checkPassword(String userEmail, String password) {
 
+=======
+    
+    public int checkPassword(String userEmail, String password) {
+        
+>>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
         List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
+<<<<<<< HEAD
 
         return !retrievedUser.isEmpty()
                 && retrievedUser.get(0).getPasswordHash().equals(password);
 
+=======
+        
+        if(!retrievedUser.isEmpty() && retrievedUser.get(0).getPasswordHash().equals(password))
+            return retrievedUser.get(0).getId();
+        else
+            return -1;
+    }
+    
+    public BucketlistListItem getItemById(int itemId)
+    {
+        List<BucketlistListItem> retrievedItems;
+        Query q = session.createQuery("from BucketlistListItem where item_id = " + itemId);
+        retrievedItems = (List<BucketlistListItem>) q.list();
+        
+        return retrievedItems.get(0);
+    }
+    
+    public void saveItem(int itemId, String name, String description)
+    {
+        Transaction t = session.beginTransaction();
+        BucketlistListItem item = getItemById(itemId);
+        item.setContent(name);
+        item.setDescription(description);
+        t.commit();
+>>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
     }
 }
