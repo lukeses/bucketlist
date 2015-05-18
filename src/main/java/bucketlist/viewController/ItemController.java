@@ -10,8 +10,6 @@ import bucketlist.controller.BucketlistListItem;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -88,7 +86,7 @@ public class ItemController {
      * @return
      */
     public String addItem() {
-        database.addListItemToUser(getMyId(), this.name, this.description);
+        database.addMyListItem(this.name, this.description);
         
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
@@ -107,24 +105,17 @@ public class ItemController {
      *
      */
     public void init() {
-        database.openSession();
-        BucketlistListItem item = database.getItemById(this.itemId);
+        if(itemId != 0) {
+            database.openSession();
+            BucketlistListItem item = database.getItemById(this.itemId);
 
-        this.name = item.getContent();
-        this.description = item.getDescription();
-    }
-    
-    /**
-     *
-     * @return
-     */
-    public int getMyId() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-        
-        if(session.getAttribute("userId") == null)
-            return -1;
-        else 
-            return (int) session.getAttribute("userId");
+
+            this.name = item.getContent();
+            this.description = item.getDescription();
+        }
+        else {
+            this.name = "";
+            this.description = "";
+        }
     }
 }

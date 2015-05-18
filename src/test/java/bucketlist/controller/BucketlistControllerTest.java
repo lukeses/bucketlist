@@ -6,6 +6,7 @@
 package bucketlist.controller;
 
 import bucketlist.model.BucketlistUserInfo;
+import bucketlist.viewController.ItemController;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -265,6 +266,20 @@ public class BucketlistControllerTest {
         BucketlistListItem item = null;
         BucketlistController instance = new BucketlistController();
         instance.deleteItem(item);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+    
+        /**
+     * Test of getMyId method, of class ItemController.
+     */
+    @Test
+    public void testGetMyId() {
+        System.out.println("getMyId");
+        BucketlistController instance = new BucketlistController();
+        int expResult = 0;
+        int result = instance.getMyId();
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

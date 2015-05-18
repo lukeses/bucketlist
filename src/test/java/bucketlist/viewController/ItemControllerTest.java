@@ -186,19 +186,5 @@ public class ItemControllerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-
-    /**
-     * Test of getMyId method, of class ItemController.
-     */
-    @Test
-    public void testGetMyId() {
-        System.out.println("getMyId");
-        ItemController instance = new ItemController();
-        int expResult = 0;
-        int result = instance.getMyId();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

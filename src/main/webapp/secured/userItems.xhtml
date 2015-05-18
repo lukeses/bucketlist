@@ -19,7 +19,8 @@
                 Welcome #{loginController.userName}!
                 <br/>
 
-                <p:commandButton ajax="false" value="Log out" action="#{loginController.logout}" />          
+                <p:commandButton ajax="false" value="Log out" action="#{loginController.logout}" />  
+                <p:button outcome="addItem" value="Add item" />
 
                 <p:dataScroller value="#{userItemsController.list}" var="listItem">
 

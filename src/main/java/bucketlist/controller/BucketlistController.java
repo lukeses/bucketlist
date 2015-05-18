@@ -11,6 +11,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -243,6 +245,7 @@ public class BucketlistController implements Serializable {
         return !retrievedUser.isEmpty();
     }
 
+
     /**
      *
      * @param item
@@ -271,4 +274,33 @@ public class BucketlistController implements Serializable {
     }
     
     
+
+    
+    public void addMyListItem(String content, String description)
+    {
+        int myId = getMyId();
+        addListItemToUser(myId, content, description);
+    }
+    
+    public List<BucketlistUserInfo> getAllUsersButMe() {
+        int myId = getMyId();
+        List<BucketlistUserInfo> users;
+        openSession();
+        Query q = session.createQuery("from BucketlistUserInfo where id <> " + myId);
+        users = (List<BucketlistUserInfo>) q.list();
+        closeSession();
+        
+        return users;
+    }
+    
+    public int getMyId() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession sess = (HttpSession) context.getExternalContext().getSession(true);
+        
+        if(sess.getAttribute("userId") == null)
+            return -1;
+        else 
+            return (int) sess.getAttribute("userId");
+    }
+
 }
