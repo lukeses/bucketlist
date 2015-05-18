@@ -6,20 +6,21 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
-import bucketlist.model.BucketlistListItem;
-import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
  * @author Daniel
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class LoginController {
-    @ManagedProperty (value = "#{databaseDAO}") 
+
+    @ManagedProperty(value = "#{databaseDAO}")
     private BucketlistController database;
     private String userName;
     private String userPassword;
@@ -30,7 +31,7 @@ public class LoginController {
     public void setDatabase(BucketlistController database) {
         this.database = database;
     }
-    
+
     public String getUserName() {
         return userName;
     }
@@ -46,16 +47,36 @@ public class LoginController {
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
     }
-    
+
+    private boolean loggedIn;
+
     public String tryToLogin() {
         database.openSession();
-        database.getUserByEmail(userName);
         boolean result = database.checkPassword(userName, userPassword);
         database.CloseSession();
-        
-        if (result)
-            return "userItems.xhtml";
-        else return "logpanel.jsp";
+
+        if (result) {
+            loggedIn = true;
+            return "/secured/userItems.xhtml?faces-redirect=true";
+
+        }
+        FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
+        msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        return null;
     }
-    
+
+    public String logout() {
+        loggedIn = false;
+
+        FacesMessage msg = new FacesMessage("Logout success!", "INFO MSG");
+        msg.setSeverity(FacesMessage.SEVERITY_INFO);
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+
+        return "/logpanel.xhtml?faces-redirect=true";
+    }
+
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
 }

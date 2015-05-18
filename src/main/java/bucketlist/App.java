@@ -20,17 +20,7 @@ public class App {
      * @param args tablica parametrów startowych używana do inicjalizacji aplikacji
      */
     public static void main(String[] args) {
-        //System.out.println("Hello World!");
-        //  Configuration config = new Configuration();
-        //  config.addAnnotatedClass(BucketlistUserInfo.class);
-        //  config.addAnnotatedClass(BucketlistListItem.class);
-        //To add new table:
-        //config.addAnnotatedClass(*.class);
-        //  config.configure("hibernate.cfg.xml");
-        //new SchemaExport(config).create(true, true);
-
         Test();
-
     }
 
     /**
@@ -39,6 +29,7 @@ public class App {
      */
     public static void Test() {
         BucketlistController c = new BucketlistController();
+        c.openSession();
         c.addNewUser("Jan", "Kowalski", "kowal82@buziaczek.pl", "irenka15");
         c.addNewUser("Jan", "Nowak", "j.nowak@gmail.com", "trudn3h45l0");
 

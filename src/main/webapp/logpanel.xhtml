@@ -19,18 +19,31 @@ and open the template in the editor.
             </f:facet>
         </h:head>
         <h:body>
+            <h:messages globalOnly="true" id="err" />
             <p:panel id="custom" header="Logon">
-                <h:form>  
+                <h:form>
                     <h:panelGrid columns="2">
+
                         Username: 
-                        <p:inputText value="#{loginbean.username}" required="true" requiredMessage="Please enter a username "/>
+                        <p:inputText id="name" value="#{loginController.userName}" required="true" requiredMessage="Please enter a username "/>
                         <br/>
                         Password: 
-                        <p:password value="#{loginbean.password}" required="true" requiredMessage="Please enter a password"/>
+                        <p:password id="pass" value="#{loginController.userPassword}" required="true" requiredMessage="Please enter a password"/>
                         <br/>  
-                        <p:commandButton value="Log in" action="#{loginbean.authenticate}"/>          
-                    </h:panelGrid>  
+                        <p:commandButton ajax="false" update=":err" value="Log in" action="#{loginController.tryToLogin}" />          
+
+                    </h:panelGrid>
                 </h:form>
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <p:panel style="border:none;width:80px" />
+                        <p:commandButton
+                            value="Register"
+                            ajax="false"
+                            action="regpanel.xhmtl?faces-redirect=true"/>
+                    </h:panelGrid>
+                </h:form>
+
             </p:panel>
         </h:body>
     </f:view>

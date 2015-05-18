@@ -9,14 +9,13 @@
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>PrimeFaces</title>
+                <title>Home Page</title>
             </f:facet>
         </h:head>
 
         <h:body>
 
-            <p:layout fullPage="true">
-
+<!--
                 <p:layoutUnit position="north" size="100" resizable="true" closable="true" collapsible="true">
                     Header
                 </p:layoutUnit>
@@ -24,25 +23,29 @@
                 <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
                     Footer
                 </p:layoutUnit>
+-->
+                <h:form>
+                    <p:dataScroller value="#{homepageController.list}" var="listItem">
+                <h:panelGrid columns="2" >
+                    <h:graphicImage value=""/> 
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="ID:" />
+                            <h:outputText value="#{listItem.itemId}" style="font-weight: bold"/>
 
-                <p:layoutUnit position="west" size="175" header="Left" collapsible="true">
-                    <p:menu>
-                        <p:submenu label="Resources">
-                            <p:menuitem value="Demo" url="http://www.primefaces.org/showcase-labs/ui/home.jsf" />
-                            <p:menuitem value="Documentation" url="http://www.primefaces.org/documentation.html" />
-                            <p:menuitem value="Forum" url="http://forum.primefaces.org/" />
-                            <p:menuitem value="Themes" url="http://www.primefaces.org/themes.html" />
-
-                        </p:submenu>
-
-                    </p:menu>
-                </p:layoutUnit>
-
+                            <h:outputText value="Content:" />
+                            <h:outputText value="#{listItem.content}" style="font-weight: bold"/>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+<!--
                 <p:layoutUnit position="center">
                     Welcome to PrimeFaces
                 </p:layoutUnit>
-
-            </p:layout>
+-->
+         
 
         </h:body>
 

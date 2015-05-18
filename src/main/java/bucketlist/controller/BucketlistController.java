@@ -180,7 +180,8 @@ public class BucketlistController implements Serializable{
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
         
-        return retrievedUser.get(0).getPasswordHash().equals(password);
+        return !retrievedUser.isEmpty() &&
+                retrievedUser.get(0).getPasswordHash().equals(password);
         
     }
 }
