@@ -43,4 +43,20 @@ public class UserControllerTest {
 		
 	verify(mock);
     }
+    
+    @Test
+    public void testGetUserItems() {
+        IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        mock.openSession();
+        expect(mock.getUserItems(-1)).andReturn(null);
+        mock.closeSession();
+		
+	replay(mock);
+	UserController c = new UserController();
+        c.setDatabase(mock);
+        c.setUserId(0);
+        c.getUserItems();
+		
+	verify(mock);
+    }
 }
