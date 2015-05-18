@@ -32,7 +32,9 @@ public class UserControllerTest {
     @Test
     public void testGetUsers() {
         IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        mock.openSession();
         expect(mock.getAllUsersButMe()).andReturn(null);
+        mock.closeSession();
 		
 	replay(mock);
 	UserController c = new UserController();
@@ -41,5 +43,4 @@ public class UserControllerTest {
 		
 	verify(mock);
     }
-    
 }
