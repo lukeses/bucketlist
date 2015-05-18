@@ -6,6 +6,7 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
+import bucketlist.controller.BucketlistDatabaseTest;
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
@@ -27,62 +28,18 @@ public class UserControllerTest {
     
     public UserControllerTest() {
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
-    /**
-     * Test of setDatabase method, of class UserController.
-     */
-    @Test
-    public void testSetDatabase() {
-        System.out.println("setDatabase");
-        BucketlistController database = null;
-        UserController instance = new UserController();
-        instance.setDatabase(database);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getUsers method, of class UserController.
-     */
     @Test
     public void testGetUsers() {
-        System.out.println("getUsers");
-        UserController instance = new UserController();
-        List<BucketlistUserInfo> expResult = null;
-        List<BucketlistUserInfo> result = instance.getUsers();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of getUserItems method, of class UserController.
-     */
-    @Test
-    public void testGetUserItems() {
-        System.out.println("getUserItems");
-        UserController instance = new UserController();
-        List<BucketlistListItem> expResult = null;
-        List<BucketlistListItem> result = instance.getUserItems();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        expect(mock.getAllUsersButMe()).andReturn(null);
+		
+	replay(mock);
+	UserController c = new UserController();
+        c.setDatabase(mock);
+        c.getUsers();
+		
+	verify(mock);
     }
     
 }

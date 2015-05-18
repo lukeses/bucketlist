@@ -70,7 +70,7 @@ public class BucketlistDatabaseTest implements IBucketlistDatabase {
 
     @Override
     public List<BucketlistListItem> getUserItems(int userId) {
-        return new ArrayList<BucketlistListItem>();
+        return null;
     }
 
     @Override
