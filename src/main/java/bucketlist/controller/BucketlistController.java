@@ -184,4 +184,14 @@ public class BucketlistController implements Serializable{
                 retrievedUser.get(0).getPasswordHash().equals(password);
         
     }
+    
+    public boolean userExists(String userEmail) {
+        List<BucketlistUserInfo> retrievedUser;
+
+        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
+
+        retrievedUser = (List<BucketlistUserInfo>) q.list();
+        
+        return !retrievedUser.isEmpty();
+    }
 }
