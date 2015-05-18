@@ -16,27 +16,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
+ * Klasa filtrująca dostęp do zabezpieczonych stron.
+ * Zapobiega nieautoryzowanemu dostępowi do stron użytkoników.
  * @author AdamS
  */
 public class LoginFilter implements Filter {
 
     /**
-     *
-     * @param fc
-     * @throws ServletException
+     * Implementacja abstrakcyjnej metody init.
+     * @param fc obiekt FilterConfig
+     * @throws ServletException wyjątek inicjalizacji
      */
     @Override
     public void init(FilterConfig fc) throws ServletException {
     }
 
     /**
-     *
-     * @param request
-     * @param response
-     * @param chain
-     * @throws IOException
-     * @throws ServletException
+     * Metoda filtrująca żądania dostępu
+     * @param request żądanie dostępu
+     * @param response odpowiedź serwera
+     * @param chain obiekt klasy filtrującej
+     * @throws IOException wyjątek IO
+     * @throws ServletException wyjątek servletu
      */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -50,7 +51,7 @@ public class LoginFilter implements Filter {
     }
 
     /**
-     *
+     * Implementacja abstrakcyjnej metody destroy
      */
     @Override
     public void destroy() {

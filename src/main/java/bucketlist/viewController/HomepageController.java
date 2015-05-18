@@ -14,7 +14,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 
 /**
- *
+ * Klasa obsługująca stronę homepage.xhtml
  * @author Daniel
  */
 
@@ -26,15 +26,16 @@ public class HomepageController implements Serializable{
     private BucketlistController database;
 
     /**
-     * @param database the database to set
+     * Miejsce wstrzyknięcia klasy obsługującej bazę danych
+     * @param database obiekt do wstrzyknięcia
      */
     public void setDatabase(BucketlistController database) {
         this.database = database;
     }
     
     /**
-     *
-     * @return
+     * Zwraca listę celów dla wszystkich użytkowników.
+     * @return lista celów
      */
     public List<BucketlistListItem> getList() {
         this.database.openSession();

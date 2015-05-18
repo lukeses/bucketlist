@@ -127,7 +127,8 @@ public class RegistrationController implements Serializable {
     }
     
     /**
-     * @param database the database to set
+     * Miejsce wstrzyknięcia klasy obsługującej bazę danych
+     * @param database obiekt do wstrzyknięcia
      */
     public void setDatabase(BucketlistController database) {
         this.database = database;

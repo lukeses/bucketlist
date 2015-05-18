@@ -26,8 +26,8 @@ public class ItemController {
     private String description;
     
     /**
-     *
-     * @param database
+     * Miejsce wstrzyknięcia klasy obsługującej bazę danych
+     * @param database obiekt do wstrzyknięcia
      */
     public void setDatabase(BucketlistController database) {
         this.database = database;

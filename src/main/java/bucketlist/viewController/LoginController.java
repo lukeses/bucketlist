@@ -11,12 +11,12 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Klasa obsługująca żądania ze strony logpanel.xhtml
+ * oraz zachowująca stan sesji użytkownika.
  * @author Daniel
  */
 
@@ -31,39 +31,40 @@ public class LoginController implements Serializable {
     private String userPassword;
 
     /**
-     * @param database the database to set
+     * Miejsce wstrzyknięcia klasy obsługującej bazę danych
+     * @param database obiekt do wstrzyknięcia
      */
     public void setDatabase(BucketlistController database) {
         this.database = database;
     }
 
     /**
-     *
-     * @return
+     * Zwraca aktualną wartość pola userName
+     * @return adres email
      */
     public String getUserName() {
         return userName;
     }
 
     /**
-     *
-     * @param userName
+     * Ustawia aktualną wartość pola userName
+     * @param userName adres email
      */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
     /**
-     *
-     * @return
+     * Zwraca aktualną wartość pola userPassword
+     * @return hasło
      */
     public String getUserPassword() {
         return userPassword;
     }
 
     /**
-     *
-     * @param userPassword
+     * Ustawia aktualną wartość pola userPassword
+     * @param userPassword hasło
      */
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
@@ -72,8 +73,9 @@ public class LoginController implements Serializable {
     private boolean loggedIn;
 
     /**
-     *
-     * @return
+     * Funkcja podejmująca próbę zalgowania użytkownika.
+     * Weryfikuje poprawność wprowadzonych danych
+     * @return przekierowanie na odpowiednią stronę
      */
     public String tryToLogin() {
         database.openSession();
@@ -96,8 +98,8 @@ public class LoginController implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Funkcja wylogowująca użytkownika
+     * @return przekierowanie na odpowiednią stronę
      */
     public String logout() {
         loggedIn = false;
@@ -110,8 +112,8 @@ public class LoginController implements Serializable {
     }
 
     /**
-     *
-     * @return
+     * Funkcja sprawdzająca stan sesji użytkownika, czy jest zalogowany.
+     * @return czy jest zalogowany
      */
     public boolean isLoggedIn() {
         return loggedIn;
