@@ -8,6 +8,13 @@ package bucketlist.controller;
 import bucketlist.model.BucketlistUserInfo;
 import bucketlist.viewController.ItemController;
 import java.util.List;
+import org.easymock.EasyMock.*;
+import org.easymock.*;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,7 +26,14 @@ import static org.junit.Assert.*;
  *
  * @author Adam
  */
-public class BucketlistControllerTest {
+public class BucketlistControllerTest  extends EasyMockSupport{
+    
+ //   @Mock
+ //   private Session session;
+    
+ //   @TestSubject
+ //   private final BucketlistController bucketlistController = new BucketlistController();
+    
     
     /**
      *
@@ -84,13 +98,13 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testAddNewUser_String_String() {
-        System.out.println("addNewUser");
-        String email = "";
-        String passwordHash = "";
-        BucketlistController instance = new BucketlistController();
-        instance.addNewUser(email, passwordHash);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        BucketlistController bucketlistController = new BucketlistController();
+        Session session = createMock(Session.class);
+        Transaction transaction = createMock(Transaction.class);
+        expect(session.beginTransaction()).andReturn(transaction);
+        replay(session);
+        bucketlistController.addNewUser("lukozar@gmail.com", "password");
+        verify(session);
     }
 
     /**
