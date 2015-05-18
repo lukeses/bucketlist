@@ -6,11 +6,12 @@
 package bucketlist.model;
 
 //import javax.persistence.Entity;
+import bucketlist.controller.BucketlistListItem;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
 
 /**
  * Klasa reprezentująca użytkownika. Zawiera ogólne informacje o użytkownika i
@@ -18,8 +19,8 @@ import javax.faces.bean.RequestScoped;
  * nowego użytkownika.
  * @author Daniel
  */
-@ManagedBean (name = "user")
 @RequestScoped
+@Named("user")
 public class BucketlistUserInfo {
     private int id;
     private String firstName;
@@ -44,7 +45,7 @@ public class BucketlistUserInfo {
         this.email = email;
         this.passwordHash = password; //not hashed yet
         this.registrationDate = new Date();
-        this.listItems = new ArrayList<BucketlistListItem>();
+        this.listItems = new ArrayList<>();
     }
     
     /**

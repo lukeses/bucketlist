@@ -8,18 +8,23 @@ package bucketlist.viewController;
 import bucketlist.controller.BucketlistController;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Daniel
  */
-@ManagedBean
 @SessionScoped
+<<<<<<< HEAD
 public class LoginController implements Serializable{
+=======
+@Named
+public class LoginController implements Serializable {
+>>>>>>> d3664201b9c79fb79ba8446db48bc1d41cc43e59
 
     @ManagedProperty(value = "#{databaseDAO}")
     private BucketlistController database;
@@ -53,14 +58,18 @@ public class LoginController implements Serializable{
 
     public String tryToLogin() {
         database.openSession();
-        boolean result = database.checkPassword(userName, userPassword);
-        database.CloseSession();
+        int id = database.checkPassword(userName, userPassword);
+        database.closeSession();
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+        session.setAttribute("userId", id);
 
-        if (result) {
+        if (id != -1) {
             loggedIn = true;
             return "/secured/userItems.xhtml?faces-redirect=true";
-
         }
+        
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
         FacesContext.getCurrentInstance().addMessage(null, msg);
