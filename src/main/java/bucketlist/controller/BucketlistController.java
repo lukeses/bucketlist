@@ -115,13 +115,7 @@ public class BucketlistController implements Serializable {
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
      */
-<<<<<<< HEAD
-    public void addListItemToUser(int userId, String content) {
-        Transaction t = session.beginTransaction();
 
-        BucketlistListItem newItem = new BucketlistListItem(content);
-
-=======
     public void addListItemToUser(int userId, String content, String description)
     {
         openSession();
@@ -129,7 +123,6 @@ public class BucketlistController implements Serializable {
 
         BucketlistListItem newItem = new BucketlistListItem(content, description);
         
->>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
@@ -186,26 +179,15 @@ public class BucketlistController implements Serializable {
 
         return retrievedUser;
     }
-<<<<<<< HEAD
 
-    public boolean checkPassword(String userEmail, String password) {
-
-=======
     
     public int checkPassword(String userEmail, String password) {
         
->>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
         List<BucketlistUserInfo> retrievedUser;
 
         Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
-<<<<<<< HEAD
-
-        return !retrievedUser.isEmpty()
-                && retrievedUser.get(0).getPasswordHash().equals(password);
-
-=======
         
         if(!retrievedUser.isEmpty() && retrievedUser.get(0).getPasswordHash().equals(password))
             return retrievedUser.get(0).getId();
@@ -229,6 +211,5 @@ public class BucketlistController implements Serializable {
         item.setContent(name);
         item.setDescription(description);
         t.commit();
->>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138
     }
 }

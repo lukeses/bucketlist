@@ -6,8 +6,7 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
-import bucketlist.model.BucketlistListItem;
-import java.util.List;
+import bucketlist.controller.BucketlistListItem;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;

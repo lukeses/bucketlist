@@ -58,7 +58,7 @@ public class BucketlistControllerTest {
     public void testCloseSession() {
         System.out.println("CloseSession");
         BucketlistController instance = new BucketlistController();
-        instance.CloseSession();
+        instance.closeSession();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -116,8 +116,9 @@ public class BucketlistControllerTest {
         System.out.println("addListItemToUser");
         int userId = 0;
         String content = "";
+        String description = "";
         BucketlistController instance = new BucketlistController();
-        instance.addListItemToUser(userId, content);
+        instance.addListItemToUser(userId, content, description);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
@@ -176,7 +177,7 @@ public class BucketlistControllerTest {
         String password = "";
         BucketlistController instance = new BucketlistController();
         boolean expResult = false;
-        boolean result = instance.checkPassword(userEmail, password);
+        int result = instance.checkPassword(userEmail, password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");

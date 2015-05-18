@@ -76,7 +76,6 @@ public class BucketlistListItem {
     public void setContent(String content) {
         this.content = content;
     }
-<<<<<<< HEAD:src/main/java/bucketlist/controller/BucketlistListItem.java
 
     private boolean editable;
 
@@ -94,7 +93,6 @@ public class BucketlistListItem {
         this.editable = editable;
     }
 
-=======
     
     public String getDescription() {
         return description;
@@ -111,5 +109,4 @@ public class BucketlistListItem {
     public void setProgress(int progress) {
         this.progress = progress;
     }
->>>>>>> 870bbdc33c456514828032325e0955c0d8f9f138:src/main/java/bucketlist/model/BucketlistListItem.java
 }

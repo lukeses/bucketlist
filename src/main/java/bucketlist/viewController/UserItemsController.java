@@ -41,7 +41,7 @@ public class UserItemsController implements Serializable {
             this.database.openSession();
             List<BucketlistUserInfo> user = database.getUserByEmail(login.getUserName());
             list = this.database.getUserItems(user.get(0).getId());
-            this.database.CloseSession();
+            this.database.closeSession();
         }
         return list;
     }
