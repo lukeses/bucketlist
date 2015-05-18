@@ -7,7 +7,12 @@ package bucketlist.controller;
 
 import bucketlist.model.BucketlistUserInfo;
 import bucketlist.viewController.ItemController;
+import bucketlist.viewController.UserController;
 import java.util.List;
+import static org.easymock.EasyMock.createStrictMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -84,6 +89,10 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testAddNewUser_String_String() {
+    
+        
+        
+        
         System.out.println("addNewUser");
         String email = "";
         String passwordHash = "";

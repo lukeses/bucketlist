@@ -32,9 +32,23 @@ import org.hibernate.cfg.Configuration;
 @ManagedBean(name = "databaseDAO")
 public class BucketlistController implements Serializable, IBucketlistDatabase {
 
+    /**
+     * @return the factory
+     */
+    public static SessionFactory getFactory() {
+        return factory;
+    }
+
+    /**
+     * @param aFactory the factory to set
+     */
+    public static void setFactory(SessionFactory aFactory) {
+        factory = aFactory;
+    }
+
     private Session session;
 
-    private static final SessionFactory factory = init();
+    private static SessionFactory factory = init();
 
     private static SessionFactory init() {
         Configuration configuration = new Configuration().configure();
@@ -50,16 +64,18 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * Przy wywołaniu otwiera nową sesję umożliwiającą komunikację z bazą
      * danych.
      */
+    @Override
     public void openSession() {
-        session = factory.openSession();
+        setSession(getFactory().openSession());
     }
 
     /**
      * Metoda powinna być wywoływana po zakończeniu pracy z kontrolerem w celu
      * zamknięcia sesji i umożliwienia zwolnienia nieużywanych zasobów.
      */
+    @Override
     public void closeSession() {
-        session.close();
+        getSession().close();
     }
 
     /**
@@ -84,12 +100,13 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param email adres email, który ma być przypisany do nowego użytkwnika
      * @param passwordHash hasło nowego użytkownika
      */
+    @Override
     public void addNewUser(String firstName, String lastName, String email, String passwordHash) {
-        Transaction t = session.beginTransaction();
+        Transaction t = getSession().beginTransaction();
 
         BucketlistUserInfo newUser = new BucketlistUserInfo(firstName, lastName, email, passwordHash);
 
-        session.persist(newUser);
+        getSession().persist(newUser);
         t.commit();
     }
 
@@ -105,7 +122,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         BucketlistUserInfo retrievedUser;
         //Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.id = '" + id + "'");
 
-        retrievedUser = (BucketlistUserInfo) session.get(BucketlistUserInfo.class, id); //q.list().get(0);
+        retrievedUser = (BucketlistUserInfo) getSession().get(BucketlistUserInfo.class, id); //q.list().get(0);
 
         return retrievedUser;
     }
@@ -120,14 +137,14 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     public void addListItemToUser(int userId, String content, String description) {
         openSession();
-        Transaction t = session.beginTransaction();
+        Transaction t = getSession().beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content, description);
 
         BucketlistUserInfo user = getUser(userId);
         user.getListItems().add(newItem);
 
-        session.persist(user);
+        getSession().persist(user);
         t.commit();
         closeSession();
     }
@@ -140,7 +157,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     public List<BucketlistListItem> getUserItems(int id) {
         List<BucketlistListItem> retrievedItems;
-        Query q = session.createQuery("from BucketlistListItem where itemOwner = '" + id + "'");
+        Query q = getSession().createQuery("from BucketlistListItem where itemOwner = '" + id + "'");
 
         retrievedItems = (List<BucketlistListItem>) q.list();
 
@@ -154,7 +171,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     public List<BucketlistListItem> getAllItems() {
         List<BucketlistListItem> retrievedItems;
-        Query q = session.createQuery("from BucketlistListItem");
+        Query q = getSession().createQuery("from BucketlistListItem");
         retrievedItems = (List<BucketlistListItem>) q.list();
 
         return retrievedItems;
@@ -174,7 +191,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
         List<BucketlistUserInfo> retrievedUser;
 
-        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + email + "'");
+        Query q = getSession().createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + email + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
 
@@ -191,7 +208,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
         List<BucketlistUserInfo> retrievedUser;
 
-        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
+        Query q = getSession().createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
 
@@ -209,7 +226,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     public BucketlistListItem getItemById(int itemId) {
         List<BucketlistListItem> retrievedItems;
-        Query q = session.createQuery("from BucketlistListItem where item_id = " + itemId);
+        Query q = getSession().createQuery("from BucketlistListItem where item_id = " + itemId);
         retrievedItems = (List<BucketlistListItem>) q.list();
 
         return retrievedItems.get(0);
@@ -222,7 +239,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param description opis celu
      */
     public void saveItem(int itemId, String name, String description) {
-        Transaction t = session.beginTransaction();
+        Transaction t = getSession().beginTransaction();
         BucketlistListItem item = getItemById(itemId);
         item.setContent(name);
         item.setDescription(description);
@@ -237,7 +254,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
     public boolean userExists(String userEmail) {
         List<BucketlistUserInfo> retrievedUser;
 
-        Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
+        Query q = getSession().createQuery("from BucketlistUserInfo as userInfo where userInfo.email = '" + userEmail + "'");
 
         retrievedUser = (List<BucketlistUserInfo>) q.list();
 
@@ -250,8 +267,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param item cel
      */
     public void updateItem(BucketlistListItem item) {
-        Transaction t = session.beginTransaction();
-        Query query = session.createQuery("update BucketlistListItem set content = :content"
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("update BucketlistListItem set content = :content"
                 + " where id = :id");
         query.setParameter("content", item.getContent());
         query.setParameter("id", item.getItemId());
@@ -264,8 +281,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param item cel
      */
     public void deleteItem(BucketlistListItem item) {
-        Transaction t = session.beginTransaction();
-        Query query = session.createQuery("DELETE FROM BucketlistListItem"
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("DELETE FROM BucketlistListItem"
                 + " where id = :id");
         query.setParameter("id", item.getItemId());
         query.executeUpdate();
@@ -291,7 +308,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         int myId = getMyId();
         List<BucketlistUserInfo> users;
         openSession();
-        Query q = session.createQuery("from BucketlistUserInfo where id <> " + myId);
+        Query q = getSession().createQuery("from BucketlistUserInfo where id <> " + myId);
         users = (List<BucketlistUserInfo>) q.list();
         closeSession();
         
@@ -310,6 +327,20 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
             return -1;
         else 
             return (int) sess.getAttribute("userId");
+    }
+
+    /**
+     * @return the session
+     */
+    public Session getSession() {
+        return session;
+    }
+
+    /**
+     * @param session the session to set
+     */
+    public void setSession(Session session) {
+        this.session = session;
     }
 
 }
