@@ -13,6 +13,11 @@
             </f:facet>
         </h:head>
         <h:body>
+            <f:metadata>
+                <f:viewParam name="itemId" value="#{itemController.itemId}" />
+                <f:viewAction action="#{itemController.init}" />
+            </f:metadata>
+            
             <h:form>
                 <h:outputLabel value="Item name:" />
                 <h:inputText value="#{itemController.name}" />

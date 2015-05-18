@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Users</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form>
+                    <p:dataScroller value="#{userController.users}" var="user">
+                <h:panelGrid columns="1" >
+                    <p:outputPanel>
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText value="User:" />
+                            <h:outputText value="#{user.email}" style="font-weight: bold"/>
+                            
+                            <h:link value="show items" outcome="otherItems">
+                                <f:param name="id" value="#{user.id}" />
+                            </h:link>
+                        </h:panelGrid>
+                    </p:outputPanel>
+                </h:panelGrid>
+            </p:dataScroller>
+        </h:form>
+        </h:body>
+
+    </f:view>
+</html>
