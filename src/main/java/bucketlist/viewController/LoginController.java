@@ -82,9 +82,12 @@ public class LoginController implements Serializable {
         int id = database.checkPassword(userName, userPassword);
         database.closeSession();
         
+        
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-        session.setAttribute("userId", id);
+        if (context != null) {
+            HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+            session.setAttribute("userId", id);
+        }
 
         if (id != -1) {
             loggedIn = true;
@@ -93,7 +96,8 @@ public class LoginController implements Serializable {
         
         FacesMessage msg = new FacesMessage("Login error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        if (context != null)
+            context.addMessage(null, msg);
         return null;
     }
 
@@ -106,7 +110,9 @@ public class LoginController implements Serializable {
 
         FacesMessage msg = new FacesMessage("Logout success!", "INFO MSG");
         msg.setSeverity(FacesMessage.SEVERITY_INFO);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context != null)
+            context.addMessage(null, msg);
 
         return "/logpanel.xhtml?faces-redirect=true";
     }
