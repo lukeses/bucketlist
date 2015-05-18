@@ -7,6 +7,7 @@ package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
 import bucketlist.controller.BucketlistListItem;
+import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
 import java.util.List;
 import org.junit.After;
@@ -15,6 +16,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.easymock.EasyMock.*;
+import org.easymock.EasyMockSupport;
 
 /**
  *

@@ -6,6 +6,7 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
+import bucketlist.controller.IBucketlistDatabase;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +23,7 @@ import javax.faces.context.FacesContext;
 public class RegistrationController implements Serializable {
 
     @ManagedProperty(value = "#{databaseDAO}")
-    private BucketlistController database;
+    private IBucketlistDatabase database;
     private String firstName;
     private String lastName;
     private String password1;
@@ -130,7 +131,7 @@ public class RegistrationController implements Serializable {
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
      * @param database obiekt do wstrzyknięcia
      */
-    public void setDatabase(BucketlistController database) {
+    public void setDatabase(IBucketlistDatabase database) {
         this.database = database;
     }
     

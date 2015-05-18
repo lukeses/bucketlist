@@ -7,6 +7,7 @@ package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.BucketlistController;
+import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
 import java.util.List;
@@ -24,7 +25,7 @@ import javax.faces.bean.ViewScoped;
 public class UserItemsController implements Serializable {
 
     @ManagedProperty(value = "#{databaseDAO}")
-    private BucketlistController database;
+    private IBucketlistDatabase database;
     @ManagedProperty(value = "#{loginController}")
     private LoginController login;
 
@@ -32,7 +33,7 @@ public class UserItemsController implements Serializable {
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
      * @param database obiekt do wstrzyknięcia
      */
-    public void setDatabase(BucketlistController database) {
+    public void setDatabase(IBucketlistDatabase database) {
         this.database = database;
     }
 
@@ -78,7 +79,7 @@ public class UserItemsController implements Serializable {
     public String saveAction(BucketlistListItem item) {
         database.openSession();
         database.updateItem(item);
-        database.closeSession();
+        database.closeSession(); 
         item.setEditable(false);
         return null;
     }

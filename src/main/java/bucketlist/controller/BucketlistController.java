@@ -30,7 +30,7 @@ import org.hibernate.cfg.Configuration;
  */
 @SessionScoped
 @ManagedBean(name = "databaseDAO")
-public class BucketlistController implements Serializable {
+public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     private Session session;
 
