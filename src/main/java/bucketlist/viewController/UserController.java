@@ -43,7 +43,9 @@ public class UserController implements Serializable{
      * @return zwraca listę użytkowników zarejestrowanych w systemie
      */
     public List<BucketlistUserInfo> getUsers() {
+        this.database.openSession();
         this.users = database.getAllUsersButMe();
+        this.database.closeSession();
         
         return this.users;
     }
