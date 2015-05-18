@@ -117,7 +117,7 @@ public class BucketlistController implements Serializable {
      *
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
-     * @param description
+     * @param description opis celu
      */
     public void addListItemToUser(int userId, String content, String description) {
         openSession();
@@ -183,10 +183,10 @@ public class BucketlistController implements Serializable {
     }
 
     /**
-     *
-     * @param userEmail
-     * @param password
-     * @return
+     * Metoda sprawdzająca poprawność hasła dla danego adresu email.
+     * @param userEmail email użytkownika
+     * @param password hasło
+     * @return id w przypadku powodzenia, -1 w przeciwnym razie
      */
     public int checkPassword(String userEmail, String password) {
 
@@ -204,9 +204,9 @@ public class BucketlistController implements Serializable {
     }
 
     /**
-     *
-     * @param itemId
-     * @return
+     * Zwraca cel o podanym id
+     * @param itemId id celu
+     * @return cel
      */
     public BucketlistListItem getItemById(int itemId) {
         List<BucketlistListItem> retrievedItems;
@@ -217,10 +217,10 @@ public class BucketlistController implements Serializable {
     }
 
     /**
-     *
-     * @param itemId
-     * @param name
-     * @param description
+     * Zapisuje cel
+     * @param itemId id celu
+     * @param name zawartość celu
+     * @param description opis celu
      */
     public void saveItem(int itemId, String name, String description) {
         Transaction t = session.beginTransaction();
@@ -231,9 +231,9 @@ public class BucketlistController implements Serializable {
     }
 
     /**
-     *
-     * @param userEmail
-     * @return
+     * Sprawdza czy użytkownik o podanym adresie email istnieje
+     * @param userEmail adres email
+     * @return czy istnieje
      */
     public boolean userExists(String userEmail) {
         List<BucketlistUserInfo> retrievedUser;
@@ -247,8 +247,8 @@ public class BucketlistController implements Serializable {
 
 
     /**
-     *
-     * @param item
+     * Aktualizuje zawartość podanego celu
+     * @param item cel
      */
     public void updateItem(BucketlistListItem item) {
         Transaction t = session.beginTransaction();
@@ -261,8 +261,8 @@ public class BucketlistController implements Serializable {
     }
     
     /**
-     *
-     * @param item
+     * Usuwa podany cel
+     * @param item cel
      */
     public void deleteItem(BucketlistListItem item) {
         Transaction t = session.beginTransaction();
@@ -273,15 +273,21 @@ public class BucketlistController implements Serializable {
         t.commit();
     }
     
-    
-
-    
+    /**
+     * Dodaje cel dla zalogowanego użytkownika
+     * @param content zawartość
+     * @param description opis
+     */
     public void addMyListItem(String content, String description)
     {
         int myId = getMyId();
         addListItemToUser(myId, content, description);
     }
     
+    /**
+     * Zwraca listę wszystkich użytkowników poza zalogowanym
+     * @return lista użytkowników
+     */
     public List<BucketlistUserInfo> getAllUsersButMe() {
         int myId = getMyId();
         List<BucketlistUserInfo> users;
@@ -293,6 +299,10 @@ public class BucketlistController implements Serializable {
         return users;
     }
     
+    /**
+     * Zwraca id zalogowanego użytkownika
+     * @return id użytkownika
+     */
     public int getMyId() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession sess = (HttpSession) context.getExternalContext().getSession(true);

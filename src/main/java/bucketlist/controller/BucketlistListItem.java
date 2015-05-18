@@ -18,7 +18,7 @@ public class BucketlistListItem {
      * polem opisującym cel użytkownika.
      *
      * @param content opis celu użytkownika
-     * @param description
+     * @param description opis celu
      */
     public BucketlistListItem(String content, String description) {
         this.content = content;
@@ -81,46 +81,48 @@ public class BucketlistListItem {
     private boolean editable;
 
     /**
-     * @return the editable
+     * Sprawdza czy podany cel jest w trybie edycji
+     * @return tryb edycji
      */
     public boolean isEditable() {
         return editable;
     }
 
     /**
-     * @param editable the editable to set
+     * Ustawia tryb edycji dla danego celu
+     * @param editable czy ma być edytowalny
      */
     public void setEditable(boolean editable) {
         this.editable = editable;
     }
 
     /**
-     *
-     * @return
+     * Zwraca opis celu
+     * @return opis celu
      */
     public String getDescription() {
         return description;
     }
     
     /**
-     *
-     * @param description
+     * Ustawia opis celu
+     * @param description opis celu
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     *
-     * @return
+     * Zwraca poziom postępu
+     * @return postęp
      */
     public int getProgress() {
         return progress;
     }
     
     /**
-     *
-     * @param progress
+     * Ustawia poziom postępu
+     * @param progress postęp
      */
     public void setProgress(int progress) {
         this.progress = progress;

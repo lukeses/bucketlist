@@ -283,5 +283,33 @@ public class BucketlistControllerTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
+
+    /**
+     * Test of addMyListItem method, of class BucketlistController.
+     */
+    @Test
+    public void testAddMyListItem() {
+        System.out.println("addMyListItem");
+        String content = "";
+        String description = "";
+        BucketlistController instance = new BucketlistController();
+        instance.addMyListItem(content, description);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAllUsersButMe method, of class BucketlistController.
+     */
+    @Test
+    public void testGetAllUsersButMe() {
+        System.out.println("getAllUsersButMe");
+        BucketlistController instance = new BucketlistController();
+        List<BucketlistUserInfo> expResult = null;
+        List<BucketlistUserInfo> result = instance.getAllUsersButMe();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
