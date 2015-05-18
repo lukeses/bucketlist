@@ -21,13 +21,15 @@
 
                 <p:commandButton ajax="false" value="Log out" action="#{loginController.logout}" />  
                 <p:button outcome="addItem" value="Add item" />
+                <p:button outcome="users" value="Users" />
 
                 <p:dataScroller value="#{userItemsController.list}" var="listItem">
 
                     <p:outputPanel>
-                        <h:panelGrid columns="2" cellpadding="10">
+                        <h:panelGrid columns="3" cellpadding="10">
                             <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
                             <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
+                            <div class = "progressbar #{listItem.progress}"></div>
                         </h:panelGrid>
                     </p:outputPanel>
 

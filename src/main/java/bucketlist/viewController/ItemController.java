@@ -12,7 +12,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
 /**
- *
+ * Klasa obsługująca żądania ze strony addItem.xhtml.
+ * Umożliwia dodanie nowego celu do listy celów użytkownika
  * @author hanka
  */
 @ManagedBean
@@ -34,56 +35,56 @@ public class ItemController {
     }
     
     /**
-     *
-     * @return
+     * Pobiera identyfikator celu
+     * @return zwraca identyfikator celu
      */
     public int getItemId() {
         return this.itemId;
     }
     
     /**
-     *
-     * @param itemId
+     * Ustawia identyfikator celu
+     * @param itemId identyfikator celu
      */
     public void setItemId(int itemId) {
         this.itemId = itemId;
     }
     
     /**
-     *
-     * @return
+     * Pobiera nazwę celu
+     * @return zwraca nazwę celu
      */
     public String getName() {
         return this.name;
     }
     
     /**
-     *
-     * @param name
+     * Ustawia nazwę celu
+     * @param name nazwa celu
      */
     public void setName(String name) {
         this.name = name;
     }
     
     /**
-     *
-     * @return
+     * Pobiera opis celu
+     * @return zwraca opis celu
      */
     public String getDescription() {
         return this.description;
     }
     
     /**
-     *
-     * @param description
+     * Ustawia opis celu
+     * @param description opis celu
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     *
-     * @return
+     * Dodaje cel do listy celów użytkownika i przekierowuje do listy celów użytkownika
+     * @return docelowy adres url
      */
     public String addItem() {
         database.addMyListItem(this.name, this.description);
@@ -92,8 +93,8 @@ public class ItemController {
     }
 
     /**
-     *
-     * @return
+     * Edytuje cel użytkownika i przekierowuje do listy celów użytkownika
+     * @return docelowy adres url
      */
     public String update() {
         database.saveItem(this.itemId, this.name, this.description);
@@ -102,7 +103,7 @@ public class ItemController {
     }
     
     /**
-     *
+     * Inicjalizuje pola formularza umożliwiającego dodanie celu w przypadku przejęcia celu wybranego użytkownika
      */
     public void init() {
         if(itemId != 0) {

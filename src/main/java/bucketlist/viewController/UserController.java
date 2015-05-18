@@ -17,7 +17,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 /**
- *
+ * Klasa obsługująca żądania ze strony users.xhtml.
+ * Wyświetla użytkowników zarejestrowanych w systemie z wyłączeniem obecnie zalogowanego użytkownika.
  * @author hanka
  */
 @ManagedBean
@@ -37,8 +38,8 @@ public class UserController implements Serializable{
     }
     
     /**
-     *
-     * @return
+     * Metoda pobiera listę użytkowników zarejestrowanych w systemie
+     * @return zwraca listę użytkowników zarejestrowanych w systemie
      */
     public List<BucketlistUserInfo> getUsers() {
         this.users = database.getAllUsersButMe();
@@ -47,8 +48,8 @@ public class UserController implements Serializable{
     }
     
     /**
-     *
-     * @return
+     * Metoda pobiera listę celów powiązanych z użytkownikiem
+     * @return zwraca listę celów powiązanych z użytkownikiem
      */
     public List<BucketlistListItem> getUserItems() {
         Map<String, String> params = FacesContext.getCurrentInstance().
