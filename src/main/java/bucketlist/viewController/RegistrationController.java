@@ -157,7 +157,9 @@ public class RegistrationController implements Serializable {
         }
         FacesMessage msg = new FacesMessage("Registration error!", "ERROR MSG");
         msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext context = FacesContext.getCurrentInstance();
+        if (context!= null)
+            context.addMessage(null, msg);
         return null;
     }
 }
