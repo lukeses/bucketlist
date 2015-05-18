@@ -23,6 +23,7 @@
         <%
 
             BucketlistController controller = new BucketlistController();
+            controller.openSession();
             String email = (String) request.getParameter("email1");
             List<BucketlistUserInfo> user = controller.getUserByEmail(email);
             controller.CloseSession();

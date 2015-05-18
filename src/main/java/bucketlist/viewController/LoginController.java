@@ -6,6 +6,7 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
+import java.io.Serializable;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -18,7 +19,7 @@ import javax.faces.context.FacesContext;
  */
 @ManagedBean
 @SessionScoped
-public class LoginController {
+public class LoginController implements Serializable{
 
     @ManagedProperty(value = "#{databaseDAO}")
     private BucketlistController database;
