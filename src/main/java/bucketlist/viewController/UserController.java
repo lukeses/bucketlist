@@ -39,10 +39,18 @@ public class UserController implements Serializable{
         this.database = database;
     }
     
+    /**
+     * Ustawia id użytkownika
+     * @param userId id użytkownika
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
     
+    /**
+     * Zwraca id użytkownika
+     * @return id użytkownika
+     */
     public int getUserId() {
         return this.userId;
     }
