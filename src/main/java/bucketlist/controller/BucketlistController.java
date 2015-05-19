@@ -33,14 +33,25 @@ import org.hibernate.cfg.Configuration;
 public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     /**
-     * @return the factory
+     * Konstruktor domyślny. Inicjalizuje zmienną statyczną.
+     */
+    public BucketlistController() {
+        if (factory == null) {
+            factory = init();
+        }
+    }
+
+    /**
+     * Zwraca fabrykę
+     * @return fabryka
      */
     public static SessionFactory getFactory() {
         return factory;
     }
 
     /**
-     * @param aFactory the factory to set
+     * Ustawia fabrykę
+     * @param aFactory fabryka
      */
     public static void setFactory(SessionFactory aFactory) {
         factory = aFactory;
@@ -48,7 +59,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     private Session session;
 
-    private static SessionFactory factory = init();
+    private static SessionFactory factory;
 
     private static SessionFactory init() {
         Configuration configuration = new Configuration().configure();
@@ -136,7 +147,9 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param description opis celu
      */
     public void addListItemToUser(int userId, String content, String description) {
+
         openSession();
+
         Transaction t = getSession().beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content, description);
@@ -155,6 +168,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param id
      * @return cele użytkownika
      */
+    @Override
     public List<BucketlistListItem> getUserItems(int id) {
         List<BucketlistListItem> retrievedItems;
         Query q = getSession().createQuery("from BucketlistListItem where itemOwner = '" + id + "'");
@@ -169,6 +183,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      *
      * @return cele
      */
+    @Override
     public List<BucketlistListItem> getAllItems() {
         List<BucketlistListItem> retrievedItems;
         Query q = getSession().createQuery("from BucketlistListItem");
@@ -183,6 +198,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param email Email użytkownika, który ma być zwrócony
      * @return obiekt przechowujący dostępne dane o użytkowniku
      */
+    @Override
     public List<BucketlistUserInfo> getUserByEmail(String email) {
 
         if (email == null) {
@@ -200,10 +216,12 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     /**
      * Metoda sprawdzająca poprawność hasła dla danego adresu email.
+     *
      * @param userEmail email użytkownika
      * @param password hasło
      * @return id w przypadku powodzenia, -1 w przeciwnym razie
      */
+    @Override
     public int checkPassword(String userEmail, String password) {
 
         List<BucketlistUserInfo> retrievedUser;
@@ -221,36 +239,47 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     /**
      * Zwraca cel o podanym id
+     *
      * @param itemId id celu
      * @return cel
      */
+    @Override
     public BucketlistListItem getItemById(int itemId) {
         List<BucketlistListItem> retrievedItems;
         Query q = getSession().createQuery("from BucketlistListItem where item_id = " + itemId);
         retrievedItems = (List<BucketlistListItem>) q.list();
 
+        if (retrievedItems.isEmpty()) {
+            return null;
+        }
         return retrievedItems.get(0);
     }
 
     /**
      * Zapisuje cel
+     *
      * @param itemId id celu
      * @param name zawartość celu
      * @param description opis celu
      */
+    @Override
     public void saveItem(int itemId, String name, String description) {
         Transaction t = getSession().beginTransaction();
         BucketlistListItem item = getItemById(itemId);
-        item.setContent(name);
-        item.setDescription(description);
+        if (item != null) {
+            item.setContent(name);
+            item.setDescription(description);
+        }
         t.commit();
     }
 
     /**
      * Sprawdza czy użytkownik o podanym adresie email istnieje
+     *
      * @param userEmail adres email
      * @return czy istnieje
      */
+    @Override
     public boolean userExists(String userEmail) {
         List<BucketlistUserInfo> retrievedUser;
 
@@ -261,11 +290,12 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         return !retrievedUser.isEmpty();
     }
 
-
     /**
      * Aktualizuje zawartość podanego celu
+     *
      * @param item cel
      */
+    @Override
     public void updateItem(BucketlistListItem item) {
         Transaction t = getSession().beginTransaction();
         Query query = getSession().createQuery("update BucketlistListItem set content = :content"
@@ -275,11 +305,13 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         query.executeUpdate();
         t.commit();
     }
-    
+
     /**
      * Usuwa podany cel
+     *
      * @param item cel
      */
+    @Override
     public void deleteItem(BucketlistListItem item) {
         Transaction t = getSession().beginTransaction();
         Query query = getSession().createQuery("DELETE FROM BucketlistListItem"
@@ -288,54 +320,65 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         query.executeUpdate();
         t.commit();
     }
-    
+
     /**
      * Dodaje cel dla zalogowanego użytkownika
+     *
      * @param content zawartość
      * @param description opis
      */
-    public void addMyListItem(String content, String description)
-    {
+    @Override
+    public void addMyListItem(String content, String description) {
         int myId = getMyId();
         addListItemToUser(myId, content, description);
     }
-    
+
     /**
      * Zwraca listę wszystkich użytkowników poza zalogowanym
+     *
      * @return lista użytkowników
      */
+    @Override
     public List<BucketlistUserInfo> getAllUsersButMe() {
         int myId = getMyId();
         List<BucketlistUserInfo> users;
         Query q = session.createQuery("from BucketlistUserInfo where id <> " + myId);
         users = (List<BucketlistUserInfo>) q.list();
-        
+
         return users;
     }
-    
+
     /**
      * Zwraca id zalogowanego użytkownika
+     *
      * @return id użytkownika
      */
     public int getMyId() {
         FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession sess = (HttpSession) context.getExternalContext().getSession(true);
-        
-        if(sess.getAttribute("userId") == null)
+        if (context == null) {
             return -1;
-        else 
+        }
+
+        HttpSession sess = (HttpSession) context.getExternalContext().getSession(true);
+
+        if (sess.getAttribute("userId") == null) {
+            return -1;
+        } else {
             return (int) sess.getAttribute("userId");
+        }
     }
 
     /**
-     * @return the session
+     * Zwraca aktualną sesję
+     * @return sesja
      */
     public Session getSession() {
         return session;
     }
 
     /**
-     * @param session the session to set
+     * Ustawia aktualną sesję (do testów)
+     * @param session sesja
      */
     public void setSession(Session session) {
         this.session = session;
