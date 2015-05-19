@@ -33,6 +33,7 @@ public class BucketlistUserInfoTest {
     @Test
     public void testChangePassword() {
 	BucketlistUserInfo userInfo = new BucketlistUserInfo();
+        userInfo.setPasswordHash("oldPass");
         
         boolean result = userInfo.changePassword("oldPass", "newPass");
         assertEquals(result, true);
@@ -41,8 +42,9 @@ public class BucketlistUserInfoTest {
     @Test
     public void testChangePasswordFail() {
 	BucketlistUserInfo userInfo = new BucketlistUserInfo();
+        userInfo.setPasswordHash("oldPass");
         
-        boolean result = userInfo.changePassword("oldPass", "oldPass");
+        boolean result = userInfo.changePassword("wrongPass", "oldPass");
         assertEquals(result, false);
     }
 }
