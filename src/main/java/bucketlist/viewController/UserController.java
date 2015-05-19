@@ -29,6 +29,7 @@ public class UserController implements Serializable{
     @ManagedProperty (value = "#{databaseDAO}") 
     private IBucketlistDatabase database;
     private List<BucketlistUserInfo> users;
+    private int userId;
 
     /**
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
@@ -36,6 +37,14 @@ public class UserController implements Serializable{
      */
     public void setDatabase(IBucketlistDatabase database) {
         this.database = database;
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    
+    public int getUserId() {
+        return this.userId;
     }
     
     /**
@@ -55,11 +64,17 @@ public class UserController implements Serializable{
      * @return zwraca listę celów powiązanych z użytkownikiem
      */
     public List<BucketlistListItem> getUserItems() {
-        Map<String, String> params = FacesContext.getCurrentInstance().
+        Map<String, String> params;
+        if(FacesContext.getCurrentInstance() != null) {
+            params = FacesContext.getCurrentInstance().
                    getExternalContext().getRequestParameterMap();
-        int userId = Integer.parseInt(params.get("id"));
+            this.userId = Integer.parseInt(params.get("id"));
+        }
+        else
+            this.userId = -1;
+        
         database.openSession();
-        List<BucketlistListItem> items = database.getUserItems(userId);
+        List<BucketlistListItem> items = database.getUserItems(this.userId);
         database.closeSession();
         
         return items;
