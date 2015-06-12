@@ -5,6 +5,10 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Klasa reprezentująca cel (pojedynczy element listy) użytkownika. Obiekt celu
  * jest powiązany z obiektem użytkownika relacją kompozycji.
@@ -24,6 +28,7 @@ public class BucketlistListItem {
         this.content = content;
         this.description = description;
         this.progress = 0;
+        this.images = new ArrayList<>();
     }
 
     /**
@@ -31,13 +36,14 @@ public class BucketlistListItem {
      * obiekt celu, który wymaga zainicjalizowania opisu celu poprzez setter.
      */
     public BucketlistListItem() {
-
+        this.images = new ArrayList<>();
     }
 
     private int itemId;
     private String content;
     private String description;
     private int progress;
+    private List<BucketlistItemImage> images;
 
     /**
      * Zwraca identyfikator obiektu celu w bazie danych. Każdy cel można
@@ -126,5 +132,17 @@ public class BucketlistListItem {
      */
     public void setProgress(int progress) {
         this.progress = progress;
+    }
+    
+    public List<BucketlistItemImage> getImages() {
+        return images;
+    }
+    
+    public void setImages(List<BucketlistItemImage> images) {
+        this.images = images;
+    }
+    
+    public void addImage(BucketlistItemImage image) {
+        this.images.add(image);
     }
 }

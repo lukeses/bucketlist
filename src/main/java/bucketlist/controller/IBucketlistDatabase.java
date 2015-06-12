@@ -5,6 +5,7 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.util.List;
 
@@ -123,5 +124,13 @@ public interface IBucketlistDatabase {
      * @param item cel
      */
     public void deleteItem(BucketlistListItem item);
+    
+    public void decreaseProgress(int itemId);
+    
+    public void increaseProgress(int itemId);
+
+    public void addImage(int itemId, String imgName);
+
+    public List<BucketlistItemImage> getItemImages(int itemId);
     
 }

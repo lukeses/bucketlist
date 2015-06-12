@@ -6,10 +6,11 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistListItem;
-import bucketlist.controller.BucketlistController;
 import bucketlist.controller.IBucketlistDatabase;
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -48,10 +49,54 @@ public class UserItemsController implements Serializable {
             this.database.openSession();
             List<BucketlistUserInfo> user = database.getUserByEmail(login.getUserName());
             list = this.database.getUserItems(user.get(0).getId());
+            /*for(BucketlistListItem item : list) {
+                List<BucketlistItemImage> imgList = this.database.getItemImages(item.getItemId());
+                
+                item.setImages(imgList);
+                if(imgList != null)
+                    item.setMainImg(imgList.get(0).getImageName());
+                else
+                    item.setMainImg("");
+            }*/
             this.database.closeSession();
         }
+        
+            /*List<BucketlistItemImage> images = new ArrayList<>();
+            images.add(new BucketlistItemImage(1, "tiger.jpg"));
+            images.add(new BucketlistItemImage(2, "sheep.jpg"));
+            for(BucketlistListItem item : list) {
+                item.setImages(images);
+            }*/
+        
         return list;
     }
+    
+    public List<String> getImageNames(int itemId) {
+        List<BucketlistItemImage> images;
+        this.database.openSession();
+        images = this.database.getItemImages(itemId);
+        this.database.closeSession();
+
+        List<String> names = new ArrayList<>();
+        for(BucketlistItemImage i : images) {
+            names.add(i.getImageName());
+        }
+        
+        return names;
+    }
+    
+    /*public String getMainImage(int itemId) throws NamingException {
+        if (images == null) {
+            this.database.openSession();
+            images = this.database.getItemImages(itemId);
+            this.database.closeSession();
+        }
+        
+        if(images.size() > 0)
+            return images.get(0).getImageName();
+        else
+            return "";
+    }*/
 
     /**
      * Miejsce wstrzyknięcia klasy obsługującej stan sesji użytkownika
@@ -96,5 +141,16 @@ public class UserItemsController implements Serializable {
         list = null;
         return null;
     }
-
+    
+    public void decreaseProgress(int itemId) {
+        database.openSession();
+        database.decreaseProgress(itemId);
+        database.closeSession();
+    }
+    
+    public void increaseProgress(int itemId) {
+        database.openSession();
+        database.increaseProgress(itemId);
+        database.closeSession();
+    }
 }

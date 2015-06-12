@@ -5,6 +5,7 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,6 +85,26 @@ public class BucketlistDatabaseTest implements IBucketlistDatabase {
 
     @Override
     public void deleteItem(BucketlistListItem item) {
+    }
+
+    @Override
+    public void decreaseProgress(int itemId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void increaseProgress(int itemId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void addImage(int itemId, String imgName) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<BucketlistItemImage> getItemImages(int itemId) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

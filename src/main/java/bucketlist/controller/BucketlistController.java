@@ -5,8 +5,10 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -123,8 +125,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
     /**
      * Metoda zwracająca kompletny obiekt BucketlistUserInfo przechowujący
-     * wszystkie informacje o użytkonwiku zdefiniowane podczas wprowadzania do
-     * bazy danych.
+ wszystkie informacje o użytkonwiku zdefiniowane podczas wprowadzania do
+ bazy danych.
      *
      * @param id numer id użytkownika serwisu, którego obiekt ma być zwrócony
      * @return obiekt przechowujący dostępne dane o użytkowniku
@@ -175,7 +177,21 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
         retrievedItems = (List<BucketlistListItem>) q.list();
 
+        
+        for(BucketlistListItem item : retrievedItems) {
+                item.addImage(new BucketlistItemImage(1,1,"tiger.jpg"));
+        }
+        
         return retrievedItems;
+        
+    }
+    
+    public List<BucketlistItemImage> getItemImages(int itemId) {
+        List<BucketlistItemImage> images;
+        Query q = getSession().createQuery("from BucketlistItemImage where itemId = '" + itemId + "'");
+        images = (List<BucketlistItemImage>) q.list();
+
+        return images;
     }
 
     /**
@@ -382,6 +398,38 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     public void setSession(Session session) {
         this.session = session;
+    }
+    
+    @Override
+    public void decreaseProgress(int itemId) {
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("update BucketlistListItem set progress = progress - 10"
+                + " where id = :id and progress > 0");
+        query.setParameter("id", itemId);
+        query.executeUpdate();
+        t.commit();
+    }
+    
+    @Override
+    public void increaseProgress(int itemId) {
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("update BucketlistListItem set progress = progress + 10"
+                + " where id = :id and progress < 100");
+        query.setParameter("id", itemId);
+        query.executeUpdate();
+        t.commit();
+    }
+    
+    @Override
+    public void addImage(int itemId, String imgName) {
+        openSession();
+        Transaction t = getSession().beginTransaction();
+
+        BucketlistItemImage img = new BucketlistItemImage(itemId, imgName);
+
+        getSession().persist(img);
+        t.commit();
+        closeSession();
     }
 
 }

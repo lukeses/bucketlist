@@ -11,6 +11,12 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Home Page</title>
             </f:facet>
+            <h:outputStylesheet library="css" name="bootstrap-theme.css"  />
+            <h:outputStylesheet library="css" name="bootstrap.css"  />
+            <h:outputStylesheet library="css" name="slideme.css"  />
+            <h:outputScript library="js" name="bootstrap.js" />
+            <h:outputScript library="js" name="jquery.slideme2.js" />
+            <h:outputScript library="js" name="useritems.js" />
         </h:head>
 
         <h:body>
@@ -26,20 +32,40 @@
                 <p:dataScroller value="#{userItemsController.list}" var="listItem">
 
                     <p:outputPanel>
-                        <h:panelGrid columns="3" cellpadding="10">
-                            <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
-                            <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
-                            <div class = "progressbar #{listItem.progress}"></div>
-                        </h:panelGrid>
+                        <p:panelGrid columns="2" style="width: 100%" columnClasses="first-column, second-column">
+                                    <h:panelGroup layout="block" class="gallery" style="height:200px">
+                                    <ul class="slideme">
+                                        <ui:repeat value="#{userItemsController.getImageNames(listItem.itemId)}" var="img">
+                                            <li><h:graphicImage style="height:150px" library="images" name="#{img}" /></li>
+                                        </ui:repeat>
+                                    </ul>
+                                    </h:panelGroup>
+                                    <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
+                                    <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
+                                    <h:panelGrid></h:panelGrid>
+                                    <h:panelGrid columns="3" style="width: 100%" columnClasses="short-left, long, short-right">
+                                    <p:commandButton ajax="true" oncomplete="decreaseProgress(#{listItem.itemId})" icon="ui-icon-arrowthick-1-w" action="#{userItemsController.decreaseProgress(listItem.itemId)}" />
+                                    <div class="progress" style="width:100%">
+                                        <div id="progress-bar-#{listItem.itemId}" class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="#{listItem.progress}" aria-valuemin="0" aria-valuemax="100" style="width:#{listItem.progress}%">
+                                            #{listItem.progress}%
+                                        </div>
+                                    </div>
+                                    <p:commandButton ajax="true" oncomplete="increaseProgress(#{listItem.itemId})" icon="ui-icon-arrowthick-1-e" action="#{userItemsController.increaseProgress(listItem.itemId)}" />
+                                    </h:panelGrid>
+                        </p:panelGrid>
                     </p:outputPanel>
 
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="3">
                         <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
                                          rendered="#{not listItem.editable}" />
                         <p:commandButton ajax="false" icon="ui-icon-disk" action="#{userItemsController.saveAction(listItem)}" 
                                          rendered="#{listItem.editable}" />
                         <p:commandButton ajax="false" icon="ui-icon-trash" action="#{userItemsController.deleteAction(listItem)}" 
                                          rendered="#{not listItem.editable}" />
+                        <h:link outcome="addImage">
+                            <p:button icon="ui-icon-image"/>
+                            <f:param name="itemId" value="#{listItem.itemId}" />
+                        </h:link>
                     </h:panelGrid>
                     <br/>
                 </p:dataScroller>

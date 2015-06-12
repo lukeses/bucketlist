@@ -5,10 +5,15 @@
  */
 package bucketlist.viewController;
 
+import bucketlist.controller.BucketlistController;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import static org.easymock.EasyMock.createMock;
+import static org.easymock.EasyMock.expect;
+import static org.easymock.EasyMock.replay;
+import static org.easymock.EasyMock.verify;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
