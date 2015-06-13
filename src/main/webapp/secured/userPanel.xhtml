@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Home Page</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <f:metadata>
+                <f:viewAction action="#{userPanelController.init}" />
+            </f:metadata>
+            <h:messages globalOnly="true" id="err" />
+            <h:form>
+                <br/>
+                <p:button outcome="userItems" value="My items" />
+                <p:button outcome="addItem" value="Add item" />
+                <p:button outcome="users" value="Users" />
+                <p:button outcome="userPanel" value="User panel" />
+
+
+                <h:form>
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="Old password:" />
+                        <p:password value="#{userPanelController.oldPassword}" />
+
+                        <h:outputLabel value="New password:" />
+                        <p:password value="#{userPanelController.newPassword1}" />
+
+                        <h:outputLabel value="Confirm new password:" />
+                        <p:password value="#{userPanelController.newPassword2}" />
+
+                        <h:commandButton value="Change" action="#{userPanelController.tryToChangePassword}"/>
+                    </h:panelGrid>
+                </h:form>
+
+                <br/>
+
+            </h:form>
+
+        </h:body>
+
+    </f:view>
+</html>
+

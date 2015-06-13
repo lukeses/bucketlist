@@ -252,6 +252,23 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
             return -1;
         }
     }
+    
+    /**
+     * Zmienia hasło użytkownika o podanym id
+     *
+     * @param userId identyfikator użytkownika
+     * @param newPassword nowe hasło użytkownika
+     */
+    @Override
+    public void changePassword(int userId, String newPassword) {
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("update BucketlistUserInfo set password_hash = :content"
+                + " where id = :id");
+        query.setParameter("content", newPassword);
+        query.setParameter("id", userId);
+        query.executeUpdate();
+        t.commit();
+    }
 
     /**
      * Zwraca cel o podanym id

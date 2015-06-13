@@ -76,10 +76,9 @@ public class BucketlistUserInfo {
      * @return zwraca wartość true, jeżeli hasło zostało zmienione
      */
     public boolean changePassword(String oldPassword, String newPassword) {
-        if (this.passwordHash.equals(oldPassword))
-            this.passwordHash = newPassword;
-        else return false;
-        
+        if (!this.passwordHash.equals(oldPassword))
+            return false;
+        this.passwordHash = newPassword;
         return true;
     }
 

@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -28,7 +29,7 @@ import javax.servlet.http.Part;
  */
 @ManagedBean
 @RequestScoped
-public class ItemController {
+public class ItemController implements Serializable{
     @ManagedProperty (value = "#{databaseDAO}") 
     private IBucketlistDatabase database;
     

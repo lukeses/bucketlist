@@ -133,4 +133,19 @@ public interface IBucketlistDatabase {
 
     public List<BucketlistItemImage> getItemImages(int itemId);
     
+    /**
+     * Zwraca użytkownika o podanym id
+     *
+     * @param id identyfikator użytkownika
+     * @return użytkownik o podanym identyfikatorze
+     */
+    public BucketlistUserInfo getUser(int id);
+    
+    /**
+     * Zmienia hasło użytkownika o podanym id
+     *
+     * @param userId identyfikator użytkownika
+     * @param newPassword nowe hasło użytkownika
+     */
+    public void changePassword(int userId, String newPassword);
 }
