@@ -61,7 +61,7 @@ public class UserController implements Serializable{
      */
     public List<BucketlistUserInfo> getUsers() {
         this.database.openSession();
-        this.users = database.getAllUsersButMe();
+        this.users = database.getAllUsers();
         this.database.closeSession();
         
         return this.users;

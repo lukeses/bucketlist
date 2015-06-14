@@ -380,6 +380,20 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
         return users;
     }
+    
+    /**
+     * Zwraca listę wszystkich użytkowników
+     *
+     * @return lista użytkowników
+     */
+    @Override
+    public List<BucketlistUserInfo> getAllUsers() {
+        List<BucketlistUserInfo> users;
+        Query q = session.createQuery("from BucketlistUserInfo");
+        users = (List<BucketlistUserInfo>) q.list();
+
+        return users;
+    }
 
     /**
      * Zwraca id zalogowanego użytkownika
@@ -447,6 +461,20 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         getSession().persist(img);
         t.commit();
         closeSession();
+    }
+    
+    /**
+     * Usuwa użytkownika o podanym id
+     *
+     * @param id identyfikator użytkownika
+     */
+    public void deleteUser(int id) {
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("DELETE FROM BucketlistUserInfo"
+                + " where id = :id");
+        query.setParameter("id", id);
+        query.executeUpdate();
+        t.commit();
     }
 
 }

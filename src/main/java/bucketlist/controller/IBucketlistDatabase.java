@@ -94,6 +94,13 @@ public interface IBucketlistDatabase {
      * @return lista użytkowników
      */
     public List<BucketlistUserInfo> getAllUsersButMe();
+    
+    /**
+     * Zwraca listę wszystkich użytkowników
+     *
+     * @return lista użytkowników
+     */
+    public List<BucketlistUserInfo> getAllUsers();
 
     /**
      * Metoda zwraca cele danego użytkownika
@@ -148,4 +155,11 @@ public interface IBucketlistDatabase {
      * @param newPassword nowe hasło użytkownika
      */
     public void changePassword(int userId, String newPassword);
+    
+    /**
+     * Usuwa użytkownika o podanym id
+     *
+     * @param id identyfikator użytkownika
+     */
+    public void deleteUser(int id);
 }
