@@ -32,7 +32,7 @@
                             <p:button outcome="addUserImage" value="Upload new picture" />
                         </h:panelGrid>
                     </p:tab>
-                    <p:tab title="Change password">
+                    <p:tab title="Manage profile">
                         <h:form>
                             <h:panelGrid columns="1" cellpadding="10">
                                 <h:outputLabel value="Old password:" />
@@ -44,16 +44,10 @@
                                 <h:outputLabel value="Confirm new password:" />
                                 <p:password value="#{userPanelController.newPassword2}" />
 
-                                <p:commandButton ajax="false" value="Change password" action="#{userPanelController.tryToChangePassword}"/>
-                            </h:panelGrid>
-                        </h:form>
-                    </p:tab>
-                    <p:tab title="Delete profile">
-                        <h:form>
-                            <h:panelGrid columns="1" cellpadding="10">
-                                <h:outputLabel value="Confirm with your password:" />
+                                <h:outputLabel value="Confirm with password:" />
                                 <p:password value="#{userPanelController.oldPassword}" />
 
+                                <p:commandButton ajax="false" value="Change password" action="#{userPanelController.tryToChangePassword}"/>
                                 <p:commandButton ajax="false" value="Delete account" action="#{userPanelController.tryToDeleteUser}" />
                             </h:panelGrid>
                         </h:form>
