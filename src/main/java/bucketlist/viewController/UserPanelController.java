@@ -40,6 +40,15 @@ public class UserPanelController implements Serializable {
     public void setDatabase(IBucketlistDatabase database) {
         this.database = database;
     }
+    
+    /**
+     * Ustawia użytkownika, na którym wykonywane są metody.
+     *
+     * @param user obsługiwany użytkownik
+     */
+    public void setUser(BucketlistUserInfo user) {
+        this.user = user;
+    }
 
     /**
      * Zwraca wartość zmiennej reprezentującej dotychczasowe hasło użytkownika
@@ -51,7 +60,7 @@ public class UserPanelController implements Serializable {
 
     /**
      * Ustawia wartość zmiennej reprezentującej dotychczasowe hasło użytkownika
-     * @param nowa wartość zmiennej przechowującej hasło
+     * @param oldPassword nowa wartość zmiennej przechowującej hasło
      */
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
@@ -67,7 +76,7 @@ public class UserPanelController implements Serializable {
 
     /**
      * Ustawia wartość zmiennej reprezentującej nowe hasło użytkownika
-     * @param nowa wartość zmiennej przechowującej nowe hasło
+     * @param newPassword1 nowa wartość zmiennej przechowującej nowe hasło
      */
     public void setNewPassword1(String newPassword1) {
         this.newPassword1 = newPassword1;
@@ -84,7 +93,7 @@ public class UserPanelController implements Serializable {
 
     /**
      * Ustawia wartość zmiennej reprezentującej nowe hasło użytkownika.
-     * @param nowa wartość zmiennej przechowującej nowe hasło
+     * @param newPassword2 nowa wartość zmiennej przechowującej nowe hasło
      */
     public void setNewPassword2(String newPassword2) {
         this.newPassword2 = newPassword2;
