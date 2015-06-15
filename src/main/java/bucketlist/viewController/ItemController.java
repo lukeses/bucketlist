@@ -16,8 +16,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
@@ -87,17 +85,25 @@ public class ItemController implements Serializable{
     }
     
     /**
-     * Ustawia opis celu
-     * @param description opis celu
+     * Pobiera zdjęcie powiązane z celem
+     * @return zwraca zdjęcie
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
+    /**
+     * Ustawia zdjęcie powiązane z celem
+     * @param description opis celu
+     */
     public Part getImage() {
         return this.image;
     }
         
+    /**
+     * Ustawia zdjęcie powiązane z celem
+     * @param image zdjęcie
+     */
     public void setImage(Part image) {
         this.image = image;
     }
@@ -140,6 +146,10 @@ public class ItemController implements Serializable{
         }
     }
     
+    /**
+     * Dodaje zdjęcie do wybranego celu i przekierowuje do listy celów użytkownika
+     * @return docelowy adres url
+     */
     public String uploadImage() throws IOException, NamingException {
         if(image != null) {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -180,6 +190,10 @@ public class ItemController implements Serializable{
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
     
+    /**
+     * Pobiera z nagłówka żądania nazwę dodawanego do celu zdjęcia
+     * @return nazwa dodawanego zdjęcia
+     */
     private static String getFilename(Part part) {  
         for (String cd : part.getHeader("content-disposition").split(";")) {  
             if (cd.trim().startsWith("filename")) {  

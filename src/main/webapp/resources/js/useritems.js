@@ -15,13 +15,10 @@ function decreaseProgress(id) {
 }
 
 $(document).ready(function() {
-    $('.gallery').slideme({
-        arrows: true,
-        //pagination: 'numbers',
-        transition : 'fade',
-        resizable: {
-            width: 250,
-            height: 150,
-        }
-    });
+    $(".fancybox")
+        .fancybox({
+            padding: 0,
+            cyclic: true,
+            showNavArrows: true
+        });
 });

@@ -6,7 +6,6 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistListItem;
-import bucketlist.controller.BucketlistController;
 import bucketlist.controller.IBucketlistDatabase;
 import java.io.Serializable;
 import java.util.List;

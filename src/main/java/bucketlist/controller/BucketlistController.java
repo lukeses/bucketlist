@@ -8,7 +8,6 @@ package bucketlist.controller;
 import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -417,6 +416,10 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         this.session = session;
     }
     
+    /**
+     * Zmniejsza poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     @Override
     public void decreaseProgress(int itemId) {
         Transaction t = getSession().beginTransaction();
@@ -427,6 +430,10 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         t.commit();
     }
     
+    /**
+     * Zmniejsza poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     @Override
     public void increaseProgress(int itemId) {
         Transaction t = getSession().beginTransaction();
@@ -437,6 +444,11 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         t.commit();
     }
     
+    /**
+     * Dodaje zdjęcie do wybranego celu.
+     * @param itemId identyfikator celu
+     * @param imgName nazwa zdjęcia
+     */
     @Override
     public void addImage(int itemId, String imgName) {
         openSession();
