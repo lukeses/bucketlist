@@ -5,6 +5,7 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -576,6 +577,167 @@ public class BucketlistControllerTest {
         verify(sessionMock);
         verify(queryMock);
         verify(factoryMock);
+    }
+
+    /**
+     * Test of getFactory method, of class BucketlistController.
+     */
+    @Test
+    public void testGetFactory() {
+        System.out.println("getFactory");
+        SessionFactory expResult = null;
+        SessionFactory result = BucketlistController.getFactory();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setFactory method, of class BucketlistController.
+     */
+    @Test
+    public void testSetFactory() {
+        System.out.println("setFactory");
+        SessionFactory aFactory = null;
+        BucketlistController.setFactory(aFactory);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getItemImages method, of class BucketlistController.
+     */
+    @Test
+    public void testGetItemImages() {
+        System.out.println("getItemImages");
+        int itemId = 0;
+        BucketlistController instance = new BucketlistController();
+        List<BucketlistItemImage> expResult = null;
+        List<BucketlistItemImage> result = instance.getItemImages(itemId);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of changePassword method, of class BucketlistController.
+     */
+    @Test
+    public void testChangePassword() {
+        System.out.println("changePassword");
+        int userId = 0;
+        String newPassword = "";
+        BucketlistController instance = new BucketlistController();
+        instance.changePassword(userId, newPassword);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getAllUsers method, of class BucketlistController.
+     */
+    @Test
+    public void testGetAllUsers() {
+        System.out.println("getAllUsers");
+        BucketlistController instance = new BucketlistController();
+        List<BucketlistUserInfo> expResult = null;
+        List<BucketlistUserInfo> result = instance.getAllUsers();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of getSession method, of class BucketlistController.
+     */
+    @Test
+    public void testGetSession() {
+        System.out.println("getSession");
+        BucketlistController instance = new BucketlistController();
+        Session expResult = null;
+        Session result = instance.getSession();
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of setSession method, of class BucketlistController.
+     */
+    @Test
+    public void testSetSession() {
+        System.out.println("setSession");
+        Session session = null;
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(session);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of decreaseProgress method, of class BucketlistController.
+     */
+    @Test
+    public void testDecreaseProgress() {
+        System.out.println("decreaseProgress");
+        int itemId = 0;
+        BucketlistController instance = new BucketlistController();
+        instance.decreaseProgress(itemId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of increaseProgress method, of class BucketlistController.
+     */
+    @Test
+    public void testIncreaseProgress() {
+        System.out.println("increaseProgress");
+        int itemId = 0;
+        BucketlistController instance = new BucketlistController();
+        instance.increaseProgress(itemId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of addImage method, of class BucketlistController.
+     */
+    @Test
+    public void testAddImage() {
+        System.out.println("addImage");
+        int itemId = 0;
+        String imgName = "";
+        BucketlistController instance = new BucketlistController();
+        instance.addImage(itemId, imgName);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of deleteUser method, of class BucketlistController.
+     */
+    @Test
+    public void testDeleteUser() {
+        System.out.println("deleteUser");
+        int id = 0;
+        BucketlistController instance = new BucketlistController();
+        instance.deleteUser(id);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of progress100 method, of class BucketlistController.
+     */
+    @Test
+    public void testProgress100() {
+        System.out.println("progress100");
+        int itemId = 0;
+        BucketlistController instance = new BucketlistController();
+        instance.progress100(itemId);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
