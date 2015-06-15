@@ -8,7 +8,10 @@ package bucketlist.viewController;
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +21,10 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import org.apache.poi.util.IOUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
@@ -29,16 +35,13 @@ import org.primefaces.model.UploadedFile;
  */
 @ManagedBean
 @SessionScoped
-public class UserPanelController implements Serializable {
+public class UserImageController implements Serializable {
 
     @ManagedProperty(value = "#{databaseDAO}")
     private IBucketlistDatabase database;
 
     private BucketlistUserInfo user;
-    private String oldPassword;
-    private String newPassword1;
-    private String newPassword2;
-    private String userImage;
+    private Part image;
 
     /**
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
@@ -49,69 +52,53 @@ public class UserPanelController implements Serializable {
         this.database = database;
     }
 
-    public String getOldPassword() {
-        return oldPassword;
+    public Part getImage() {
+        return image;
     }
 
-    public void setOldPassword(String oldPassword) {
-        this.oldPassword = oldPassword;
-    }
-
-    public String getNewPassword1() {
-        return newPassword1;
-    }
-
-    public void setNewPassword1(String newPassword1) {
-        this.newPassword1 = newPassword1;
-    }
-
-    public String getNewPassword2() {
-        return newPassword2;
-    }
-
-    public void setNewPassword2(String newPassword2) {
-        this.newPassword2 = newPassword2;
-    }
-
-    public String getUserImage() {
-        return user.getUserImage();
+    public void setImage(Part image) {
+        this.image = image;
     }
     
+    public String uploadImage(FileUploadEvent e) throws IOException, NamingException {
+        if(e.getFile() != null) {
+        ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String absolutePath = ctx.getRealPath("/");
+        
+        absolutePath = new File(absolutePath).getParentFile().getParentFile().getPath();
+        absolutePath += "/src/main/webapp/resources/userImages";
+        File dir = new File(absolutePath);
+	if (!dir.exists()) {
+            dir.mkdir();
+	}
+        String imgName = user.getId() + ".jpg";
+        File file = new File(absolutePath + "/" + imgName);
+        
+        if (!file.exists()) {
+            file.createNewFile();
+	}
+        else {
+            file.delete();
+        }
+        InputStream inputStream = e.getFile().getInputstream();          
+        FileOutputStream outputStream = new FileOutputStream(file);
+        
+        byte[] buffer = new byte[4096];          
+        int bytesRead = 0;  
+        while(true) {                          
+            bytesRead = inputStream.read(buffer);  
+            if(bytesRead > 0) {  
+                outputStream.write(buffer, 0, bytesRead);  
+            }else {  
+                break;  
+            }                         
+        }
 
-    public void tryToChangePassword() {
-        String resultMsg = null;
-        FacesContext context = FacesContext.getCurrentInstance();
-        if (user != null && newPassword1.equals(newPassword2)) {
-            if (!user.changePassword(oldPassword, newPassword1)) {
-                resultMsg = "Some error occured.";
-            } else {
-                database.openSession();
-                database.changePassword(user.getId(), newPassword1);
-                database.closeSession();
-                resultMsg = "The operation was successfull.";
-            }
-        } else {
-            resultMsg = "Some error occured.";
+        outputStream.close();  
+        inputStream.close();  
         }
-        FacesMessage msg = new FacesMessage(resultMsg, "ERROR MSG");
-                msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-                if (context != null) {
-                    context.addMessage(null, msg);
-                }
-    }
-    
-    public void tryToDeleteUser() {
-        if (user != null)
-        {
-            database.openSession();
-            int passwordCheck = database.checkPassword(user.getEmail(), oldPassword);
-            database.closeSession();
-            if (passwordCheck == user.getId()) {
-                database.openSession();
-                database.deleteUser(passwordCheck);
-                database.closeSession();
-            }
-        }
+         
+        return "/secured/userPanel.xhtml?faces-redirect=true";
     }
 
     /**

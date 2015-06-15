@@ -21,25 +21,45 @@
             <h:form>
                 <br/>
                 <p:button outcome="userItems" value="My items" />
-                <p:button outcome="addItem" value="Add item" />
                 <p:button outcome="users" value="Users" />
-                <p:button outcome="userPanel" value="User panel" />
 
+                <p:accordionPanel>
+                    <p:tab title="Change profile picture">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <p:outputPanel id="photo">
+                                <p:graphicImage style="width:160px" library="userImages" name="#{userPanelController.userImage}"/>
+                            </p:outputPanel>
+                            <p:button outcome="addUserImage" value="Upload new picture" />
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Change password">
+                        <h:form>
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <h:outputLabel value="Old password:" />
+                                <p:password value="#{userPanelController.oldPassword}" />
 
-                <h:form>
-                    <h:panelGrid columns="1">
-                        <h:outputLabel value="Old password:" />
-                        <p:password value="#{userPanelController.oldPassword}" />
+                                <h:outputLabel value="New password:" />
+                                <p:password value="#{userPanelController.newPassword1}" />
 
-                        <h:outputLabel value="New password:" />
-                        <p:password value="#{userPanelController.newPassword1}" />
+                                <h:outputLabel value="Confirm new password:" />
+                                <p:password value="#{userPanelController.newPassword2}" />
 
-                        <h:outputLabel value="Confirm new password:" />
-                        <p:password value="#{userPanelController.newPassword2}" />
+                                <p:commandButton ajax="false" value="Change password" action="#{userPanelController.tryToChangePassword}"/>
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                    <p:tab title="Delete profile">
+                        <h:form>
+                            <h:panelGrid columns="1" cellpadding="10">
+                                <h:outputLabel value="Confirm with your password:" />
+                                <p:password value="#{userPanelController.oldPassword}" />
 
-                        <h:commandButton value="Change" action="#{userPanelController.tryToChangePassword}"/>
-                    </h:panelGrid>
-                </h:form>
+                                <p:commandButton ajax="false" value="Delete account" action="#{userPanelController.tryToDeleteUser}" />
+                            </h:panelGrid>
+                        </h:form>
+                    </p:tab>
+                </p:accordionPanel>
+
 
                 <br/>
 
