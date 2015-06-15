@@ -712,12 +712,32 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testDecreaseProgress() {
-        System.out.println("decreaseProgress");
-        int itemId = 0;
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
-        instance.decreaseProgress(itemId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setSession(sessionMock);
+        instance.decreaseProgress(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
     }
 
     /**
@@ -725,12 +745,32 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testIncreaseProgress() {
-        System.out.println("increaseProgress");
-        int itemId = 0;
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
-        instance.increaseProgress(itemId);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setSession(sessionMock);
+        instance.increaseProgress(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
     }
 
     /**
