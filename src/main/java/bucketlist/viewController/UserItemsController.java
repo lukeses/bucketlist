@@ -62,9 +62,9 @@ public class UserItemsController implements Serializable {
      */
     private List<String> getImageNames(int itemId) {
         List<BucketlistItemImage> images;
-        //this.database.openSession();
+        this.database.openSession();
         images = this.database.getItemImages(itemId);
-        //this.database.closeSession();
+        this.database.closeSession();
 
         List<String> names = new ArrayList<>();
         for(BucketlistItemImage i : images) {
@@ -81,9 +81,9 @@ public class UserItemsController implements Serializable {
      */
     public List<String> getImageNamesWithoutFirst(int itemId) {
         List<BucketlistItemImage> images;
-        //this.database.openSession();
+        this.database.openSession();
         images = this.database.getItemImages(itemId);
-        //this.database.closeSession();
+        this.database.closeSession();
 
         List<String> names = new ArrayList<>();
         for(BucketlistItemImage i : images) {

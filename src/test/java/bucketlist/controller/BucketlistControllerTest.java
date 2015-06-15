@@ -580,43 +580,28 @@ public class BucketlistControllerTest {
     }
 
     /**
-     * Test of getFactory method, of class BucketlistController.
-     */
-    @Test
-    public void testGetFactory() {
-        System.out.println("getFactory");
-        SessionFactory expResult = null;
-        SessionFactory result = BucketlistController.getFactory();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setFactory method, of class BucketlistController.
-     */
-    @Test
-    public void testSetFactory() {
-        System.out.println("setFactory");
-        SessionFactory aFactory = null;
-        BucketlistController.setFactory(aFactory);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
      * Test of getItemImages method, of class BucketlistController.
      */
     @Test
     public void testGetItemImages() {
-        System.out.println("getItemImages");
-        int itemId = 0;
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.list()).andReturn(new ArrayList<BucketlistItemImage>());
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
+        BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
-        List<BucketlistItemImage> expResult = null;
-        List<BucketlistItemImage> result = instance.getItemImages(itemId);
+        instance.setSession(sessionMock);
+        List<BucketlistItemImage> expResult = new ArrayList<>();
+        List<BucketlistItemImage> result = instance.getItemImages(1);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
     }
 
     /**
@@ -678,33 +663,6 @@ public class BucketlistControllerTest {
         verify(sessionMock);
         verify(queryMock);
         verify(factoryMock);
-    }
-
-    /**
-     * Test of getSession method, of class BucketlistController.
-     */
-    @Test
-    public void testGetSession() {
-        System.out.println("getSession");
-        BucketlistController instance = new BucketlistController();
-        Session expResult = null;
-        Session result = instance.getSession();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of setSession method, of class BucketlistController.
-     */
-    @Test
-    public void testSetSession() {
-        System.out.println("setSession");
-        Session session = null;
-        BucketlistController instance = new BucketlistController();
-        instance.setSession(session);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
