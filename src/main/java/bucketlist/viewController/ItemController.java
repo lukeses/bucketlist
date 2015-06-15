@@ -222,8 +222,9 @@ public class ItemController implements Serializable{
      */
     private boolean validateExtension(String filename) {  
         String extenstion = getExtension(filename);
-        if(extenstion.compareTo("jpg") == 0 || extenstion.compareTo("png") == 0 
-                || extenstion.compareTo("gif") == 0)
+        extenstion = extenstion.toUpperCase();
+        if(extenstion.compareTo("JPG") == 0 || extenstion.compareTo("JPEG") == 0 
+                || extenstion.compareTo("PNG") == 0 || extenstion.compareTo("GIF") == 0)
             return true;
         else 
             return false;
