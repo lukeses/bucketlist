@@ -778,13 +778,26 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testAddImage() {
-        System.out.println("addImage");
-        int itemId = 0;
-        String imgName = "";
+        Transaction queryMock = createMock(Transaction.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(queryMock);
+        sessionMock.persist(isA(BucketlistItemImage.class));
+        EasyMock.expectLastCall();
+        queryMock.commit();
+        EasyMock.expectLastCall();
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
+        BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
-        instance.addImage(itemId, imgName);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        instance.setSession(sessionMock);
+        instance.addImage(1, "name");
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
     }
 
     /**
