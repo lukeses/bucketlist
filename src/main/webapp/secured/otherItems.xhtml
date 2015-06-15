@@ -32,10 +32,10 @@
 -->
                 <h:form>
                     <p:dataScroller value="#{userController.userItems}" var="listItem">
-                <h:panelGrid columns="2" >
+                <h:panelGrid columns="2" style="width: 100%" columnClasses="first-column, second-column">
                     <h:panelGroup layout="block">
                                 <a class="fancybox" rel="#{listItem.itemId}" href="../resources/images/#{userItemsController.getMainImage(listItem.itemId)}">
-                                    <h:graphicImage alt="" library="images" name="#{userItemsController.getMainImage(listItem.itemId)}" style='height:150px' />
+                                    <h:graphicImage alt="" library="images" name="#{userItemsController.getMainImage(listItem.itemId)}" style='width:220px' />
                                 </a>
                                 
                                 <div class="hidden">
@@ -59,6 +59,7 @@
                             </h:link>
                         </h:panelGrid>
                     </p:outputPanel>
+                    <br />
                 </h:panelGrid>
             </p:dataScroller>
         </h:form>

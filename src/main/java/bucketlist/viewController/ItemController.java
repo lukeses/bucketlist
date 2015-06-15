@@ -217,7 +217,9 @@ public class ItemController implements Serializable{
             }                         
         }  
         
+        database.openSession();
         database.addImage(itemId, imgName);
+        database.closeSession();
 
         outputStream.close();  
         inputStream.close();  
