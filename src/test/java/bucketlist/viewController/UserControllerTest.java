@@ -33,7 +33,7 @@ public class UserControllerTest {
     public void testGetUsers() {
         IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
         mock.openSession();
-        expect(mock.getAllUsersButMe()).andReturn(null);
+        expect(mock.getAllUsers()).andReturn(null);
         mock.closeSession();
 		
 	replay(mock);

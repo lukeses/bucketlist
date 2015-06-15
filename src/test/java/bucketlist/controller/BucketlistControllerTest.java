@@ -213,8 +213,6 @@ public class BucketlistControllerTest {
         queryMock.commit();
         EasyMock.expectLastCall();
         SessionFactory factoryMock = createMock(SessionFactory.class);
-        expect(factoryMock.openSession()).andReturn(sessionMock);
-        expect(sessionMock.close()).andReturn(null);
         replay(queryMock);
         replay(sessionMock);
         replay(factoryMock);
@@ -225,6 +223,7 @@ public class BucketlistControllerTest {
         String description = "";
         BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
         instance.addListItemToUser(userId, content, description);
         
         verify(sessionMock);
@@ -535,8 +534,6 @@ public class BucketlistControllerTest {
         queryMock.commit();
         EasyMock.expectLastCall();
         SessionFactory factoryMock = createMock(SessionFactory.class);
-        expect(factoryMock.openSession()).andReturn(sessionMock);
-        expect(sessionMock.close()).andReturn(null);
         replay(queryMock);
         replay(sessionMock);
         replay(factoryMock);
