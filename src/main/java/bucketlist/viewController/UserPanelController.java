@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 /**
- *
+ * Klasa odpowiadająca za obsługę Panelu użytkownika
  * @author Daniel
  */
 @ManagedBean
@@ -41,35 +41,68 @@ public class UserPanelController implements Serializable {
         this.database = database;
     }
 
+    /**
+     * Zwraca wartość zmiennej reprezentującej dotychczasowe hasło użytkownika
+     * @return wartość zmiennej przechowującej hasło
+     */
     public String getOldPassword() {
         return oldPassword;
     }
 
+    /**
+     * Ustawia wartość zmiennej reprezentującej dotychczasowe hasło użytkownika
+     * @param nowa wartość zmiennej przechowującej hasło
+     */
     public void setOldPassword(String oldPassword) {
         this.oldPassword = oldPassword;
     }
 
+    /**
+     * Zwraca wartość zmiennej reprezentującej nowe hasło użytkownika
+     * @return wartość zmiennej przechowującej nowe hasło
+     */
     public String getNewPassword1() {
         return newPassword1;
     }
 
+    /**
+     * Ustawia wartość zmiennej reprezentującej nowe hasło użytkownika
+     * @param nowa wartość zmiennej przechowującej nowe hasło
+     */
     public void setNewPassword1(String newPassword1) {
         this.newPassword1 = newPassword1;
     }
 
+    /**
+     * Zwraca wartość zmiennej reprezentującej nowe hasło użytkownika.
+     * Służy potwierdzeniu dwukrotnego wpisania tego samego hasła
+     * @return wartość zmiennej przechowującej nowe hasło
+     */
     public String getNewPassword2() {
         return newPassword2;
     }
 
+    /**
+     * Ustawia wartość zmiennej reprezentującej nowe hasło użytkownika.
+     * @param nowa wartość zmiennej przechowującej nowe hasło
+     */
     public void setNewPassword2(String newPassword2) {
         this.newPassword2 = newPassword2;
     }
 
+    /**
+     * Zwaraca nazwę pliku ze zdjęciem profilowym użytkownika.
+     * @return nazwa pliku multimedialnego
+     */
     public String getUserImage() {
         return user.getUserImage();
     }
     
-
+    /**
+     * Metoda próbująca zmienić hasło użytkownika.
+     * Funkcja sprawdza czy wprowadzone hasło zgadza się z dotychczasowym oraz
+     * czy propozycje nowego hasła są identyczne
+     */
     public void tryToChangePassword() {
         String resultMsg = null;
         FacesContext context = FacesContext.getCurrentInstance();
@@ -92,6 +125,11 @@ public class UserPanelController implements Serializable {
                 }
     }
     
+    /**
+     * Metoda służy do usuwania konta użytkownika z bazy danych.
+     * Metoda sprawdza czy podane hasło jest prawidłowe w celu potwierdzenai tożsamości
+     * użytkownika i usuwa go z bazy danych.
+     */
     public void tryToDeleteUser() {
         if (user != null)
         {
@@ -107,8 +145,7 @@ public class UserPanelController implements Serializable {
     }
 
     /**
-     * Inicjalizuje pola formularza umożliwiającego dodanie celu w przypadku
-     * przejęcia celu wybranego użytkownika
+     * Inicjalizuje klasę obsługującą funkcje panelu, pobierając dane użytkownika aktualnej sesji.
      */
     public void init() {
         int userId = 0;
