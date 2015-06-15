@@ -15,6 +15,9 @@
   js.src = "//connect.facebook.net/pl_PL/sdk.js#xfbml=1&version=v2.3&appId=1867982763427929";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+
 //]]> 
 </script>
     
@@ -76,6 +79,8 @@
                                             <f:param name="itemId" value="#{listItem.itemId}" />
                                             <f:param name="itemName" value="#{listItem.content}" />
                                         </h:link>
+                                        <div class="fb-share-button" data-href="http://localhost:8080/bucketlist/secured/otherItems.xhtml?id=#{listItem.itemId}" data-layout="button"></div>
+                                        <a href="https://twitter.com/intent/tweet?screen_name=bucketlist&amp;text=My_dream_is" class="twitter-mention-button" data-lang="pl">Tweet to @bucketlist</a> 
                                         <p:commandButton ajax="true" oncomplete="progress100(#{listItem.itemId})" id="button#{listItem.itemId}" action="#{userItemsController.progress100(listItem.itemId)}" value="Finish task" />
                                         </h:panelGrid>
                                     </h:panelGrid>
@@ -90,23 +95,6 @@
                                     </h:panelGrid>
                         </p:panelGrid>
                     </p:outputPanel>
-<<<<<<< HEAD
-
-                    <h:panelGrid columns="3">
-                        <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
-                                         rendered="#{not listItem.editable}" />
-                        <p:commandButton ajax="false" icon="ui-icon-disk" action="#{userItemsController.saveAction(listItem)}" 
-                                         rendered="#{listItem.editable}" />
-                        <p:commandButton ajax="false" icon="ui-icon-trash" action="#{userItemsController.deleteAction(listItem)}" 
-                                         rendered="#{not listItem.editable}" />
-                        <div class="fb-share-button" data-href="http://localhost:8080/bucketlist/secured/otherItems.xhtml?id=#{listItem.itemId}" data-layout="button"></div>
-                        <h:link outcome="addImage">
-                            <p:button icon="ui-icon-image"/>
-                            <f:param name="itemId" value="#{listItem.itemId}" />
-                        </h:link>
-                    </h:panelGrid>
-=======
->>>>>>> 34244f6845ca8484cb111980e5f1ba361ca3c1b5
                     <br/>
                 </p:dataScroller>
 
