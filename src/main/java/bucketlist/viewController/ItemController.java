@@ -231,13 +231,15 @@ public class ItemController implements Serializable{
      * Pobiera z nagłówka żądania nazwę dodawanego do celu zdjęcia
      * @return nazwa dodawanego zdjęcia
      */
-    private static String getFilename(Part part) {  
+    public static String getFilename(Part part) {  
+        if(part != null) {
         for (String cd : part.getHeader("content-disposition").split(";")) {  
             if (cd.trim().startsWith("filename")) {  
                 String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");  
                 return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.  
             }  
         }  
+        }
         return null;  
     } 
     
@@ -245,7 +247,7 @@ public class ItemController implements Serializable{
      * Wyodrębnia rozszerzenie z nazwy pliku.
      * @return rozszerzenie pliku
      */
-    private static String getExtension(String filename) {  
+    public static String getExtension(String filename) {  
         return FilenameUtils.getExtension(filename); 
     } 
     
@@ -253,7 +255,7 @@ public class ItemController implements Serializable{
      * Sprawdza czy dodawany plik jest obrazem.
      * @return true w przypadku gdy plik jest obrazem, false w przeciwnym razie
      */
-    private boolean validateExtension(String filename) {  
+    public boolean validateExtension(String filename) {  
         String extenstion = getExtension(filename);
         extenstion = extenstion.toUpperCase();
         if(extenstion.compareTo("JPG") == 0 || extenstion.compareTo("JPEG") == 0 
