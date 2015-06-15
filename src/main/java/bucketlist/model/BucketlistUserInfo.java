@@ -218,6 +218,10 @@ public class BucketlistUserInfo {
         this.lastName = lastName;
     }
 
+    /**
+     * Zwraca nazwę pliku z aktualnym (lub domyślnym) zdjęciem użytkownika
+     * @return nazwa pliku multimedialnego, który ma być wyświetlony jako zdjęcie profilowe
+     */
     public String getUserImage() {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String absolutePath = ctx.getRealPath("/");
@@ -230,9 +234,5 @@ public class BucketlistUserInfo {
         if (file.exists())
             return id + ".jpg";
         return "default.jpg";
-    }
-
-    public void setUserImage(String userImage) {
-        this.userImage = userImage;
     }
 }

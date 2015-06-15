@@ -30,7 +30,7 @@ import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
 
 /**
- *
+ * Klasa odpowiedzialna za obsługę dodawania zdjęcia profilowego.
  * @author Daniel
  */
 @ManagedBean
@@ -52,14 +52,30 @@ public class UserImageController implements Serializable {
         this.database = database;
     }
 
+    /**
+     * Zwaraca aktualne (lub domyślne) zdjęcie profilowe użytkoniwka.
+     * @return aktualne zdjęcie
+     */
     public Part getImage() {
         return image;
     }
 
+    /**
+     * Ustawia nowe zdjęcię profilowe
+     * @param image nowe zdjęcie użytkownika
+     */
     public void setImage(Part image) {
         this.image = image;
     }
     
+    /**
+     * Metoda odpowiedzialna za wgywanie nowego zdjęcia użytkownika na serwer.
+     * Metoda zmienia nazwę pliku na odpowiadającą aktualnemu identyfikatorowi użytkownika
+     * @param e parametr przechowujący dane o wczytanym pliku
+     * @return przekierowanie do strony panelu
+     * @throws IOException w przypadku niepowodzenia w odczytywaniu nowego pliku
+     * @throws NamingException w przypadku błędnych nazwe ścieżek lub plików
+     */
     public String uploadImage(FileUploadEvent e) throws IOException, NamingException {
         if(e.getFile() != null) {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
@@ -102,8 +118,7 @@ public class UserImageController implements Serializable {
     }
 
     /**
-     * Inicjalizuje pola formularza umożliwiającego dodanie celu w przypadku
-     * przejęcia celu wybranego użytkownika
+     * Inicjalizuje klasę obsługującą dodawania zdjęcia profilowego, pobierając dane użytkownika aktualnej sesji.
      */
     public void init() {
         int userId = 0;
