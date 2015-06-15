@@ -134,14 +134,26 @@ public class BucketlistListItem {
         this.progress = progress;
     }
     
+    /**
+     * Zwraca listę zdjęć powiązanych z wybranym celem.
+     * @return lista zdjęć
+     */
     public List<BucketlistItemImage> getImages() {
         return images;
     }
     
+    /**
+     * Ustawia listę zdjęć powiązanych z wybranym celem.
+     * @param images lista zdjęć
+     */
     public void setImages(List<BucketlistItemImage> images) {
         this.images = images;
     }
     
+    /**
+     * Dodaje zdjęcie do listy zdjęć powiązanych z wybranym celem.
+     * @param image zdjęcie
+     */
     public void addImage(BucketlistItemImage image) {
         this.images.add(image);
     }

@@ -7,11 +7,13 @@ package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
+import bucketlist.model.BucketlistItemImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -36,6 +38,7 @@ public class ItemController implements Serializable{
     private String name;
     private String description;
     private Part image;
+    private Integer somebodysItemId;
     
     /**
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
@@ -86,16 +89,32 @@ public class ItemController implements Serializable{
     }
     
     /**
-     * Pobiera zdjęcie powiązane z celem
-     * @return zwraca zdjęcie
+     * Ustawia zdjęcie powiązane z celem
+     * @param description opis celu
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
     /**
-     * Ustawia zdjęcie powiązane z celem
-     * @param description opis celu
+     * Pobiera identyfikator celu pobranego od innego użytkownika.
+     * @return zwraca identyfikator celu
+     */
+    public Integer getSomebodysItemId() {
+        return this.somebodysItemId;
+    }
+    
+    /**
+     * Ustawia identyfikator celu pobranego od innego użytkownika.
+     * @param somebodysItemId identyfikator celu
+     */
+    public void setSomebodysItemId(Integer somebodysItemId) {
+        this.somebodysItemId = somebodysItemId;
+    }
+    
+    /**
+     * Pobiera zdjęcie powiązane z celem
+     * @return zwraca zdjęcie
      */
     public Part getImage() {
         return this.image;
@@ -114,7 +133,19 @@ public class ItemController implements Serializable{
      * @return docelowy adres url
      */
     public String addItem() {
-        database.addMyListItem(this.name, this.description);
+        database.openSession();
+        int id;
+        id = database.addMyListItem(this.name, this.description);
+        database.closeSession();
+        
+        if(this.somebodysItemId != null) {
+            List<BucketlistItemImage> images = database.getItemImages(somebodysItemId);
+            database.openSession();
+            for(BucketlistItemImage i : images) {
+                database.addImage(id, i.getImageName());
+            }
+            database.closeSession();
+        }
         
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
@@ -136,14 +167,16 @@ public class ItemController implements Serializable{
         if(itemId != 0) {
             database.openSession();
             BucketlistListItem item = database.getItemById(this.itemId);
-
+            database.closeSession();
 
             this.name = item.getContent();
             this.description = item.getDescription();
+            this.somebodysItemId = item.getItemId();
         }
         else {
             this.name = "";
             this.description = "";
+            this.somebodysItemId = null;
         }
     }
     
@@ -198,13 +231,15 @@ public class ItemController implements Serializable{
      * Pobiera z nagłówka żądania nazwę dodawanego do celu zdjęcia
      * @return nazwa dodawanego zdjęcia
      */
-    private static String getFilename(Part part) {  
+    public static String getFilename(Part part) {  
+        if(part != null) {
         for (String cd : part.getHeader("content-disposition").split(";")) {  
             if (cd.trim().startsWith("filename")) {  
                 String filename = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");  
                 return filename.substring(filename.lastIndexOf('/') + 1).substring(filename.lastIndexOf('\\') + 1); // MSIE fix.  
             }  
         }  
+        }
         return null;  
     } 
     
@@ -212,7 +247,7 @@ public class ItemController implements Serializable{
      * Wyodrębnia rozszerzenie z nazwy pliku.
      * @return rozszerzenie pliku
      */
-    private static String getExtension(String filename) {  
+    public static String getExtension(String filename) {  
         return FilenameUtils.getExtension(filename); 
     } 
     
@@ -220,7 +255,7 @@ public class ItemController implements Serializable{
      * Sprawdza czy dodawany plik jest obrazem.
      * @return true w przypadku gdy plik jest obrazem, false w przeciwnym razie
      */
-    private boolean validateExtension(String filename) {  
+    public boolean validateExtension(String filename) {  
         String extenstion = getExtension(filename);
         extenstion = extenstion.toUpperCase();
         if(extenstion.compareTo("JPG") == 0 || extenstion.compareTo("JPEG") == 0 

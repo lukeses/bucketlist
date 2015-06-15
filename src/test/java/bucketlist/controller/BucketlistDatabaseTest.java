@@ -47,7 +47,8 @@ public class BucketlistDatabaseTest implements IBucketlistDatabase {
     }
 
     @Override
-    public void addMyListItem(String name, String description) {
+    public int addMyListItem(String name, String description) {
+        return 0;
     }
 
     @Override

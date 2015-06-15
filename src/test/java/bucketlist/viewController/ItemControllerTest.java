@@ -9,6 +9,8 @@ import bucketlist.controller.BucketlistController;
 import bucketlist.controller.BucketlistDatabaseTest;
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
+import java.io.IOException;
+import javax.servlet.http.Part;
 import static org.easymock.EasyMock.createStrictMock;
 import static org.easymock.EasyMock.expect;
 import static org.easymock.EasyMock.replay;
@@ -32,14 +34,15 @@ public class ItemControllerTest {
     @Test
     public void testAddItem() {
         IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
-        mock.addMyListItem("name", "description");
+        mock.saveItem(1, "name", "description");
 		
 	replay(mock);
 	ItemController c = new ItemController();
         c.setDatabase(mock);
+        c.setItemId(1);
         c.setName("name");
         c.setDescription("description");
-	c.addItem();
+	c.update();
 		
 	verify(mock);
     }
@@ -59,4 +62,41 @@ public class ItemControllerTest {
 		
 	verify(mock);
     }    
+    
+    @Test
+    public void testGetFilename() throws IOException {
+        Part part = null;
+        String result = ItemController.getFilename(part);
+        
+        assertEquals(result, null);
+    }  
+    
+    @Test
+    public void testGetExtension() throws IOException {
+        String filename = "image.jpg";
+        String extension = "jpg";
+        String result = ItemController.getExtension(filename);
+        	
+	assertEquals(result, extension);
+    }   
+    
+    @Test
+    public void testValidateExtension1() throws IOException {
+        String filename = "image.jpg";
+        ItemController c = new ItemController();
+        
+        boolean result = c.validateExtension(filename);
+		
+	assertEquals(result, true);
+    }   
+    
+    @Test
+    public void testValidateExtension2() throws IOException {
+        String filename = "image.pdf";
+        ItemController c = new ItemController();
+        
+        boolean result = c.validateExtension(filename);
+		
+	assertEquals(result, false);
+    }  
 }
