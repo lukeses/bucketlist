@@ -5,23 +5,15 @@
  */
 package bucketlist.viewController;
 
-import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
-import java.io.IOException;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
-import org.apache.poi.util.IOUtils;
-import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  *
