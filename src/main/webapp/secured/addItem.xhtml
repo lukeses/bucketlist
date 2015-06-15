@@ -28,7 +28,9 @@
                         Item description: 
                         <h:inputText value="#{itemController.description}" />
                         <br/>  
-                        <h:commandButton value="Add" action="#{itemController.addItem()}"/>       
+                        <h:commandButton value="Add" action="#{itemController.addItem()}"/> 
+                        
+                        <h:inputHidden value="#{itemController.somebodysItemId}" />
 
                     </h:panelGrid>
                 </h:form>

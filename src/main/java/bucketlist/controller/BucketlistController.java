@@ -147,10 +147,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param content zawartość celu, która ma być dodana użytkownikowi
      * @param description opis celu
      */
-    public void addListItemToUser(int userId, String content, String description) {
-
-        openSession();
-
+    public int addListItemToUser(int userId, String content, String description) {
+        
         Transaction t = getSession().beginTransaction();
 
         BucketlistListItem newItem = new BucketlistListItem(content, description);
@@ -160,7 +158,8 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
 
         getSession().persist(user);
         t.commit();
-        closeSession();
+        
+        return newItem.getItemId();
     }
 
     /**
@@ -186,10 +185,12 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
     }
     
     public List<BucketlistItemImage> getItemImages(int itemId) {
+        openSession();
         List<BucketlistItemImage> images;
         Query q = getSession().createQuery("from BucketlistItemImage where itemId = '" + itemId + "'");
         images = (List<BucketlistItemImage>) q.list();
-
+        closeSession();
+       
         return images;
     }
 
@@ -360,9 +361,11 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param description opis
      */
     @Override
-    public void addMyListItem(String content, String description) {
+    public int addMyListItem(String content, String description) {
         int myId = getMyId();
-        addListItemToUser(myId, content, description);
+        int id = addListItemToUser(myId, content, description);
+        
+        return id;
     }
 
     /**
@@ -465,14 +468,12 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     @Override
     public void addImage(int itemId, String imgName) {
-        openSession();
         Transaction t = getSession().beginTransaction();
 
         BucketlistItemImage img = new BucketlistItemImage(itemId, imgName);
 
         getSession().persist(img);
         t.commit();
-        closeSession();
     }
     
     /**

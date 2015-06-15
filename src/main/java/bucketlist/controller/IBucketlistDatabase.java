@@ -56,8 +56,9 @@ public interface IBucketlistDatabase {
      *
      * @param name zawartość
      * @param description opis
+     * @return id dodanego celu
      */
-    public void addMyListItem(String name, String description);
+    public int addMyListItem(String name, String description);
 
     /**
      * Metoda sprawdzająca poprawność hasła dla danego adresu email.
