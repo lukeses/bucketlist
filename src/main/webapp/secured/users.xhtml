@@ -15,21 +15,24 @@
 
         <h:body>
             <h:form>
-                    <p:dataScroller value="#{userController.users}" var="user">
-                <h:panelGrid columns="1" >
-                    <p:outputPanel>
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputText value="User:" />
-                            <h:outputText value="#{user.email}" style="font-weight: bold"/>
-                            
-                            <h:link value="show items" outcome="otherItems">
-                                <f:param name="id" value="#{user.id}" />
-                            </h:link>
-                        </h:panelGrid>
-                    </p:outputPanel>
-                </h:panelGrid>
-            </p:dataScroller>
-        </h:form>
+                <p:dataScroller value="#{userController.users}" var="user">
+                    <h:panelGrid columns="2" >
+                        <p:outputPanel id="photo">
+                            <p:graphicImage style="width:80px" library="userImages" name="#{user.userImage}"/>
+                        </p:outputPanel>
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="10">
+                                <h:outputText value="User:" />
+                                <h:outputText value="#{user.email}" style="font-weight: bold"/>
+
+                                <h:link value="show items" outcome="otherItems">
+                                    <f:param name="id" value="#{user.id}" />
+                                </h:link>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:dataScroller>
+            </h:form>
         </h:body>
 
     </f:view>

@@ -56,8 +56,9 @@ public interface IBucketlistDatabase {
      *
      * @param name zawartość
      * @param description opis
+     * @return id dodanego celu
      */
-    public void addMyListItem(String name, String description);
+    public int addMyListItem(String name, String description);
 
     /**
      * Metoda sprawdzająca poprawność hasła dla danego adresu email.
@@ -94,6 +95,13 @@ public interface IBucketlistDatabase {
      * @return lista użytkowników
      */
     public List<BucketlistUserInfo> getAllUsersButMe();
+    
+    /**
+     * Zwraca listę wszystkich użytkowników
+     *
+     * @return lista użytkowników
+     */
+    public List<BucketlistUserInfo> getAllUsers();
 
     /**
      * Metoda zwraca cele danego użytkownika
@@ -133,4 +141,28 @@ public interface IBucketlistDatabase {
 
     public List<BucketlistItemImage> getItemImages(int itemId);
     
+    /**
+     * Zwraca użytkownika o podanym id
+     *
+     * @param id identyfikator użytkownika
+     * @return użytkownik o podanym identyfikatorze
+     */
+    public BucketlistUserInfo getUser(int id);
+    
+    /**
+     * Zmienia hasło użytkownika o podanym id
+     *
+     * @param userId identyfikator użytkownika
+     * @param newPassword nowe hasło użytkownika
+     */
+    public void changePassword(int userId, String newPassword);
+    
+    /**
+     * Usuwa użytkownika o podanym id
+     *
+     * @param id identyfikator użytkownika
+     */
+    public void deleteUser(int id);
+
+    public void progress100(int itemId);
 }

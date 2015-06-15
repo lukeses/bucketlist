@@ -24,11 +24,11 @@
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <title>Home Page</title>
             </f:facet>
-            <h:outputStylesheet library="css" name="bootstrap-theme.css"  />
             <h:outputStylesheet library="css" name="bootstrap.css"  />
-            <h:outputStylesheet library="css" name="slideme.css"  />
+            <h:outputStylesheet library="css" name="jquery.fancybox.css"  />
+            <h:outputStylesheet library="css" name="mycss.css"  />
             <h:outputScript library="js" name="bootstrap.js" />
-            <h:outputScript library="js" name="jquery.slideme2.js" />
+            <h:outputScript library="js" name="jquery.fancybox.js" />
             <h:outputScript library="js" name="useritems.js" />
         </h:head>
 
@@ -41,21 +41,44 @@
                 <p:commandButton ajax="false" value="Log out" action="#{loginController.logout}" />  
                 <p:button outcome="addItem" value="Add item" />
                 <p:button outcome="users" value="Users" />
+                <p:button outcome="userPanel" value="User panel" />
+
 
                 <p:dataScroller value="#{userItemsController.list}" var="listItem">
 
                     <p:outputPanel>
-                        <p:panelGrid columns="2" style="width: 100%" columnClasses="first-column, second-column">
-                                    <h:panelGroup layout="block" class="gallery" style="height:200px">
-                                    <ul class="slideme">
-                                        <ui:repeat value="#{userItemsController.getImageNames(listItem.itemId)}" var="img">
-                                            <li><h:graphicImage style="height:150px" library="images" name="#{img}" /></li>
-                                        </ui:repeat>
-                                    </ul>
-                                    </h:panelGroup>
+                        <p:panelGrid columns="2" style="width: 100%" columnClasses="first-column, second-column" class="maintable">
+                            <h:panelGroup layout="block">
+                                <a class="fancybox" rel="#{listItem.itemId}" href="../resources/images/#{userItemsController.getMainImage(listItem.itemId)}">
+                                    <h:graphicImage alt="" library="images" name="#{userItemsController.getMainImage(listItem.itemId)}" style='height:150px' />
+                                </a>
+                                
+                                <div class="hidden">
+                                    <ui:repeat value="#{userItemsController.getImageNamesWithoutFirst(listItem.itemId)}" var="img">
+                                        <a class="fancybox" rel="#{listItem.itemId}" href="../resources/images/#{img}">
+                                            <h:graphicImage alt="" library="images" name="#{img}" />
+                                        </a>
+                                    </ui:repeat>
+                                </div>
+                            </h:panelGroup>
                                     <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
                                     <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
-                                    <h:panelGrid></h:panelGrid>
+                                    <h:panelGrid>
+                                        <h:panelGrid columns="4">
+                                        <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
+                                                         rendered="#{not listItem.editable}" />
+                                        <p:commandButton ajax="false" icon="ui-icon-disk" action="#{userItemsController.saveAction(listItem)}" 
+                                                         rendered="#{listItem.editable}" />
+                                        <p:commandButton ajax="false" icon="ui-icon-trash" action="#{userItemsController.deleteAction(listItem)}" 
+                                                         rendered="#{not listItem.editable}" />
+                                        <h:link outcome="addImage">
+                                            <p:button icon="ui-icon-image"/>
+                                            <f:param name="itemId" value="#{listItem.itemId}" />
+                                            <f:param name="itemName" value="#{listItem.content}" />
+                                        </h:link>
+                                        <p:commandButton ajax="true" oncomplete="progress100(#{listItem.itemId})" id="button#{listItem.itemId}" action="#{userItemsController.progress100(listItem.itemId)}" value="Finish task" />
+                                        </h:panelGrid>
+                                    </h:panelGrid>
                                     <h:panelGrid columns="3" style="width: 100%" columnClasses="short-left, long, short-right">
                                     <p:commandButton ajax="true" oncomplete="decreaseProgress(#{listItem.itemId})" icon="ui-icon-arrowthick-1-w" action="#{userItemsController.decreaseProgress(listItem.itemId)}" />
                                     <div class="progress" style="width:100%">
@@ -67,6 +90,7 @@
                                     </h:panelGrid>
                         </p:panelGrid>
                     </p:outputPanel>
+<<<<<<< HEAD
 
                     <h:panelGrid columns="3">
                         <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
@@ -81,6 +105,8 @@
                             <f:param name="itemId" value="#{listItem.itemId}" />
                         </h:link>
                     </h:panelGrid>
+=======
+>>>>>>> 34244f6845ca8484cb111980e5f1ba361ca3c1b5
                     <br/>
                 </p:dataScroller>
 

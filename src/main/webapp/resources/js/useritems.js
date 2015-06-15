@@ -14,14 +14,15 @@ function decreaseProgress(id) {
     $('#progress-bar-' + id).css('width', value+'%').attr('aria-valuenow', value).text(value+'%');    
 }
 
+function progress100(id) {
+    $('#progress-bar-' + id).css('width', '100%').attr('aria-valuenow', '100').text('100%');  
+}
+
 $(document).ready(function() {
-    $('.gallery').slideme({
-        arrows: true,
-        //pagination: 'numbers',
-        transition : 'fade',
-        resizable: {
-            width: 250,
-            height: 150,
-        }
-    });
+    $(".fancybox")
+        .fancybox({
+            padding: 0,
+            cyclic: true,
+            showNavArrows: true
+        });
 });

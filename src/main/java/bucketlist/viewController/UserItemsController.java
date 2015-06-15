@@ -15,6 +15,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  * Klasa obsługująca żądania ze strony userItems.xhtml.
@@ -49,33 +50,22 @@ public class UserItemsController implements Serializable {
             this.database.openSession();
             List<BucketlistUserInfo> user = database.getUserByEmail(login.getUserName());
             list = this.database.getUserItems(user.get(0).getId());
-            /*for(BucketlistListItem item : list) {
-                List<BucketlistItemImage> imgList = this.database.getItemImages(item.getItemId());
-                
-                item.setImages(imgList);
-                if(imgList != null)
-                    item.setMainImg(imgList.get(0).getImageName());
-                else
-                    item.setMainImg("");
-            }*/
             this.database.closeSession();
         }
-        
-            /*List<BucketlistItemImage> images = new ArrayList<>();
-            images.add(new BucketlistItemImage(1, "tiger.jpg"));
-            images.add(new BucketlistItemImage(2, "sheep.jpg"));
-            for(BucketlistListItem item : list) {
-                item.setImages(images);
-            }*/
-        
+
         return list;
     }
     
-    public List<String> getImageNames(int itemId) {
+    /**
+     * Zwraca listę nazw zdjęć powiązanych z wybranym celem
+     * @param itemId identyfikator celu
+     * @return lista nazw zdjęć
+     */
+    private List<String> getImageNames(int itemId) {
         List<BucketlistItemImage> images;
-        this.database.openSession();
+        //this.database.openSession();
         images = this.database.getItemImages(itemId);
-        this.database.closeSession();
+        //this.database.closeSession();
 
         List<String> names = new ArrayList<>();
         for(BucketlistItemImage i : images) {
@@ -85,18 +75,41 @@ public class UserItemsController implements Serializable {
         return names;
     }
     
-    /*public String getMainImage(int itemId) throws NamingException {
-        if (images == null) {
-            this.database.openSession();
-            images = this.database.getItemImages(itemId);
-            this.database.closeSession();
+    /**
+     * Zwraca listę nazw zdjęć powiązanych z wybranym celem z wyłączeniem głównego zdjęcia
+     * @param itemId identyfikator celu
+     * @return lista nazw zdjęć
+     */
+    public List<String> getImageNamesWithoutFirst(int itemId) {
+        List<BucketlistItemImage> images;
+        //this.database.openSession();
+        images = this.database.getItemImages(itemId);
+        //this.database.closeSession();
+
+        List<String> names = new ArrayList<>();
+        for(BucketlistItemImage i : images) {
+            names.add(i.getImageName());
         }
         
+        if(names.size() > 0)
+            names.remove(0);
+        
+        return names;
+    }
+    
+    /**
+     * Zwraca nazwę głównego zdjęcia powiązanego z wybranym celem
+     * @param itemId identyfikator celu
+     * @return nazwa głównego zdjęcia
+     */
+    public String getMainImage(int itemId) {
+        List<String> images = getImageNames(itemId);
+        
         if(images.size() > 0)
-            return images.get(0).getImageName();
-        else
-            return "";
-    }*/
+            return images.get(0);
+        
+        return "#";
+    }
 
     /**
      * Miejsce wstrzyknięcia klasy obsługującej stan sesji użytkownika
@@ -142,15 +155,34 @@ public class UserItemsController implements Serializable {
         return null;
     }
     
+    /**
+     * Zmniejsza poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     public void decreaseProgress(int itemId) {
         database.openSession();
         database.decreaseProgress(itemId);
         database.closeSession();
     }
     
+    /**
+     * Zwiększa poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     public void increaseProgress(int itemId) {
         database.openSession();
         database.increaseProgress(itemId);
         database.closeSession();
     }
+    
+    /**
+     * Zwiększa poziom realizacji wybranego celu do 100%.
+     * @param itemId identyfikator celu
+     */
+    public void progress100(int itemId) {
+        database.openSession();
+        database.progress100(itemId);
+        database.closeSession();
+    }
+
 }

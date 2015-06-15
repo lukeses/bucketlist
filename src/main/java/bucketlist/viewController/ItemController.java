@@ -7,19 +7,21 @@ package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
+import bucketlist.model.BucketlistItemImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Klasa obsługująca żądania ze strony addItem.xhtml.
@@ -28,7 +30,7 @@ import javax.servlet.http.Part;
  */
 @ManagedBean
 @RequestScoped
-public class ItemController {
+public class ItemController implements Serializable{
     @ManagedProperty (value = "#{databaseDAO}") 
     private IBucketlistDatabase database;
     
@@ -36,6 +38,7 @@ public class ItemController {
     private String name;
     private String description;
     private Part image;
+    private Integer somebodysItemId;
     
     /**
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
@@ -86,17 +89,41 @@ public class ItemController {
     }
     
     /**
-     * Ustawia opis celu
+     * Ustawia zdjęcie powiązane z celem
      * @param description opis celu
      */
     public void setDescription(String description) {
         this.description = description;
     }
     
+    /**
+     * Pobiera identyfikator celu pobranego od innego użytkownika.
+     * @return zwraca identyfikator celu
+     */
+    public Integer getSomebodysItemId() {
+        return this.somebodysItemId;
+    }
+    
+    /**
+     * Ustawia identyfikator celu pobranego od innego użytkownika.
+     * @param somebodysItemId identyfikator celu
+     */
+    public void setSomebodysItemId(Integer somebodysItemId) {
+        this.somebodysItemId = somebodysItemId;
+    }
+    
+    /**
+     * Pobiera zdjęcie powiązane z celem
+     * @return zwraca zdjęcie
+     */
     public Part getImage() {
         return this.image;
     }
         
+    /**
+     * Ustawia zdjęcie powiązane z celem
+     * @param image zdjęcie
+     */
     public void setImage(Part image) {
         this.image = image;
     }
@@ -106,7 +133,19 @@ public class ItemController {
      * @return docelowy adres url
      */
     public String addItem() {
-        database.addMyListItem(this.name, this.description);
+        database.openSession();
+        int id;
+        id = database.addMyListItem(this.name, this.description);
+        database.closeSession();
+        
+        if(this.somebodysItemId != null) {
+            List<BucketlistItemImage> images = database.getItemImages(somebodysItemId);
+            database.openSession();
+            for(BucketlistItemImage i : images) {
+                database.addImage(id, i.getImageName());
+            }
+            database.closeSession();
+        }
         
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
@@ -128,19 +167,27 @@ public class ItemController {
         if(itemId != 0) {
             database.openSession();
             BucketlistListItem item = database.getItemById(this.itemId);
-
+            database.closeSession();
 
             this.name = item.getContent();
             this.description = item.getDescription();
+            this.somebodysItemId = item.getItemId();
         }
         else {
             this.name = "";
             this.description = "";
+            this.somebodysItemId = null;
         }
     }
     
+    /**
+     * Dodaje zdjęcie do wybranego celu i przekierowuje do listy celów użytkownika
+     * @return docelowy adres url
+     */
     public String uploadImage() throws IOException, NamingException {
         if(image != null) {
+            if(validateExtension(getFilename(image)))
+            {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String absolutePath = ctx.getRealPath("/");
         
@@ -175,10 +222,15 @@ public class ItemController {
         outputStream.close();  
         inputStream.close();  
         }
+        }
          
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
     
+    /**
+     * Pobiera z nagłówka żądania nazwę dodawanego do celu zdjęcia
+     * @return nazwa dodawanego zdjęcia
+     */
     private static String getFilename(Part part) {  
         for (String cd : part.getHeader("content-disposition").split(";")) {  
             if (cd.trim().startsWith("filename")) {  
@@ -187,5 +239,27 @@ public class ItemController {
             }  
         }  
         return null;  
+    } 
+    
+    /**
+     * Wyodrębnia rozszerzenie z nazwy pliku.
+     * @return rozszerzenie pliku
+     */
+    private static String getExtension(String filename) {  
+        return FilenameUtils.getExtension(filename); 
+    } 
+    
+    /**
+     * Sprawdza czy dodawany plik jest obrazem.
+     * @return true w przypadku gdy plik jest obrazem, false w przeciwnym razie
+     */
+    private boolean validateExtension(String filename) {  
+        String extenstion = getExtension(filename);
+        extenstion = extenstion.toUpperCase();
+        if(extenstion.compareTo("JPG") == 0 || extenstion.compareTo("JPEG") == 0 
+                || extenstion.compareTo("PNG") == 0 || extenstion.compareTo("GIF") == 0)
+            return true;
+        else 
+            return false;
     } 
 }

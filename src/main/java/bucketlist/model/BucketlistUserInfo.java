@@ -7,11 +7,14 @@ package bucketlist.model;
 
 //import javax.persistence.Entity;
 import bucketlist.controller.BucketlistListItem;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
 
 /**
  * Klasa reprezentująca użytkownika. Zawiera ogólne informacje o użytkownika i
@@ -31,6 +34,7 @@ public class BucketlistUserInfo {
     private String email;
     private String passwordHash;
     private List<BucketlistListItem> listItems;
+    private String userImage;
     
     /**
      * Kompletny kontruktor klasy. Przyjmuje jako parametry kompletny zestaw
@@ -76,10 +80,9 @@ public class BucketlistUserInfo {
      * @return zwraca wartość true, jeżeli hasło zostało zmienione
      */
     public boolean changePassword(String oldPassword, String newPassword) {
-        if (this.passwordHash.equals(oldPassword))
-            this.passwordHash = newPassword;
-        else return false;
-        
+        if (!this.passwordHash.equals(oldPassword))
+            return false;
+        this.passwordHash = newPassword;
         return true;
     }
 
@@ -213,5 +216,23 @@ public class BucketlistUserInfo {
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    /**
+     * Zwraca nazwę pliku z aktualnym (lub domyślnym) zdjęciem użytkownika
+     * @return nazwa pliku multimedialnego, który ma być wyświetlony jako zdjęcie profilowe
+     */
+    public String getUserImage() {
+        ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
+        String absolutePath = ctx.getRealPath("/");
+        
+        absolutePath = new File(absolutePath).getParentFile().getParentFile().getPath();
+        absolutePath += "/src/main/webapp/resources/userImages";
+
+        String imgName = id + ".jpg";
+        File file = new File(absolutePath + "/" + imgName);
+        if (file.exists())
+            return id + ".jpg";
+        return "default.jpg";
     }
 }
