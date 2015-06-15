@@ -638,13 +638,26 @@ public class BucketlistControllerTest {
      */
     @Test
     public void testGetAllUsers() {
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.list()).andReturn(new ArrayList<BucketlistUserInfo>());
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
         System.out.println("getAllUsers");
+        BucketlistController.setFactory(factoryMock);
         BucketlistController instance = new BucketlistController();
-        List<BucketlistUserInfo> expResult = null;
+        instance.setSession(sessionMock);
+        List<BucketlistUserInfo> expResult = new ArrayList<>();
         List<BucketlistUserInfo> result = instance.getAllUsers();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
     }
 
     /**
