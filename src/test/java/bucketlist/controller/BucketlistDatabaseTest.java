@@ -125,7 +125,6 @@ public class BucketlistDatabaseTest implements IBucketlistDatabase {
 
     @Override
     public void progress100(int itemId) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
