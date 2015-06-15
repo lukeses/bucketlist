@@ -5,7 +5,6 @@
  */
 package bucketlist.viewController;
 
-import bucketlist.controller.BucketlistListItem;
 import bucketlist.controller.IBucketlistDatabase;
 import bucketlist.model.BucketlistUserInfo;
 import java.io.File;
@@ -13,21 +12,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-import org.apache.poi.util.IOUtils;
 import org.primefaces.event.FileUploadEvent;
-import org.primefaces.model.UploadedFile;
 
 /**
  * Klasa odpowiedzialna za obsługę dodawania zdjęcia profilowego.

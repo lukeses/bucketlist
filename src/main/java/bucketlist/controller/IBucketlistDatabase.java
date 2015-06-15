@@ -56,8 +56,9 @@ public interface IBucketlistDatabase {
      *
      * @param name zawartość
      * @param description opis
+     * @return id dodanego celu
      */
-    public void addMyListItem(String name, String description);
+    public int addMyListItem(String name, String description);
 
     /**
      * Metoda sprawdzająca poprawność hasła dla danego adresu email.
@@ -132,10 +133,23 @@ public interface IBucketlistDatabase {
      */
     public void deleteItem(BucketlistListItem item);
     
+    /**
+     * Zmniejsza poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     public void decreaseProgress(int itemId);
     
+    /**
+     * Zmniejsza poziom realizacji wybranego celu o 10%.
+     * @param itemId identyfikator celu
+     */
     public void increaseProgress(int itemId);
 
+    /**
+     * Dodaje zdjęcie do wybranego celu.
+     * @param itemId identyfikator celu
+     * @param imgName nazwa zdjęcia
+     */
     public void addImage(int itemId, String imgName);
 
     public List<BucketlistItemImage> getItemImages(int itemId);
@@ -163,5 +177,9 @@ public interface IBucketlistDatabase {
      */
     public void deleteUser(int id);
 
+    /**
+     * Zwiększa poziom realizacji wybranego celu do 100%.
+     * @param itemId identyfikator celu
+     */
     public void progress100(int itemId);
 }

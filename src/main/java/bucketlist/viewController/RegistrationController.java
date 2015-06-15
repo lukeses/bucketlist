@@ -6,6 +6,7 @@
 package bucketlist.viewController;
 
 import bucketlist.controller.BucketlistController;
+import bucketlist.controller.BucketlistMail;
 import bucketlist.controller.IBucketlistDatabase;
 import java.io.Serializable;
 import javax.faces.application.FacesMessage;
@@ -13,7 +14,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-
+import bucketlist.controller.BucketlistMail;
 /**
  * Klasa obsługująca żądania ze strony regpanel.xhtml.
  * @author Daniel
@@ -153,6 +154,10 @@ public class RegistrationController implements Serializable {
             database.openSession();
             database.addNewUser(firstName, lastName, email1, password1);
             database.closeSession();
+     
+            //BucketlistMail bucketlistMail = new BucketlistMail();
+            //String email_message = "Witaj, " + firstName + "\n\n Nadałeś hasło użytkownika: " + password1;
+            //bucketlistMail.sendMail(email1, email_message, "Rejestracja użytkownika");
             
             return "/logpanel.xhtml?faces-redirect=true";   
         }

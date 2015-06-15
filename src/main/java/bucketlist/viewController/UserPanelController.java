@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Klasa odpowiadająca za obsługę Panelu użytkownika
+ *
  * @author Daniel
  */
 @ManagedBean
@@ -30,7 +31,9 @@ public class UserPanelController implements Serializable {
     private String oldPassword;
     private String newPassword1;
     private String newPassword2;
-    private String userImage;
+
+    @ManagedProperty(value = "#{loginController}")
+    private LoginController login;
 
     /**
      * Miejsce wstrzyknięcia klasy obsługującej bazę danych
@@ -52,6 +55,7 @@ public class UserPanelController implements Serializable {
 
     /**
      * Zwraca wartość zmiennej reprezentującej dotychczasowe hasło użytkownika
+     *
      * @return wartość zmiennej przechowującej hasło
      */
     public String getOldPassword() {
@@ -68,6 +72,7 @@ public class UserPanelController implements Serializable {
 
     /**
      * Zwraca wartość zmiennej reprezentującej nowe hasło użytkownika
+     *
      * @return wartość zmiennej przechowującej nowe hasło
      */
     public String getNewPassword1() {
@@ -83,8 +88,9 @@ public class UserPanelController implements Serializable {
     }
 
     /**
-     * Zwraca wartość zmiennej reprezentującej nowe hasło użytkownika.
-     * Służy potwierdzeniu dwukrotnego wpisania tego samego hasła
+     * Zwraca wartość zmiennej reprezentującej nowe hasło użytkownika. Służy
+     * potwierdzeniu dwukrotnego wpisania tego samego hasła
+     *
      * @return wartość zmiennej przechowującej nowe hasło
      */
     public String getNewPassword2() {
@@ -101,16 +107,17 @@ public class UserPanelController implements Serializable {
 
     /**
      * Zwaraca nazwę pliku ze zdjęciem profilowym użytkownika.
+     *
      * @return nazwa pliku multimedialnego
      */
     public String getUserImage() {
         return user.getUserImage();
     }
-    
+
     /**
-     * Metoda próbująca zmienić hasło użytkownika.
-     * Funkcja sprawdza czy wprowadzone hasło zgadza się z dotychczasowym oraz
-     * czy propozycje nowego hasła są identyczne
+     * Metoda próbująca zmienić hasło użytkownika. Funkcja sprawdza czy
+     * wprowadzone hasło zgadza się z dotychczasowym oraz czy propozycje nowego
+     * hasła są identyczne
      */
     public void tryToChangePassword() {
         String resultMsg = null;
@@ -128,20 +135,23 @@ public class UserPanelController implements Serializable {
             resultMsg = "Some error occured.";
         }
         FacesMessage msg = new FacesMessage(resultMsg, "ERROR MSG");
-                msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-                if (context != null) {
-                    context.addMessage(null, msg);
-                }
+        msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+        if (context != null) {
+            context.addMessage(null, msg);
+        }
     }
-    
+
     /**
-     * Metoda służy do usuwania konta użytkownika z bazy danych.
-     * Metoda sprawdza czy podane hasło jest prawidłowe w celu potwierdzenai tożsamości
+     * Metoda służy do usuwania konta użytkownika z bazy danych. Metoda sprawdza
+     * czy podane hasło jest prawidłowe w celu potwierdzenai tożsamości
      * użytkownika i usuwa go z bazy danych.
+     *
+     * @return przekierowanie
      */
-    public void tryToDeleteUser() {
-        if (user != null)
-        {
+    public String tryToDeleteUser() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        if (user != null) {
             database.openSession();
             int passwordCheck = database.checkPassword(user.getEmail(), oldPassword);
             database.closeSession();
@@ -149,12 +159,25 @@ public class UserPanelController implements Serializable {
                 database.openSession();
                 database.deleteUser(passwordCheck);
                 database.closeSession();
+                if (login != null) {
+                    login.logout();
+                    return "/logpanel.xhtml?faces-redirect=true";
+                }
+
+            } else {
+                FacesMessage msg = new FacesMessage("Some error occured.", "ERROR MSG");
+                msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+                if (context != null) {
+                    context.addMessage(null, msg);
+                }
             }
         }
+        return null;
     }
 
     /**
-     * Inicjalizuje klasę obsługującą funkcje panelu, pobierając dane użytkownika aktualnej sesji.
+     * Inicjalizuje klasę obsługującą funkcje panelu, pobierając dane
+     * użytkownika aktualnej sesji.
      */
     public void init() {
         int userId = 0;
@@ -175,5 +198,14 @@ public class UserPanelController implements Serializable {
             }
         }
 
+    }
+
+    /**
+     * Miejsce wstrzyknięcia klasy obsługującej sesję
+     *
+     * @param login obiekt do wstrzyknięcia
+     */
+    public void setLogin(LoginController login) {
+        this.login = login;
     }
 }
