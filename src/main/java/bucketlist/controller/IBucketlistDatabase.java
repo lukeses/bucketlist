@@ -162,4 +162,6 @@ public interface IBucketlistDatabase {
      * @param id identyfikator użytkownika
      */
     public void deleteUser(int id);
+
+    public void progress100(int itemId);
 }

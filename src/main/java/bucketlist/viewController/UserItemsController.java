@@ -15,6 +15,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ValueChangeEvent;
 
 /**
  * Klasa obsługująca żądania ze strony userItems.xhtml.
@@ -173,4 +174,15 @@ public class UserItemsController implements Serializable {
         database.increaseProgress(itemId);
         database.closeSession();
     }
+    
+    /**
+     * Zwiększa poziom realizacji wybranego celu do 100%.
+     * @param itemId identyfikator celu
+     */
+    public void progress100(int itemId) {
+        database.openSession();
+        database.progress100(itemId);
+        database.closeSession();
+    }
+
 }

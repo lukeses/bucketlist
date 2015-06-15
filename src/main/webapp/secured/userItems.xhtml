@@ -51,7 +51,7 @@
                                     <h:inputText value="#{listItem.content}" size="10" rendered="#{listItem.editable}" />
                                     <h:outputText value="#{listItem.content}" rendered="#{not listItem.editable}" />
                                     <h:panelGrid>
-                                        <h:panelGrid columns="3">
+                                        <h:panelGrid columns="4">
                                         <p:commandButton ajax="false" icon="ui-icon-pencil" action="#{userItemsController.editAction(listItem)}" 
                                                          rendered="#{not listItem.editable}" />
                                         <p:commandButton ajax="false" icon="ui-icon-disk" action="#{userItemsController.saveAction(listItem)}" 
@@ -62,6 +62,7 @@
                                             <p:button icon="ui-icon-image"/>
                                             <f:param name="itemId" value="#{listItem.itemId}" />
                                         </h:link>
+                                        <p:commandButton ajax="true" oncomplete="progress100(#{listItem.itemId})" id="button#{listItem.itemId}" action="#{userItemsController.progress100(listItem.itemId)}" value="Finish task" />
                                         </h:panelGrid>
                                     </h:panelGrid>
                                     <h:panelGrid columns="3" style="width: 100%" columnClasses="short-left, long, short-right">

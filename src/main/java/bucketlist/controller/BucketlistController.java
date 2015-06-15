@@ -488,5 +488,18 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         query.executeUpdate();
         t.commit();
     }
+    
+    /**
+     * Zwiększa poziom realizacji wybranego celu do 100%.
+     * @param itemId identyfikator celu
+     */
+    public void progress100(int itemId) {
+        Transaction t = getSession().beginTransaction();
+        Query query = getSession().createQuery("update BucketlistListItem set progress = 100"
+                + " where id = :id");
+        query.setParameter("id", itemId);
+        query.executeUpdate();
+        t.commit();
+    }
 
 }
