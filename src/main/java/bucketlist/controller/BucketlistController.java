@@ -130,6 +130,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param id numer id użytkownika serwisu, którego obiekt ma być zwrócony
      * @return obiekt przechowujący dostępne dane o użytkowniku
      */
+    @Override
     public BucketlistUserInfo getUser(int id) {
         BucketlistUserInfo retrievedUser;
         //Query q = session.createQuery("from BucketlistUserInfo as userInfo where userInfo.id = '" + id + "'");
@@ -146,6 +147,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * @param userId numer id użytkownika, który będzie miał dodany nowy cel
      * @param content zawartość celu, która ma być dodana użytkownikowi
      * @param description opis celu
+     * @return id celu
      */
     public int addListItemToUser(int userId, String content, String description) {
         
@@ -184,6 +186,13 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
         
     }
     
+    /**
+     * Zwraca listę zdjęc celu
+     * 
+     * @param itemId id celu
+     * @return lista zdjęć
+     */
+    @Override
     public List<BucketlistItemImage> getItemImages(int itemId) {
         openSession();
         List<BucketlistItemImage> images;
@@ -481,6 +490,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      *
      * @param id identyfikator użytkownika
      */
+    @Override
     public void deleteUser(int id) {
         Transaction t = getSession().beginTransaction();
         Query query = getSession().createQuery("DELETE FROM BucketlistUserInfo"
@@ -494,6 +504,7 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      * Zwiększa poziom realizacji wybranego celu do 100%.
      * @param itemId identyfikator celu
      */
+    @Override
     public void progress100(int itemId) {
         Transaction t = getSession().beginTransaction();
         Query query = getSession().createQuery("update BucketlistListItem set progress = 100"
