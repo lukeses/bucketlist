@@ -15,14 +15,19 @@
         <h:body>
             <f:metadata>
                 <f:viewParam name="itemId" value="#{itemController.itemId}" />
+                <f:viewParam name="itemName" value="#{itemController.name}" />
             </f:metadata>
             
-            <h:form enctype="multipart/form-data">  
-                <h:inputFile value="#{itemController.image}"></h:inputFile>  
-
-                <h:commandButton action="#{itemController.uploadImage()}" value="Upload">  
-            </h:commandButton>
-            </h:form>  
+            <p:panel id="custom" header="Add Image to Item: #{itemController.name}">
+                <h:form enctype="multipart/form-data">
+                    <h:panelGrid columns="2">
+                        Choose file: 
+                        <h:inputFile value="#{itemController.image}"></h:inputFile>  
+                        <br />
+                        <h:commandButton action="#{itemController.uploadImage()}" value="Upload" />      
+                    </h:panelGrid>
+                </h:form>
+            </p:panel>
         </h:body>
 
     </f:view>

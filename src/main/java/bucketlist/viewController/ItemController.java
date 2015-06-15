@@ -19,6 +19,7 @@ import javax.faces.context.FacesContext;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Part;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  * Klasa obsługująca żądania ze strony addItem.xhtml.
@@ -152,6 +153,8 @@ public class ItemController implements Serializable{
      */
     public String uploadImage() throws IOException, NamingException {
         if(image != null) {
+            if(validateExtension(getFilename(image)))
+            {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String absolutePath = ctx.getRealPath("/");
         
@@ -186,6 +189,7 @@ public class ItemController implements Serializable{
         outputStream.close();  
         inputStream.close();  
         }
+        }
          
         return "/secured/userItems.xhtml?faces-redirect=true";
     }
@@ -202,5 +206,26 @@ public class ItemController implements Serializable{
             }  
         }  
         return null;  
+    } 
+    
+    /**
+     * Wyodrębnia rozszerzenie z nazwy pliku.
+     * @return rozszerzenie pliku
+     */
+    private static String getExtension(String filename) {  
+        return FilenameUtils.getExtension(filename); 
+    } 
+    
+    /**
+     * Sprawdza czy dodawany plik jest obrazem.
+     * @return true w przypadku gdy plik jest obrazem, false w przeciwnym razie
+     */
+    private boolean validateExtension(String filename) {  
+        String extenstion = getExtension(filename);
+        if(extenstion.compareTo("jpg") == 0 || extenstion.compareTo("png") == 0 
+                || extenstion.compareTo("gif") == 0)
+            return true;
+        else 
+            return false;
     } 
 }

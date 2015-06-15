@@ -61,6 +61,7 @@
                                         <h:link outcome="addImage">
                                             <p:button icon="ui-icon-image"/>
                                             <f:param name="itemId" value="#{listItem.itemId}" />
+                                            <f:param name="itemName" value="#{listItem.content}" />
                                         </h:link>
                                         <p:commandButton ajax="true" oncomplete="progress100(#{listItem.itemId})" id="button#{listItem.itemId}" action="#{userItemsController.progress100(listItem.itemId)}" value="Finish task" />
                                         </h:panelGrid>
