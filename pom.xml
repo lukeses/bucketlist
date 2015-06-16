@@ -69,6 +69,11 @@
             <version>2.4</version>
         </dependency>
         <dependency>
+            <groupId>org.openqa.selenium.core</groupId>
+            <artifactId>selenium-core</artifactId>
+            <version>1.0-20080914.225453</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
