@@ -183,6 +183,8 @@ public class ItemController implements Serializable{
     /**
      * Dodaje zdjęcie do wybranego celu i przekierowuje do listy celów użytkownika
      * @return docelowy adres url
+     * @throws java.io.IOException wyjątek IO
+     * @throws javax.naming.NamingException NamingException
      */
     public String uploadImage() throws IOException, NamingException {
         if(image != null) {
@@ -231,6 +233,8 @@ public class ItemController implements Serializable{
     
     /**
      * Pobiera z nagłówka żądania nazwę dodawanego do celu zdjęcia
+     * 
+     * @param part nagłówek
      * @return nazwa dodawanego zdjęcia
      */
     public static String getFilename(Part part) {  
@@ -247,6 +251,8 @@ public class ItemController implements Serializable{
     
     /**
      * Wyodrębnia rozszerzenie z nazwy pliku.
+     * 
+     * @param filename nazwa pliku
      * @return rozszerzenie pliku
      */
     public static String getExtension(String filename) {  
@@ -255,6 +261,8 @@ public class ItemController implements Serializable{
     
     /**
      * Sprawdza czy dodawany plik jest obrazem.
+     * 
+     * @param filename nazwa pliku
      * @return true w przypadku gdy plik jest obrazem, false w przeciwnym razie
      */
     public boolean validateExtension(String filename) {  

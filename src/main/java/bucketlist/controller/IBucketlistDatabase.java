@@ -152,6 +152,12 @@ public interface IBucketlistDatabase {
      */
     public void addImage(int itemId, String imgName);
 
+    /**
+     * Zwraca listę zdjęć celu
+     * 
+     * @param itemId id celu
+     * @return lista zdjęć
+     */
     public List<BucketlistItemImage> getItemImages(int itemId);
     
     /**
