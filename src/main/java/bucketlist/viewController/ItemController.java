@@ -139,8 +139,10 @@ public class ItemController implements Serializable{
         database.closeSession();
         
         if(this.somebodysItemId != null) {
-            List<BucketlistItemImage> images = database.getItemImages(somebodysItemId);
+            
             database.openSession();
+            List<BucketlistItemImage> images = database.getItemImages(somebodysItemId);
+            
             for(BucketlistItemImage i : images) {
                 database.addImage(id, i.getImageName());
             }
