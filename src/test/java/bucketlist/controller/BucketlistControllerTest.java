@@ -5,6 +5,7 @@
  */
 package bucketlist.controller;
 
+import bucketlist.model.BucketlistItemImage;
 import bucketlist.model.BucketlistUserInfo;
 import java.util.ArrayList;
 import java.util.List;
@@ -576,6 +577,251 @@ public class BucketlistControllerTest {
         verify(sessionMock);
         verify(queryMock);
         verify(factoryMock);
+    }
+
+    /**
+     * Test of getItemImages method, of class BucketlistController.
+     */
+    @Test
+    public void testGetItemImages() {
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.list()).andReturn(new ArrayList<BucketlistItemImage>());
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        List<BucketlistItemImage> expResult = new ArrayList<>();
+        List<BucketlistItemImage> result = instance.getItemImages(1);
+        assertEquals(expResult, result);
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+    }
+
+    /**
+     * Test of changePassword method, of class BucketlistController.
+     */
+    @Test
+    public void testChangePassword() {
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.changePassword(1, "password");
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
+    }
+
+    /**
+     * Test of getAllUsers method, of class BucketlistController.
+     */
+    @Test
+    public void testGetAllUsers() {
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.list()).andReturn(new ArrayList<BucketlistUserInfo>());
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
+        System.out.println("getAllUsers");
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        List<BucketlistUserInfo> expResult = new ArrayList<>();
+        List<BucketlistUserInfo> result = instance.getAllUsers();
+        assertEquals(expResult, result);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+    }
+
+    /**
+     * Test of decreaseProgress method, of class BucketlistController.
+     */
+    @Test
+    public void testDecreaseProgress() {
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.decreaseProgress(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
+    }
+
+    /**
+     * Test of increaseProgress method, of class BucketlistController.
+     */
+    @Test
+    public void testIncreaseProgress() {
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.increaseProgress(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
+    }
+
+    /**
+     * Test of addImage method, of class BucketlistController.
+     */
+    @Test
+    public void testAddImage() {
+        Transaction queryMock = createMock(Transaction.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(queryMock);
+        sessionMock.persist(isA(BucketlistItemImage.class));
+        EasyMock.expectLastCall();
+        queryMock.commit();
+        EasyMock.expectLastCall();
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.addImage(1, "name");
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+    }
+
+    /**
+     * Test of deleteUser method, of class BucketlistController.
+     */
+    @Test
+    public void testDeleteUser() {
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.deleteUser(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
+    }
+
+    /**
+     * Test of progress100 method, of class BucketlistController.
+     */
+    @Test
+    public void testProgress100() {
+        Transaction tMock = createMock(Transaction.class);
+        
+        Query queryMock = createMock(Query.class);
+        Session sessionMock = createMock(Session.class);
+        expect(sessionMock.beginTransaction()).andReturn(tMock);
+        tMock.commit();
+        EasyMock.expectLastCall();
+        
+        expect(sessionMock.createQuery(isA(String.class))).andReturn(queryMock);
+        expect(queryMock.setParameter(isA(String.class), isA(Integer.class))).andReturn(queryMock);
+        expect(queryMock.executeUpdate()).andReturn(0);
+        SessionFactory factoryMock = createMock(SessionFactory.class);
+        replay(queryMock);
+        replay(sessionMock);
+        replay(factoryMock);
+        replay(tMock);
+        
+        BucketlistController.setFactory(factoryMock);
+        BucketlistController instance = new BucketlistController();
+        instance.setSession(sessionMock);
+        instance.progress100(1);
+        
+        verify(sessionMock);
+        verify(queryMock);
+        verify(factoryMock);
+        verify(tMock);
     }
     
 }

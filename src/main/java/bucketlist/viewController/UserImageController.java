@@ -71,7 +71,7 @@ public class UserImageController implements Serializable {
      * @throws NamingException w przypadku błędnych nazwe ścieżek lub plików
      */
     public String uploadImage(FileUploadEvent e) throws IOException, NamingException {
-        if(e.getFile() != null) {
+        if(e !=null && e.getFile() != null) {
         ServletContext ctx = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String absolutePath = ctx.getRealPath("/");
         

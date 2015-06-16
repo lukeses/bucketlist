@@ -71,4 +71,57 @@ public class UserItemsControllerTest {
 	verify(mock);
     }
     
+    @Test
+    public void testDecreaseProgress() {
+        IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        mock.openSession();
+        BucketlistListItem item = new BucketlistListItem("name", "description");
+        item.setItemId(1);
+        item.setProgress(70);
+        mock.decreaseProgress(item.getItemId());
+        mock.closeSession();
+		
+	replay(mock);
+	UserItemsController c = new UserItemsController();
+        c.setDatabase(mock);
+        c.decreaseProgress(1);
+		
+	verify(mock);
+    }
+    
+    @Test
+    public void testIncreaseProgress() {
+        IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        mock.openSession();
+        BucketlistListItem item = new BucketlistListItem("name", "description");
+        item.setItemId(1);
+        item.setProgress(70);
+        mock.increaseProgress(item.getItemId());
+        mock.closeSession();
+		
+	replay(mock);
+	UserItemsController c = new UserItemsController();
+        c.setDatabase(mock);
+        c.increaseProgress(1);
+		
+	verify(mock);
+    }
+    
+    @Test
+    public void testProgress100() {
+        IBucketlistDatabase mock = createStrictMock(BucketlistDatabaseTest.class);
+        mock.openSession();
+        BucketlistListItem item = new BucketlistListItem("name", "description");
+        item.setItemId(1);
+        item.setProgress(70);
+        mock.progress100(item.getItemId());
+        mock.closeSession();
+		
+	replay(mock);
+	UserItemsController c = new UserItemsController();
+        c.setDatabase(mock);
+        c.progress100(1);
+		
+	verify(mock);
+    }
 }

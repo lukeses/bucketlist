@@ -194,11 +194,9 @@ public class BucketlistController implements Serializable, IBucketlistDatabase {
      */
     @Override
     public List<BucketlistItemImage> getItemImages(int itemId) {
-        openSession();
         List<BucketlistItemImage> images;
         Query q = getSession().createQuery("from BucketlistItemImage where itemId = '" + itemId + "'");
         images = (List<BucketlistItemImage>) q.list();
-        closeSession();
        
         return images;
     }

@@ -156,7 +156,7 @@ public class RegistrationController implements Serializable {
             database.closeSession();
      
             //BucketlistMail bucketlistMail = new BucketlistMail();
-            //String email_message = "Witaj, " + firstName + "\n\n Nadałeś hasło użytkownika: " + password1;
+            //String email_message = "Witaj, " + firstName + ",\n\n Nadałeś hasło użytkownika: " + password1;
             //bucketlistMail.sendMail(email1, email_message, "Rejestracja użytkownika");
             
             return "/logpanel.xhtml?faces-redirect=true";   

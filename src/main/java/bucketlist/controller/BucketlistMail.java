@@ -25,7 +25,6 @@ public class BucketlistMail {
      */
     public BucketlistMail() {
     }
-
     /**
      * Metoda wysyłająca maila o podanej treści, temacie do danego użytkownika
      *
