@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:13089/bucketlist/logpanel.xhtml" />
+<title>RegisterDelete</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">RegisterDelete</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/bucketlist/logpanel.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td>Log in</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt12:j_idt15</td>
+	<td>Register</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt12:j_idt15</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt7</td>
+	<td>First name</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt9</td>
+	<td>Last name</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt11</td>
+	<td>Password</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt13</td>
+	<td>Repeat password</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt15</td>
+	<td>Email address</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt17</td>
+	<td>Repeat email address</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt19</td>
+	<td>Register</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt8</td>
+	<td>First</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt10</td>
+	<td>Last</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt12</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt14</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt16</td>
+	<td>email@email.email</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt5:j_idt18</td>
+	<td>email@email.email</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt5:j_idt19</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>id=j_idt6:name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:name</td>
+	<td>email@email.email</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:pass</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt16</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3[2]</td>
+	<td>Manage profile</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3[2]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=label</td>
+	<td>Confirm with password:</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt6:j_idt10:j_idt16:j_idt25</td>
+	<td>Delete account</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:j_idt10:j_idt16:j_idt19</td>
+	<td>password</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt10:j_idt16:j_idt25</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

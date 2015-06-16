@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:13089/bucketlist/logpanel.xhtml" />
+<title>userImage</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">userImage</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/bucketlist/logpanel.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:name</td>
+	<td>kowal82@buziaczek.pl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:pass</td>
+	<td>irenka15</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt11:j_idt16</td>
+	<td>User panel</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt16</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3</td>
+	<td>Change profile picture</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//div[@id='j_idt6:j_idt10']/h3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt6:j_idt10:j_idt14</td>
+	<td>Upload new picture</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt10:j_idt14</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt6:j_idt7_input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt6:j_idt7_input</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:j_idt7_input</td>
+	<td>D:\repo\BucketList\Nowy folder\bucketlist\picture\WP_20150427_002.jpg</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=canvas</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='j_idt6:j_idt7']/div[2]/table/tbody/tr/td[2]</td>
+	<td>WP_20150427_002.jpg</td>
+</tr>
+<tr>
+	<td>assertTable</td>
+	<td>css=table.ui-fileupload-files.0.3</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='j_idt6:j_idt7']/div[2]/table/tbody/tr/td[5]/button</td>
+	<td>ui-button</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//button[@type='button']</td>
+	<td>Upload</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//button[@type='button'])[2]</td>
+	<td>Cancel</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//button[@type='button']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/bucketlist/secured/userPanel.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTable</td>
+	<td>css=table.0.0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTable</td>
+	<td>css=table.0.0</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt6:j_idt10:j_idt13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt9</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span</td>
+	<td>kowal82@buziaczek.pl</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt5:j_idt6:0:j_idt8</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/bucketlist/secured/userPanel.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt8</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+</tbody></table>
+</body>
+</html>

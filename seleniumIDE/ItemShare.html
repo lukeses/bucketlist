@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="http://localhost:13089/bucketlist/logpanel.xhtml" />
+<title>ItemShare</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">ItemShare</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/bucketlist/logpanel.xhtml</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:name</td>
+	<td>kowal82@buziaczek.pl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:pass</td>
+	<td>irenka15</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt14</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Add Item</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_idt7:j_idt10</td>
+	<td>Example</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_idt7:j_idt12</td>
+	<td>Example description</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=j_idt7:j_idt14</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='j_idt11:j_idt17:3:j_idt19']/tbody/tr/td[2]</td>
+	<td>Example</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:name</td>
+	<td>j.nowak@gmail.com</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:pass</td>
+	<td>trudn3h45l0</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>id=j_idt11:j_idt15</td>
+	<td>Users</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt15</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForPopUp</td>
+	<td>_self</td>
+	<td>30000</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>css=span</td>
+	<td>kowal82@buziaczek.pl</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>link=show items</td>
+	<td>show items</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>link=show items</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//div[@id='j_idt12:j_idt13:3:j_idt24']/table/tbody/tr[2]/td[2]/span</td>
+	<td>Example</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=(//a[contains(text(),'add to my list')])[4]</td>
+	<td>add to my list</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>xpath=(//a[contains(text(),'add to my list')])[4]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>name=j_idt7:j_idt10</td>
+	<td>ExampleMy</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>name=j_idt7:j_idt14</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='j_idt11:j_idt17:3:j_idt19']/tbody/tr/td[2]</td>
+	<td>ExampleMy</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt17:3:j_idt35</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:name</td>
+	<td>kowal82@buziaczek.pl</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>id=j_idt6:pass</td>
+	<td>irenka15</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt6:j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>id=j_idt11</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>//table[@id='j_idt11:j_idt17:3:j_idt19']/tbody/tr/td[2]</td>
+	<td>Example</td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt17:3:j_idt35</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>id=j_idt11:j_idt13</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>css=span.ui-panel-title</td>
+	<td>Logon</td>
+</tr>
+
+</tbody></table>
+</body>
+</html>
